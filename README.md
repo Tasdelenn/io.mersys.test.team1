@@ -10,6 +10,7 @@ Muharrem Karapazar : m.karapazar2@gmail.com <br>
 Raziya Nur : raziyanur04@gmail.com <br>
 Sema Nur Arslan : sa.semanurarslan@gmail.com <br>
 Yener Kıpırdı : yenerki@gmail.com <br>
+Yasin Erkol : enderimhafsam@gmail.com <br>
 Hakan Taşdelen : hakann.tasdelenn@gmail.com <br>
 
 ---
