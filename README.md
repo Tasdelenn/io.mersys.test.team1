@@ -3,18 +3,26 @@ The Complete functional test of the mersys.io application which in the education
 
 ## CONTRIBUTERS: 
 Barış Özalpay : barisozalpay7@gmail.com
+
 Haşir Dut : av.hasirdut@gmail.com
+
 Muharrem Karapazar : m.karapazar2@gmail.com
+
 Raziya Nur : raziyanur04@gmail.com
+
 Sema Nur Arslan : sa.semanurarslan@gmail.com
+
 Yener Kıpırdı : yenerki@gmail.com
+
 Hakan Taşdelen : hakann.tasdelenn@gmail.com
 
 ---
 
-https://www.jetbrains.com/help/idea/maven-support.html#create_new_maven_project \n
-https://www.jetbrains.com/help/idea/cucumber-support.html \n
-https://www.jetbrains.com/help/idea/testng.html \n
++ https://www.jetbrains.com/help/idea/maven-support.html#create_new_maven_project
+
++ https://www.jetbrains.com/help/idea/cucumber-support.html
+
++ https://www.jetbrains.com/help/idea/testng.html
 
 ---
 
@@ -39,7 +47,8 @@ https://www.jetbrains.com/help/idea/testng.html \n
 	1- Cucumber for Java 
 	2- Gherkin Language
 
-https://cucumber.io/docs/gherkin/reference/#keywords 
++ https://cucumber.io/docs/gherkin/reference/#keywords
+
 	Feature Scenario Given-When-Then-And-Or
 	Examples follow this same pattern:
 	Describe an initial context (Given steps)
