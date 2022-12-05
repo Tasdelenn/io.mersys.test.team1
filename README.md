@@ -57,7 +57,7 @@ Hakan Taşdelen : hakann.tasdelenn@gmail.com
 	""" (Doc Strings)
 	| (Data Tables)
 	@ (Tags)
-	# (Comments)
+	\# (Comments)
 	
 	
 	B) POM.xml -> Project Object Model Ayarları
