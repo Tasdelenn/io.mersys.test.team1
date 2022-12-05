@@ -26,7 +26,7 @@ Hakan Taşdelen : hakann.tasdelenn@gmail.com <br>
 2) Klasör yapısını inceledik: <br>
   main -> Developer'ın source kodları <br> 
   test -> Tester'ın kodları
-3) Maven'ın verdiği düzenli yapının kendi tarafımızda , bizde kendi düzenli klasör yapımızı oluşturacağız. <br>
+3) Maven'ın verdiği düzenli yapısını takip ederek, biz de kendi düzenli klasör yapımızı oluşturacağız. <br>
   **[Klasörler]** : <br>
   *FeatureFiles* -> Senaryolarımızın olduğu klasör <br>
   *StepDefinitions* -> Senaryoların çalışan adımları [Metodları burada olacak] <br>
@@ -37,7 +37,7 @@ Hakan Taşdelen : hakann.tasdelenn@gmail.com <br>
 
 4) **AYARLAR**
 
-    A) Intellij Editör ayarları (2 tane Plugin ekleyeceğiz)
+   **A)** Intellij Editör ayarları (2 tane Plugin ekleyeceğiz)
    1) Cucumber for Java
    2) Gherkin Language
 
