@@ -1,6 +1,7 @@
 /.idea/
 /target/
 *.iml
+configuration.properties
 
 # Compiled class file
 *.class
@@ -27,3 +28,4 @@
 hs_err_pid*
 replay_pid*
 
+/src/main/resources/configuration.properties
