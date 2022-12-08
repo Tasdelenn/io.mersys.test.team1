@@ -62,8 +62,8 @@ public abstract class BaseDriver {
                     WebDriverManager.edgedriver().setup();
                     threadDriver.set(new EdgeDriver());
                     break;
-                //default:
-                //    throw new RuntimeException("No such a browser yet!");
+                default:
+                    throw new RuntimeException("No such a browser yet!");
             }
         }
 
