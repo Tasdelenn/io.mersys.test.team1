@@ -1,6 +1,6 @@
 Feature:  Country Functionality
 
-  @SmokeTest @SundayTest
+  @Regression @SundayTest
   Scenario: Create Country
     Given Navigate to Mersys Campus
     When Enter username and password and click login button
