@@ -2,6 +2,9 @@
 /target/
 *.iml
 configuration.properties
+/main/
+# /src/main/resources/configuration.properties
+# src/main/resources/XLSFiles/ScenarioStatus.xlsx
 
 # Compiled class file
 *.class
@@ -27,6 +30,3 @@ configuration.properties
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
-
-/src/main/resources/configuration.properties
-src/main/resources/XLSFiles/ScenarioStatus.xlsx
