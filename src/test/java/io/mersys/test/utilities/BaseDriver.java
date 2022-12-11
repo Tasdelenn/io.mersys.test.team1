@@ -34,7 +34,11 @@ public abstract class BaseDriver {
         System.setProperty("user.language", "EN");
 
         //SLF4J
+//        Logger.getLogger("").setLevel(Level.SEVERE);
+//        System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "Error");
+
         Logger.getLogger("").setLevel(Level.SEVERE);
+        System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "Error");
         System.setProperty(ChromeDriverService.CHROME_DRIVER_SILENT_OUTPUT_PROPERTY, "true");
 
 
