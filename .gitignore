@@ -3,8 +3,7 @@
 *.iml
 configuration.properties
 /main/
-# /src/main/resources/configuration.properties
-# src/main/resources/XLSFiles/ScenarioStatus.xlsx
+src/main/resources/XLSFiles/ScenarioStatus.xlsx
 
 # Compiled class file
 *.class
