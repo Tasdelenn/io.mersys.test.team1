@@ -41,6 +41,9 @@ public class LeftNav extends BaseFunctions{
     @FindBy(xpath = "(//span[text()='States'])")
     private WebElement states;
 
+    @FindBy(xpath="(//span[contains(text(),'Document Types')])[1]")
+    private WebElement documentTypes;
+
     WebElement myElement;
 
     public void findAndClick(String strElement) {  // 2.aşama
@@ -75,6 +78,9 @@ public class LeftNav extends BaseFunctions{
                 break;
             case "states":
                 myElement = states;
+                break;
+            case "documentTypes":
+                myElement = documentTypes;
                 break;
         }
 

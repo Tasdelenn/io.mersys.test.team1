@@ -77,6 +77,9 @@ public class DialogContent extends BaseFunctions{
     @FindBy(xpath = "//tbody/tr/td[2]")
     public List<WebElement> nameList;
 
+    @FindBy(xpath = "//mat-form-field[@appearance='outline']//textarea")
+    private WebElement description;
+
     WebElement myElement;
 
     public void findAndSend(String strElement, String value) {  // 2.aşama
@@ -105,6 +108,9 @@ public class DialogContent extends BaseFunctions{
                 break;
             case "priorityCode":
                 myElement = priorityCode;
+                break;
+            case "description":
+                myElement = description;
                 break;
         }
 
