@@ -49,42 +49,19 @@ public class LeftNav extends BaseFunctions{
     public void findAndClick(String strElement) {  // 2.aşama
         // burda string isimden weblemente ulaşıcam
         switch (strElement) {
-            case "setupOne":
-                myElement = setupOne;
-                break;
-            case "parameters":
-                myElement = parameters;
-                break;
-            case "countries":
-                myElement = countries;
-                break;
-            case "citizenShip":
-                myElement = citizenShip;
-                break;
-            case "nationalities":
-                myElement = nationalities;
-                break;
-            case "fees":
-                myElement = fees;
-                break;
-            case "entranceExamsOne":
-                myElement = entranceExamsOne;
-                break;
-            case "setupTwo":
-                myElement = setupTwo;
-                break;
-            case "entranceExamsTwo":
-                myElement = entranceExamsTwo;
-                break;
-            case "states":
-                myElement = states;
-                break;
-            case "documentTypes":
-                myElement = documentTypes;
-                break;
+            case "setupOne": myElement = setupOne; break;
+            case "parameters": myElement = parameters; break;
+            case "countries": myElement = countries; break;
+            case "citizenShip": myElement = citizenShip; break;
+            case "nationalities": myElement = nationalities; break;
+            case "fees": myElement = fees; break;
+            case "entranceExamsOne": myElement = entranceExamsOne; break;
+            case "setupTwo": myElement = setupTwo; break;
+            case "entranceExamsTwo": myElement = entranceExamsTwo; break;
+            case "states": myElement = states; break;
+            case "documentTypes": myElement = documentTypes; break;
         }
 
         clickFunction(myElement);
     }
-
 }

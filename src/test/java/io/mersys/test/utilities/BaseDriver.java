@@ -41,7 +41,6 @@ public abstract class BaseDriver {
         if (threadBrowserName.get() == null) // paralel çalışmayan yani XML den parametreyle gelmeyen ger çağıran
             threadBrowserName.set("chrome"); // Basic arayanlar için
 
-
         if (threadDriver.get() == null) {
 
             String browserName = threadBrowserName.get(); // bu threaddeki browsername i verdi.

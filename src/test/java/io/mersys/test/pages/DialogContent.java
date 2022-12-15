@@ -1,6 +1,5 @@
 package io.mersys.test.pages;
 
-import com.github.javafaker.Faker;
 import io.mersys.test.utilities.BaseDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -8,15 +7,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 import java.util.List;
-import java.util.Locale;
 
 public class DialogContent extends BaseFunctions{
-
-    Faker faker = new Faker(new Locale("en-US"));
-    String yazar = faker.book().author();
 
     public DialogContent() {
         PageFactory.initElements(BaseDriver.getDriver(), this);
@@ -153,7 +147,6 @@ public class DialogContent extends BaseFunctions{
         verifyContainsText(myElement, text);
     }
 
-
     public void SearchAndDelete(String searchText) {
 
         //scrollUp()
@@ -161,14 +154,10 @@ public class DialogContent extends BaseFunctions{
         findAndClick("searchButton"); // arama butonuna bas
 
         //waitUntilLoading();
-
         WebDriverWait wait = new WebDriverWait(BaseDriver.getDriver(), Duration.ofSeconds(30));
         wait.until(ExpectedConditions.textToBe(By.cssSelector("div[fxlayoutalign='center center'][class='control-full']"), "Search"));
-
 
         findAndClick("deleteButton");// silme butonua bas
         findAndClick("deleteDialogBtn");// dilogdaki silme butonuna bas
     }
-
-
 }

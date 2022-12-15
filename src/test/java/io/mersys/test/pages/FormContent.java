@@ -8,7 +8,6 @@ import org.openqa.selenium.support.PageFactory;
 public class FormContent extends BaseFunctions{
 
     public FormContent() {
-
         PageFactory.initElements(BaseDriver.getDriver(), this);
     }
 
@@ -17,7 +16,6 @@ public class FormContent extends BaseFunctions{
 
     @FindBy(xpath = "(//mat-slide-toggle[@formcontrolname='useCamera']//span)[3]")
     private WebElement switchUseCamera;
-
 
     WebElement myElement;
 
@@ -31,6 +29,5 @@ public class FormContent extends BaseFunctions{
 
         clickFunction(myElement);
     }
-
 }
 
