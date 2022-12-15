@@ -31,6 +31,21 @@ public class DialogContent extends BaseFunctions{
     @FindBy(css = "button[aria-label='LOGIN']")
     private WebElement loginButton;
 
+    @FindBy(css = "[id^=mat-error-]")
+    private WebElement requireUnamePass;
+
+    @FindBy(xpath = "//h1[text()='Reset your password']")
+    private WebElement resetPasswordHeader;
+
+    @FindBy(xpath = "//button[@type='submit']")
+    private WebElement resetPasswordBtn;
+
+    @FindBy(css = "a.forgot-password")
+    private WebElement resetPasswordLink;
+
+    @FindBy(xpath = "//div[contains(text(),'Invalid username or password')]")
+    private WebElement invalidUnamePass;
+
     @FindBy(xpath = "(//span[contains(text(),'Dashboard')])[2]")
     private WebElement dashboard;
 
@@ -90,33 +105,15 @@ public class DialogContent extends BaseFunctions{
     public void findAndSend(String strElement, String value) {  // 2.aşama
         // burda string isimden weblemente ulaşıcam
         switch (strElement) {
-            case "username":
-                myElement = username;
-                break;
-            case "password":
-                myElement = password;
-                break;
-            case "nameInput":
-                myElement = nameInput;
-                break;
-            case "codeInput":
-                myElement = codeInput;
-                break;
-            case "shortName":
-                myElement = shortName;
-                break;
-            case "searchInput":
-                myElement = searchInput;
-                break;
-            case "integrationCode":
-                myElement = integrationCode;
-                break;
-            case "priorityCode":
-                myElement = priorityCode;
-                break;
-            case "description":
-                myElement = description;
-                break;
+            case "username": myElement = username; break;
+            case "password": myElement = password; break;
+            case "nameInput": myElement = nameInput; break;
+            case "codeInput": myElement = codeInput; break;
+            case "shortName": myElement = shortName; break;
+            case "searchInput": myElement = searchInput; break;
+            case "integrationCode": myElement = integrationCode; break;
+            case "priorityCode": myElement = priorityCode; break;
+            case "description": myElement = description; break;
         }
 
         sendKeysFunction(myElement, value);
@@ -125,30 +122,16 @@ public class DialogContent extends BaseFunctions{
     public void findAndClick(String strElement) {  // 2.aşama
         // burda string isimden weblemente ulaşıcam
         switch (strElement) {
-            case "loginButton":
-                myElement = loginButton;
-                break;
-            case "addButton":
-                myElement = addButton;
-                break;
-            case "saveButton":
-                myElement = saveButton;
-                break;
-            case "closeDialog":
-                myElement = closeDialog;
-                break;
-            case "searchButton":
-                myElement = searchButton;
-                break;
-            case "deleteButton":
-                myElement = deleteButton;
-                break;
-            case "deleteDialogBtn":
-                myElement = deleteDialogBtn;
-                break;
-            case "acceptCookies":
-                myElement = acceptCookies;
-                break;
+            case "loginButton": myElement = loginButton; break;
+            case "addButton": myElement = addButton; break;
+            case "saveButton": myElement = saveButton; break;
+            case "closeDialog": myElement = closeDialog; break;
+            case "searchButton": myElement = searchButton; break;
+            case "deleteButton": myElement = deleteButton; break;
+            case "deleteDialogBtn": myElement = deleteDialogBtn; break;
+            case "acceptCookies": myElement = acceptCookies; break;
+            case "resetPasswordBtn": myElement = resetPasswordBtn; break;
+            case "resetPasswordLink": myElement = resetPasswordLink; break;
 
         }
 
@@ -158,15 +141,13 @@ public class DialogContent extends BaseFunctions{
     public void findAndContainsText(String strElement, String text) {  // 2.aşama
         // burda string isimden weblemente ulaşıcam
         switch (strElement) {
-            case "dashboard":
-                myElement = dashboard;
-                break;
-            case "successMessage":
-                myElement = successMessage;
-                break;
-            case "alreadyExist":
-                myElement = alreadyExist;
-                break;
+            case "dashboard": myElement = dashboard; break;
+            case "successMessage": myElement = successMessage; break;
+            case "alreadyExist": myElement = alreadyExist; break;
+            case "requiredUsernameAndPassword": myElement = requireUnamePass; break;
+            case "resetPasswordHeader": myElement = resetPasswordHeader; break;
+            case "invalidUsernameAndPassword": myElement = invalidUnamePass; break;
+
         }
 
         verifyContainsText(myElement, text);
