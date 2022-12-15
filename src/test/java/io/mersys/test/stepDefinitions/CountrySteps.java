@@ -1,5 +1,6 @@
 package io.mersys.test.stepDefinitions;
 
+import com.github.javafaker.Faker;
 import io.mersys.test.pages.DialogContent;
 import io.mersys.test.pages.LeftNav;
 import io.cucumber.java.en.And;
@@ -8,9 +9,9 @@ import io.cucumber.java.en.When;
 import org.apache.commons.lang3.RandomStringUtils;
 
 public class CountrySteps {
-
     LeftNav ln = new LeftNav();
     DialogContent dc = new DialogContent();
+    Faker fakeData = new Faker();
 
     @And("Navigate to country page")
     public void navigateToCountryPage() {
@@ -21,8 +22,13 @@ public class CountrySteps {
 
     @When("Create a country")
     public void createACountry() {
-        String randomGenName= RandomStringUtils.randomAlphabetic(8);
-        String randomGenCode= RandomStringUtils.randomNumeric(4);
+        //String randomGenName= RandomStringUtils.randomAlphabetic(8);
+        String randomGenName = '#' + fakeData.country().name();
+        //String randomGenCode= RandomStringUtils.randomNumeric(4);
+        String randomGenCode = fakeData.random().hex(4);
+
+        System.out.println("randomGenName = " + randomGenName + "\n" +  //Kontrol amaçlı
+                "randomGenCode = " + randomGenCode);
 
         dc.findAndClick("addButton");
         dc.findAndSend("nameInput", randomGenName);
@@ -32,7 +38,7 @@ public class CountrySteps {
 
     @Then("Success message should be displayed")
     public void successMessageShouldBeDisplayed() {
-        dc.findAndContainsText("successMessage","success");
+        dc.findAndContainsText("successMessage", "success");
     }
 
     @When("Create a country name as {string} code as {string}")
