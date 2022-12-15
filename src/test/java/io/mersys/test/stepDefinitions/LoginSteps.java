@@ -36,4 +36,26 @@ public class LoginSteps {
 
         dc.findAndContainsText("dashboard", "Dashboard");
     }
+
+    @When("Click to login button")
+    public void clickToLoginButton() {
+        dc.findAndClick("loginButton");
+    }
+
+    @Then("User should be seen require username and password")
+    public void userShouldBeSeenRequireUsernameAndPassword() {
+        dc.findAndContainsText("requiredUsernameAndPassword","gereklidir");
+    }
+
+    @When("Enter invalid username and password")
+    public void enterInvalidUsernameAndPassword() {
+        dc.findAndSend("username","abcdef");
+        dc.findAndSend("password","12345!");
+        dc.findAndClick("loginButton");
+    }
+
+    @Then("User should be seen invalid username or password")
+    public void userShouldBeSeenInvalidUsernameOrPassword() {
+        dc.findAndContainsText("invalidUsernameAndPassword","Invalid");
+    }
 }
