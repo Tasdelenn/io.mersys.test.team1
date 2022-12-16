@@ -17,6 +17,21 @@ public class FormContent extends BaseFunctions{
     @FindBy(xpath = "(//mat-slide-toggle[@formcontrolname='useCamera']//span)[3]")
     private WebElement switchUseCamera;
 
+    @FindBy(xpath = "//mat-select[@formcontrolname='attachmentStages']/div")
+    private WebElement stageSelect;
+
+    @FindBy(xpath = "(//mat-option[@role='option']/span)[1]")
+    private WebElement selectStudentRegistration;
+
+    @FindBy(xpath = "(//mat-option[@role='option']/span)[4]")
+    private WebElement selectCertificate;
+
+    @FindBy(xpath = "(//mat-option[@role='option']/span)[3]")
+    private WebElement selectEmployment;
+
+    @FindBy(xpath = "(//mat-option[@role='option']/span)[5]")
+    private WebElement selectContract;
+
     WebElement myElement;
 
     public void findAndClick(String strElement){
@@ -25,6 +40,11 @@ public class FormContent extends BaseFunctions{
         {
             case "switchRequired" : myElement=switchRequired; break;
             case "switchUseCamera" : myElement=switchUseCamera; break;
+            case "stageSelect" : myElement=stageSelect; break;
+            case "selectStudentRegistration" : myElement=selectStudentRegistration; break;
+            case "selectCertificate" : myElement=selectCertificate; break;
+            case "selectEmployment" : myElement=selectEmployment; break;
+            case "selectContract" : myElement=selectContract; break;
         }
 
         clickFunction(myElement);
