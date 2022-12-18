@@ -94,6 +94,12 @@ public class DialogContent extends BaseFunctions{
     @FindBy(xpath = "//mat-form-field[@appearance='outline']//textarea")
     private WebElement description;
 
+    @FindBy(css = "input[data-placeholder='Order']")
+    private WebElement order;
+
+    @FindBy(xpath = "//ms-edit-button//button")
+    private WebElement editButton;
+
     WebElement myElement;
 
     public void findAndSend(String strElement, String value) {  // 2.aşama
@@ -108,6 +114,7 @@ public class DialogContent extends BaseFunctions{
             case "integrationCode": myElement = integrationCode; break;
             case "priorityCode": myElement = priorityCode; break;
             case "description": myElement = description; break;
+            case "order": myElement = order; break;
         }
 
         sendKeysFunction(myElement, value);
@@ -126,6 +133,7 @@ public class DialogContent extends BaseFunctions{
             case "acceptCookies": myElement = acceptCookies; break;
             case "resetPasswordBtn": myElement = resetPasswordBtn; break;
             case "resetPasswordLink": myElement = resetPasswordLink; break;
+            case "editButton": myElement = editButton; break;
 
         }
 
