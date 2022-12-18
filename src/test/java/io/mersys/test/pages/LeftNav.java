@@ -44,6 +44,11 @@ public class LeftNav extends BaseFunctions{
     @FindBy(xpath="(//span[contains(text(),'Document Types')])[1]")
     private WebElement documentTypes;
 
+    @FindBy(xpath="//span[text()='Grade Levels']")
+    private WebElement gradeLevels;
+
+
+
     WebElement myElement;
 
     public void findAndClick(String strElement) {  // 2.aşama
@@ -60,6 +65,8 @@ public class LeftNav extends BaseFunctions{
             case "entranceExamsTwo": myElement = entranceExamsTwo; break;
             case "states": myElement = states; break;
             case "documentTypes": myElement = documentTypes; break;
+            case "gradeLevels": myElement = gradeLevels; break;
+
         }
 
         clickFunction(myElement);
