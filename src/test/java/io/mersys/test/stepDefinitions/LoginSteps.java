@@ -29,7 +29,7 @@ public class LoginSteps {
         dc.findAndClick("loginButton");
     }
 
-    @Then("User should login successfuly")
+    @Then("User should be login successfuly")
     public void userShouldLoginSuccessfuly() {
 //        dc.waitUntilVisible(dc.dashboard);
 //        Assert.assertTrue(dc.dashboard.getText().contains("Dashboard"));
