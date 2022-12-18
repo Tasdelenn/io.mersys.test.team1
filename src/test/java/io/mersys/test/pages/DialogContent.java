@@ -67,7 +67,7 @@ public class DialogContent extends BaseFunctions{
     @FindBy(xpath = "//button[@aria-label='Close dialog']")
     private WebElement closeDialog;
 
-    @FindBy(xpath = "(//div[contains(@class,'mat-form-field-infix ng-tns-c74')]//input)[1]")
+    @FindBy(xpath = "//ms-text-field[@placeholder='GENERAL.FIELD.NAME']//input")
     private WebElement searchInput;
 
     @FindBy(xpath = "//ms-search-button//button")
@@ -97,7 +97,7 @@ public class DialogContent extends BaseFunctions{
     @FindBy(css = "input[data-placeholder='Order']")
     private WebElement order;
 
-    @FindBy(xpath = "//ms-edit-button//button")
+    @FindBy(xpath = "//ms-edit-button//button[@color='accent']")
     private WebElement editButton;
 
     WebElement myElement;

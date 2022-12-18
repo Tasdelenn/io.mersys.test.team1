@@ -32,3 +32,35 @@ Feature: Document Types under Parameters Setup Functionality
       | saveButton |
 
     Then Success message should be displayed
+
+
+  Scenario: Edit Document Types
+
+    And Click on the element in the left Nav
+      | setupOne      |
+      | parameters    |
+      | documentTypes |
+
+    And User sending the keys in Dialog content
+      | searchInput | MuharremTR2626 |
+
+    And Click on the element in the Dialog content
+      | searchButton |
+      | editButton   |
+
+    And User sending the keys in Dialog content
+      | nameInput   | MuharremTR2626Edit            |
+      | description | M.K. Eskisehir 26 Duzenlendi. |
+
+    And Click on the element in the Form Content
+      | switchUseCamera  |
+      | stageSelect      |
+      | selectEmployment |
+      | selectContract   |
+
+    And Click the TAB key
+
+    And Click on the element in the Dialog content
+      | saveButton |
+
+    Then Success message should be displayed
