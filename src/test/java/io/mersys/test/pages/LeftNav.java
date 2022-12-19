@@ -47,6 +47,15 @@ public class LeftNav extends BaseFunctions{
     @FindBy(xpath="//span[text()='Grade Levels']")
     private WebElement gradeLevels;
 
+    @FindBy(xpath = "//span[text()='Human Resources']")
+    private WebElement humanResources;
+
+    @FindBy(xpath = "(//span[text()='Setup'])[3]")
+    private WebElement hrSetup;
+
+    @FindBy(xpath = "//span[text()='Attestations']")
+    private WebElement attestations;
+
 
 
     WebElement myElement;
@@ -66,6 +75,11 @@ public class LeftNav extends BaseFunctions{
             case "states": myElement = states; break;
             case "documentTypes": myElement = documentTypes; break;
             case "gradeLevels": myElement = gradeLevels; break;
+            case "humanResources" : myElement =humanResources; break;
+            case "hrSetup" : myElement =hrSetup; break;
+            case "attestations" : myElement =attestations; break;
+
+
 
         }
 
