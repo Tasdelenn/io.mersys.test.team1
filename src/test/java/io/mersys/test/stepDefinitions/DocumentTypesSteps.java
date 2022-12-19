@@ -56,11 +56,11 @@ public class DocumentTypesSteps {
         aksiyonlar.click().keyDown(Keys.TAB).keyUp(Keys.TAB).build().perform();
     }
 
-//    @And("User delete item from Dialog")
-//    public void userDeleteItemFromDialog(DataTable elements) {
-//        List<String> listElement = elements.asList(String.class);
-//        for (int i = 0; i < listElement.size(); i++) {
-//            dc.searchAndDelete(listElement.get(i));
-//        }
-//    }
+    @And("User delete item from Dialog")
+    public void userDeleteItemFromDialog(DataTable elements) {
+        List<String> listElement = elements.asList(String.class);
+        for (int i = 0; i < listElement.size(); i++) {
+            dc.SearchAndDelete(listElement.get(i));
+        }
+    }
 }
