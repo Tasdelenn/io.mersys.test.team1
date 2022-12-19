@@ -10,8 +10,8 @@ import io.cucumber.testng.CucumberOptions;
                 "json:target/cucumber.json",
                 "timeline:target/timeline-report"
         },
-        features = {"src/test/resources/featureFiles/login.feature",
-                "src/test/resources/featureFiles/country.feature"
+        features = {"src/test/resources/featureFiles/Login.feature",
+                "src/test/resources/featureFiles/Country.feature"
         },
         glue = {"io/mersys/test/stepDefinitions"},
         dryRun = false,    // true olduğunda testi çalıştırma sadece feature lara
