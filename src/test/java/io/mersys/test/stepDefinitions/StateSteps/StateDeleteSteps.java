@@ -24,7 +24,7 @@ public class StateDeleteSteps {
     @When("Delete new State from existing Country")
     public void deleteNewStateFromExistingCountry() {
         sk.findAndSend("searchNameInput","Melek Sehri");
-        sk.findAndClick("searchButton");
+        dc.findAndClick("searchButton");
         dc.findAndClick("deleteButton");
         dc.findAndClick("deleteDialogBtn");
     }
@@ -34,7 +34,7 @@ public class StateDeleteSteps {
         sk.findAndClick("selectCountryinSrearch");
         actions.moveToElement(sk.selectCountryinSrearch).sendKeys("Atlant").click().build().perform();
         sk.findAndSend("searchNameInput","Almaty1");
-        sk.findAndClick("searchButton");
+        dc.findAndClick("searchButton");
         dc.findAndClick("deleteButton");
         dc.findAndClick("deleteDialogBtn");
     }

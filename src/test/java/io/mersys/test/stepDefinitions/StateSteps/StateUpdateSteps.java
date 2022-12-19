@@ -22,18 +22,18 @@ public class StateUpdateSteps {
         sk.findAndClick("selectCountryinSrearch");
         actions.moveToElement(sk.selectCountryinSrearch).sendKeys("Australia").click().build().perform();
         sk.findAndSend("searchNameInput","melek sehir");
-        sk.findAndClick("searchButton");
-        sk.findAndClick("editButton");
+        dc.findAndClick("searchButton");
+        dc.findAndClick("editButton");
         sk.findAndSend("nameInput","Melek Sehri");
-        sk.findAndSend("shortName","MK");
-        sk.findAndClick("saveButton");
+        dc.findAndSend("shortName","MK");
+        dc.findAndClick("saveButton");
     }
 
     @When("Edit the new State by create a new country")
     public void editTheNewStateByCreateANewCountry() {
         sk.findAndSend("searchNameInput","Almaty");
-        sk.findAndClick("searchButton");
-        sk.findAndClick("editButton");
+        dc.findAndClick("searchButton");
+        dc.findAndClick("editButton");
         sk.findAndClick("addCountry");
         sk.findAndSend("countryNameInput","Atlant");
         dc.findAndSend("codeInput", "AT");
@@ -47,15 +47,15 @@ public class StateUpdateSteps {
     public void updateStateAndSave() {
         actions.moveToElement(sk.selectCountryinWindow).click().sendKeys("Atlant").click().build().perform();
         sk.findAndSend("nameInput","Almaty1");
-        sk.findAndClick("saveButton");
+        dc.findAndClick("saveButton");
     }
 
 
     @When("Create a new country without state from Edit State window")
     public void createANewCountryWithoutStateFromEditStateWindow() {
         sk.findAndSend("searchNameInput","Almaty1");
-        sk.findAndClick("searchButton");
-        sk.findAndClick("editButton");
+        dc.findAndClick("searchButton");
+        dc.findAndClick("editButton");
         sk.findAndClick("addCountry");
         sk.findAndSend("countryNameInput","Kazak Yeli");
         dc.findAndSend("codeInput", "KY");

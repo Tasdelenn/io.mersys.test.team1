@@ -29,11 +29,11 @@ public class StateCreateSteps {
 
     @When("Create a new State from existing Country")
     public void createANewStateFromExistingCountry() {
-        sk.findAndClick("addState");
+        dc.findAndClick("addButton");
         actions.moveToElement(sk.selectCountryinWindow).click().sendKeys("Australia").click().build().perform();
         sk.findAndSend("nameInput","melek sehir");
-        sk.findAndSend("shortName","mk");
-        sk.findAndClick("saveButton");
+        dc.findAndSend("shortName","mk");
+        dc.findAndClick("saveButton");
 
 
     }
@@ -41,7 +41,7 @@ public class StateCreateSteps {
 
     @When("Create a new country from New State window")
     public void createANewCountryFromNewStateWindow() {
-        sk.findAndClick("addState");
+        dc.findAndClick("addButton");
         sk.findAndClick("addCountry");
         sk.findAndSend("countryNameInput","Kazakyeli");
         dc.findAndSend("codeInput", "KY");
@@ -54,13 +54,13 @@ public class StateCreateSteps {
     public void createANewState() {
         actions.moveToElement(sk.selectCountryinWindow).click().sendKeys("Kazakyeli").click().build().perform();
         sk.findAndSend("nameInput","Almaty");
-        sk.findAndSend("shortName","AL");
-        sk.findAndClick("saveButton");
+        dc.findAndSend("shortName","AL");
+        dc.findAndClick("saveButton");
     }
 
     @When("Create a new country without state from New State window")
     public void createANewCountryWithoutStateFromNewStateWindow() {
-        sk.findAndClick("addState");
+        dc.findAndClick("addButton");
         sk.findAndClick("addCountry");
         sk.findAndSend("countryNameInput","Jana Khazak");
         dc.findAndSend("codeInput", "JK");
