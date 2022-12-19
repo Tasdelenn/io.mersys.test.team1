@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 import java.util.List;
 
@@ -24,21 +25,6 @@ public class DialogContent extends BaseFunctions{
 
     @FindBy(css = "button[aria-label='LOGIN']")
     private WebElement loginButton;
-
-    @FindBy(css = "[id^=mat-error-]")
-    private WebElement requireUnamePass;
-
-    @FindBy(xpath = "//h1[text()='Reset your password']")
-    private WebElement resetPasswordHeader;
-
-    @FindBy(xpath = "//button[@type='submit']")
-    private WebElement resetPasswordBtn;
-
-    @FindBy(css = "a.forgot-password")
-    private WebElement resetPasswordLink;
-
-    @FindBy(xpath = "//div[contains(text(),'Invalid username or password')]")
-    private WebElement invalidUnamePass;
 
     @FindBy(xpath = "(//span[contains(text(),'Dashboard')])[2]")
     private WebElement dashboard;
@@ -84,7 +70,8 @@ public class DialogContent extends BaseFunctions{
 
     @FindBy(xpath = "//ms-integer-field[@formcontrolname='priority']//input")
     private WebElement priorityCode;
-
+    @FindBy(xpath = "//mat-slide-toggle[@formcontrolname='active']//span")
+    private WebElement active;
     @FindBy(xpath = "(//button[@class='consent-give'])[1]")
     private WebElement acceptCookies;
 
@@ -100,21 +87,49 @@ public class DialogContent extends BaseFunctions{
     @FindBy(xpath = "//ms-edit-button//button[@color='accent']")
     private WebElement editButton;
 
+    @FindBy(xpath = "//ms-text-field[@formcontrolname='description']//input")
+    private WebElement description1;
+
+    @FindBy(xpath = "//ms-text-field[@formcontrolname='code']//input")
+    private WebElement codeintegration;
+
     WebElement myElement;
 
     public void findAndSend(String strElement, String value) {  // 2.aşama
         // burda string isimden weblemente ulaşıcam
         switch (strElement) {
-            case "username": myElement = username; break;
-            case "password": myElement = password; break;
-            case "nameInput": myElement = nameInput; break;
-            case "codeInput": myElement = codeInput; break;
-            case "shortName": myElement = shortName; break;
-            case "searchInput": myElement = searchInput; break;
-            case "integrationCode": myElement = integrationCode; break;
-            case "priorityCode": myElement = priorityCode; break;
-            case "description": myElement = description; break;
+            case "username":
+                myElement = username;
+                break;
+            case "password":
+                myElement = password;
+                break;
+            case "nameInput":
+                myElement = nameInput;
+                break;
+            case "codeInput":
+                myElement = codeInput;
+                break;
+            case "shortName":
+                myElement = shortName;
+                break;
+            case "searchInput":
+                myElement = searchInput;
+                break;
+            case "integrationCode":
+                myElement = integrationCode;
+                break;
+            case "priorityCode":
+                myElement = priorityCode;
+                break;
+            case "description":
+                myElement = description;
+                break;
             case "order": myElement = order; break;
+            case "description1": myElement = description1; break;
+            case "codeintegration": myElement = codeintegration;break;
+
+
         }
 
         sendKeysFunction(myElement, value);
@@ -123,17 +138,32 @@ public class DialogContent extends BaseFunctions{
     public void findAndClick(String strElement) {  // 2.aşama
         // burda string isimden weblemente ulaşıcam
         switch (strElement) {
-            case "loginButton": myElement = loginButton; break;
-            case "addButton": myElement = addButton; break;
-            case "saveButton": myElement = saveButton; break;
-            case "closeDialog": myElement = closeDialog; break;
-            case "searchButton": myElement = searchButton; break;
-            case "deleteButton": myElement = deleteButton; break;
-            case "deleteDialogBtn": myElement = deleteDialogBtn; break;
-            case "acceptCookies": myElement = acceptCookies; break;
-            case "resetPasswordBtn": myElement = resetPasswordBtn; break;
-            case "resetPasswordLink": myElement = resetPasswordLink; break;
+            case "loginButton":
+                myElement = loginButton;
+                break;
+            case "addButton":
+                myElement = addButton;
+                break;
+            case "saveButton":
+                myElement = saveButton;
+                break;
+            case "closeDialog":
+                myElement = closeDialog;
+                break;
+            case "searchButton":
+                myElement = searchButton;
+                break;
+            case "deleteButton":
+                myElement = deleteButton;
+                break;
+            case "deleteDialogBtn":
+                myElement = deleteDialogBtn;
+                break;
+            case "acceptCookies":
+                myElement = acceptCookies;
+                break;
             case "editButton": myElement = editButton; break;
+            case "active": myElement = active;break;
 
         }
 
@@ -143,17 +173,20 @@ public class DialogContent extends BaseFunctions{
     public void findAndContainsText(String strElement, String text) {  // 2.aşama
         // burda string isimden weblemente ulaşıcam
         switch (strElement) {
-            case "dashboard": myElement = dashboard; break;
-            case "successMessage": myElement = successMessage; break;
-            case "alreadyExist": myElement = alreadyExist; break;
-            case "requiredUsernameAndPassword": myElement = requireUnamePass; break;
-            case "resetPasswordHeader": myElement = resetPasswordHeader; break;
-            case "invalidUsernameAndPassword": myElement = invalidUnamePass; break;
-
+            case "dashboard":
+                myElement = dashboard;
+                break;
+            case "successMessage":
+                myElement = successMessage;
+                break;
+            case "alreadyExist":
+                myElement = alreadyExist;
+                break;
         }
 
         verifyContainsText(myElement, text);
     }
+
 
     public void SearchAndDelete(String searchText) {
 
@@ -162,10 +195,14 @@ public class DialogContent extends BaseFunctions{
         findAndClick("searchButton"); // arama butonuna bas
 
         //waitUntilLoading();
+
         WebDriverWait wait = new WebDriverWait(BaseDriver.getDriver(), Duration.ofSeconds(30));
         wait.until(ExpectedConditions.textToBe(By.cssSelector("div[fxlayoutalign='center center'][class='control-full']"), "Search"));
+
 
         findAndClick("deleteButton");// silme butonua bas
         findAndClick("deleteDialogBtn");// dilogdaki silme butonuna bas
     }
+
+
 }
