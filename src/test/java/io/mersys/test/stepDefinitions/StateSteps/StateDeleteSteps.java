@@ -38,17 +38,20 @@ public class StateDeleteSteps {
         dc.findAndClick("deleteDialogBtn");
     }
 
-    @When("The Country in the dropdown menu does not have State")
-    public void theCountryInTheDropdownMenuDoesNotHaveState() {
+    @When("The Country named as {string} in the dropdown menu does not have State")
+    public void theCountryInTheDropdownMenuDoesNotHaveState(String sendName) {
         sk.findAndClick("selectCountryinSrearch");
-        actions.moveToElement(sk.selectCountryinSrearch).sendKeys("Atlant").click().build().perform();
-        //dc.findAndContainsText("noData"," There is no data to display ");
-        actions.dragAndDropBy(sk.dropdown, 0,0).build().perform();
+        actions.moveToElement(sk.selectCountryinSrearch).sendKeys(sendName).click().build().perform();
+        BaseDriver.Bekle(2);
+        sk.findAndContainsText("noData","no data");
+        actions.dragAndDropBy(sk.scroll, 0,-200).build().perform();
+        BaseDriver.Bekle(2);
 
     }
 
-    @And("Find and delete the Country name as {string}")
+    @And("Navigate to Country page and delete the Country name as {string}")
     public void findAndDeleteTheCountry(String countryName) {
+        ln.findAndClick("countries");
         sk.findAndSend("searchNameInput",countryName);
         dc.findAndClick("deleteButton");
         dc.findAndClick("deleteDialogBtn");

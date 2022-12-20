@@ -29,9 +29,9 @@ public class StateUpdateSteps {
         dc.findAndClick("saveButton");
     }
 
-    @When("Edit the new State by create a new country name as {string}, code as {string}")
-    public void editTheNewStateByCreateANewCountry(String countryName, String code) {
-        sk.findAndSend("searchNameInput","Almaty");
+    @When("Edit the State named {string} by create a new country name as {string}, code as {string}")
+    public void editTheNewStateByCreateANewCountry(String stateName,String countryName, String code) {
+        sk.findAndSend("searchNameInput",stateName);
         dc.findAndClick("searchButton");
         dc.findAndClick("editButton");
         sk.findAndClick("addCountry");
@@ -43,17 +43,17 @@ public class StateUpdateSteps {
 
     }
 
-    @Then("Update State and save")
-    public void updateStateAndSave() {
+    @Then("Update State name as {string} and save")
+    public void updateStateAndSave(String stateName) {
         actions.moveToElement(sk.selectCountryinWindow).click().sendKeys("Atlant").click().build().perform();
-        sk.findAndSend("nameInput","Almaty1");
+        sk.findAndSend("nameInput",stateName);
         dc.findAndClick("saveButton");
     }
 
 
-    @When("Create a new country name as {string} code as {string} without state from Edit State window")
-    public void createANewCountryWithoutStateFromEditStateWindow(String countryName, String code) {
-        sk.findAndSend("searchNameInput","Almaty1");
+    @When("Edit from State name as {string} and create a new country name as {string} code as {string} without state")
+    public void createANewCountryWithoutStateFromEditStateWindow(String stateName, String countryName, String code) {
+        sk.findAndSend("searchNameInput",stateName);
         dc.findAndClick("searchButton");
         dc.findAndClick("editButton");
         sk.findAndClick("addCountry");
