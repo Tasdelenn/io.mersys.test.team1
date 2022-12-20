@@ -27,10 +27,10 @@ public class StateCreateSteps {
 
     }
 
-    @When("Create a new State name as {string} short name as {string} from existing Country")
-    public void createANewStateNameAsShortNameAsFromExistingCountry(String StatName,String shortName) {
+    @When("Create a new State name as {string} short name as {string} from existing Country {string}")
+    public void createANewStateNameAsShortNameAsFromExistingCountry(String StatName,String shortName, String countryName) {
         dc.findAndClick("addButton");
-        actions.moveToElement(sk.selectCountryinWindow).click().sendKeys("Australia").click().build().perform();
+        actions.moveToElement(sk.selectCountryinWindow).click().sendKeys(countryName).click().build().perform();
         sk.findAndSend("nameInput",StatName);
         dc.findAndSend("shortName",shortName);
         dc.findAndClick("saveButton");
@@ -50,9 +50,9 @@ public class StateCreateSteps {
 
     }
 
-    @And("Create a new State name as{string} short name as{string}")
-    public void createANewStateNameAsShortNameAs(String stateName, String shortName) {
-        actions.moveToElement(sk.selectCountryinWindow).click().sendKeys("Kazakyeli").click().build().perform();
+    @And("Create a new State name as{string} short name as{string} from {string}")
+    public void createANewStateNameAsShortNameAs(String stateName, String shortName,String countryName) {
+        actions.moveToElement(sk.selectCountryinWindow).click().sendKeys(countryName).click().build().perform();
         sk.findAndSend("nameInput",stateName);
         dc.findAndSend("shortName",shortName);
         dc.findAndClick("saveButton");
