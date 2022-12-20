@@ -38,7 +38,7 @@ public class MainSteps {
         dc.findAndClick("deleteDialogBtn");
     }
 
-    @And("The user search and delete the item from Dialog PAge")
+    @And("The user search and delete the item from Dialog Page")
     public void theUserSearchAndDeleteTheItemFromDialogPage(DataTable elements) {
         List<String> listElement = elements.asList(String.class);
 
