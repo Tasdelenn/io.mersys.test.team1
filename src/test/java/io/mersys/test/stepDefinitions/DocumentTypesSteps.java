@@ -2,6 +2,7 @@ package io.mersys.test.stepDefinitions;
 
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import io.mersys.test.pages.DialogContent;
 import io.mersys.test.pages.FormContent;
 import io.mersys.test.pages.LeftNav;
@@ -62,5 +63,10 @@ public class DocumentTypesSteps {
         for (int i = 0; i < listElement.size(); i++) {
             dc.SearchAndDelete(listElement.get(i));
         }
+    }
+
+    @Then("Verify that there is no data to display")
+    public void verifyThatThereIsNoDataToDisplay() {
+        dc.findAndContainsText("noDataMessage", "There is no data to display");
     }
 }

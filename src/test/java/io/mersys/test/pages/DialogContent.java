@@ -98,6 +98,9 @@ public class DialogContent extends BaseFunctions{
     @FindBy(xpath = "//ms-text-field[@formcontrolname='code']//input")
     private WebElement codeintegration;
 
+    @FindBy(xpath = "//div[contains(text(),'There is no data to display')]")
+    private WebElement noDataMessage;
+
     WebElement myElement;
 
     public void findAndSend(String strElement, String value) {  // 2.aşama
@@ -193,6 +196,9 @@ public class DialogContent extends BaseFunctions{
                 break;
             case "alreadyExist":
                 myElement = alreadyExist;
+                break;
+            case "noDataMessage":
+                myElement = noDataMessage;
                 break;
         }
 
