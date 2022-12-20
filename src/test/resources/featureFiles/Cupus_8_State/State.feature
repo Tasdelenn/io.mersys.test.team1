@@ -8,7 +8,7 @@ Feature: State Multi Scenario
 
 
     Scenario: Create1) Create a new State from existing Countries
-      When Create a new State name as "melek sehir" short name as "mk" from existing Country
+      When Create a new State name as "melek sehir" short name as "mk" from existing Country "Australia"
       Then Success message should be displayed
 
     Scenario: Edit1) Update State from existing Countries
@@ -22,7 +22,7 @@ Feature: State Multi Scenario
     Scenario: Create2) Create a new Country and use the created Country to create a new State
       When Create a new country name as "Kazakyeli" code as "KY" from New State window
       And Success message should be displayed
-      Then Create a new State name as"Almaty" short name as"AL"
+      Then Create a new State name as"Almaty" short name as"AL" from "Kazakyeli"
       And Success message should be displayed
 
     Scenario: Edit2) Update the new State by create a new Country and use it
