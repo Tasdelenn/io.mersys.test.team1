@@ -1,8 +1,10 @@
 package io.mersys.test.runners;
 
 
+import com.aventstack.extentreports.testng.listener.ExtentITestListenerClassAdapter;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
+import org.testng.annotations.Listeners;
 
 @CucumberOptions(
         plugin = {
@@ -21,5 +23,7 @@ import io.cucumber.testng.CucumberOptions;
         publish = true
 
 )
+
+@Listeners({ExtentITestListenerClassAdapter.class})
 public class BelirliFeaturelariCalistir extends AbstractTestNGCucumberTests {   // abstract class a extend etmezsek çalışmaz
 }
