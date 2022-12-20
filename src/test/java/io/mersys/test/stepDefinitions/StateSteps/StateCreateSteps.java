@@ -27,43 +27,43 @@ public class StateCreateSteps {
 
     }
 
-    @When("Create a new State from existing Country")
-    public void createANewStateFromExistingCountry() {
+    @When("Create a new State name as {string} short name as {string} from existing Country")
+    public void createANewStateNameAsShortNameAsFromExistingCountry(String StatName,String shortName) {
         dc.findAndClick("addButton");
         actions.moveToElement(sk.selectCountryinWindow).click().sendKeys("Australia").click().build().perform();
-        sk.findAndSend("nameInput","melek sehir");
-        dc.findAndSend("shortName","mk");
+        sk.findAndSend("nameInput",StatName);
+        dc.findAndSend("shortName",shortName);
         dc.findAndClick("saveButton");
 
 
     }
 
 
-    @When("Create a new country from New State window")
-    public void createANewCountryFromNewStateWindow() {
+    @When("Create a new country name as {string} code as {string} from New State window")
+    public void createANewCountryNameAsCodeAsFromNewStateWindow(String CountryName, String code) {
         dc.findAndClick("addButton");
         sk.findAndClick("addCountry");
-        sk.findAndSend("countryNameInput","Kazakyeli");
-        dc.findAndSend("codeInput", "KY");
+        sk.findAndSend("countryNameInput",CountryName);
+        dc.findAndSend("codeInput", code);
         sk.findAndClick("stateExists");
         sk.findAndClick("countrySaveButton");
 
     }
 
-    @And("Create a new State")
-    public void createANewState() {
+    @And("Create a new State name as{string} short name as{string}")
+    public void createANewStateNameAsShortNameAs(String stateName, String shortName) {
         actions.moveToElement(sk.selectCountryinWindow).click().sendKeys("Kazakyeli").click().build().perform();
-        sk.findAndSend("nameInput","Almaty");
-        dc.findAndSend("shortName","AL");
+        sk.findAndSend("nameInput",stateName);
+        dc.findAndSend("shortName",shortName);
         dc.findAndClick("saveButton");
     }
 
-    @When("Create a new country without state from New State window")
-    public void createANewCountryWithoutStateFromNewStateWindow() {
+    @When("Create a new country name as {string} code {string} without state from New State window")
+    public void createANewCountryWithoutStateFromNewStateWindow(String countryName, String code) {
         dc.findAndClick("addButton");
         sk.findAndClick("addCountry");
-        sk.findAndSend("countryNameInput","Jana Khazak");
-        dc.findAndSend("codeInput", "JK");
+        sk.findAndSend("countryNameInput",countryName);
+        dc.findAndSend("codeInput", code);
         sk.findAndClick("countrySaveButton");
     }
 

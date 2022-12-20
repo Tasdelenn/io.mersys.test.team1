@@ -16,27 +16,27 @@ public class StateUpdateSteps {
        DialogContent dc = new DialogContent();
       StatesContent sk= new StatesContent();
     Actions actions=new Actions(BaseDriver.getDriver());
-    @When("Edit State from existing Country")
-    public void editStateFromExistingCountry() {
+    @When("Edit State name as {string} short name as {string} from existing Country")
+    public void editStateFromExistingCountry(String stateName, String shortName) {
 
         sk.findAndClick("selectCountryinSrearch");
         actions.moveToElement(sk.selectCountryinSrearch).sendKeys("Australia").click().build().perform();
         sk.findAndSend("searchNameInput","melek sehir");
         dc.findAndClick("searchButton");
         dc.findAndClick("editButton");
-        sk.findAndSend("nameInput","Melek Sehri");
-        dc.findAndSend("shortName","MK");
+        sk.findAndSend("nameInput",stateName);
+        dc.findAndSend("shortName",shortName);
         dc.findAndClick("saveButton");
     }
 
-    @When("Edit the new State by create a new country")
-    public void editTheNewStateByCreateANewCountry() {
+    @When("Edit the new State by create a new country name as {string}, code as {string}")
+    public void editTheNewStateByCreateANewCountry(String countryName, String code) {
         sk.findAndSend("searchNameInput","Almaty");
         dc.findAndClick("searchButton");
         dc.findAndClick("editButton");
         sk.findAndClick("addCountry");
-        sk.findAndSend("countryNameInput","Atlant");
-        dc.findAndSend("codeInput", "AT");
+        sk.findAndSend("countryNameInput",countryName);
+        dc.findAndSend("codeInput", code);
         sk.findAndClick("stateExists");
         sk.findAndClick("countrySaveButton");
 
@@ -51,14 +51,14 @@ public class StateUpdateSteps {
     }
 
 
-    @When("Create a new country without state from Edit State window")
-    public void createANewCountryWithoutStateFromEditStateWindow() {
+    @When("Create a new country name as {string} code as {string} without state from Edit State window")
+    public void createANewCountryWithoutStateFromEditStateWindow(String countryName, String code) {
         sk.findAndSend("searchNameInput","Almaty1");
         dc.findAndClick("searchButton");
         dc.findAndClick("editButton");
         sk.findAndClick("addCountry");
-        sk.findAndSend("countryNameInput","Kazak Yeli");
-        dc.findAndSend("codeInput", "KY");
+        sk.findAndSend("countryNameInput",countryName);
+        dc.findAndSend("codeInput", code);
         sk.findAndClick("countrySaveButton");
 
     }
