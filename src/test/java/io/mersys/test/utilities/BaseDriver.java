@@ -39,7 +39,7 @@ public abstract class BaseDriver {
         System.setProperty(ChromeDriverService.CHROME_DRIVER_SILENT_OUTPUT_PROPERTY, "true");
 
         if (threadBrowserName.get() == null) // paralel çalışmayan yani XML den parametreyle gelmeyen ger çağıran
-            threadBrowserName.set("edge"); // Basic arayanlar için
+            threadBrowserName.set("chrome"); // Basic arayanlar için
 
         if (threadDriver.get() == null) {
 
