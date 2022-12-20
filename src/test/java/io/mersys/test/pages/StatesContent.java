@@ -25,7 +25,7 @@ public class StatesContent extends BaseFunctions{
     private WebElement searchNameInput;
 
     @FindBy(css = "div[class='ps__thumb-y']")
-    public WebElement dropdown;
+    public WebElement scroll;
     @FindBy(xpath="//ms-text-field[@formcontrolname='name']//input")
     private WebElement nameInput;
 
