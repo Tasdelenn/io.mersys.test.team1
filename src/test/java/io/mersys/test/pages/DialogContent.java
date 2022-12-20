@@ -72,6 +72,8 @@ public class DialogContent extends BaseFunctions{
     private WebElement priorityCode;
     @FindBy(xpath = "//mat-slide-toggle[@formcontrolname='active']//span")
     private WebElement active;
+//    @FindBy(xpath = "(//mat-slide-toggle[@formcontrolname='active']/label/span)[1]")
+//    private WebElement active;
     @FindBy(xpath = "(//button[@class='consent-give'])[1]")
     private WebElement acceptCookies;
 
@@ -86,6 +88,9 @@ public class DialogContent extends BaseFunctions{
 
     @FindBy(xpath = "//ms-edit-button//button[@color='accent']")
     private WebElement editButton;
+
+    @FindBy(xpath="//ms-edit-button/button")
+    private WebElement editButton2;
 
     @FindBy(xpath = "//ms-text-field[@formcontrolname='description']//input")
     private WebElement description1;
@@ -163,6 +168,7 @@ public class DialogContent extends BaseFunctions{
                 myElement = acceptCookies;
                 break;
             case "editButton": myElement = editButton; break;
+            case "editButton2": myElement = editButton2; break;
             case "active": myElement = active;break;
 
         }
