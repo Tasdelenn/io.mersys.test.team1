@@ -17,7 +17,7 @@ public class ExtraDeleteSteps {
     @Then("Navigate to country page and delete the Country name as{string}")
     public void navigateToCountryPageAndDeleteTheCountryNameAs(String Country) {
         //burasi country page e gitmiyor
-        actions.dragAndDropBy(sk.scroll, 0,0).build().perform();
+        actions.dragAndDropBy(sk.scroll, 0,-200).build().perform();
         ln.findAndClick("setupOne");
         ln.findAndClick("parameters");
         ln.findAndClick("countries");

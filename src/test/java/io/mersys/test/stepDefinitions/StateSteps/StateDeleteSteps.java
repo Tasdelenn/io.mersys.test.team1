@@ -13,8 +13,11 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import java.time.Duration;
 import java.util.List;
 
 public class StateDeleteSteps {
@@ -22,6 +25,8 @@ public class StateDeleteSteps {
     DialogContent dc = new DialogContent();
     StatesContent sk= new StatesContent();
     Actions actions=new Actions(BaseDriver.getDriver());
+    WebDriverWait wait = new WebDriverWait(BaseDriver.getDriver(), Duration.ofSeconds(30));
+
     @When("Delete new State name as {string} from existing Country")
     public void deleteNewStateFromExistingCountry(String StateName) {
         sk.findAndSend("searchNameInput",StateName);
@@ -41,7 +46,9 @@ public class StateDeleteSteps {
     @When("The Country named as {string} in the dropdown menu does not have State")
     public void theCountryInTheDropdownMenuDoesNotHaveState(String sendName) {
         sk.findAndClick("selectCountryinSrearch");
-        actions.moveToElement(sk.selectCountryinSrearch).sendKeys(sendName).click().build().perform();
+        Action scrollClick = actions.moveToElement(sk.selectCountryinSrearch).click().sendKeys(sendName).click().build();
+        wait.until(ExpectedConditions.visibilityOf(sk.selectCountryinSrearch));
+        scrollClick.perform();
         BaseDriver.Bekle(2);
         sk.findAndContainsText("noData","no data");
         actions.dragAndDropBy(sk.scroll, 0,-200).build().perform();
