@@ -130,9 +130,15 @@ public class DialogContent extends BaseFunctions{
             case "description":
                 myElement = description;
                 break;
-            case "order": myElement = order; break;
-            case "description1": myElement = description1; break;
-            case "codeintegration": myElement = codeintegration;break;
+            case "order":
+                myElement = order;
+                break;
+            case "description1":
+                myElement = description1;
+                break;
+            case "codeintegration":
+                myElement = codeintegration;
+                break;
 
 
         }

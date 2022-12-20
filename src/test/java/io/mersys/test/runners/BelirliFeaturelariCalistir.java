@@ -10,10 +10,10 @@ import io.cucumber.testng.CucumberOptions;
                 "json:target/cucumber.json",
                 "timeline:target/timeline-report"
         },
-        features = {"src/test/resources/featureFiles/login.feature",
-                "src/test/resources/featureFiles/country.feature"
+        features = {"src/test/resources/featureFiles/_Public_Login/login.feature",
+                "src/test/resources/featureFiles/_Samples_/country.feature"
         },
-        glue = {"io/mersys/test/stepDefinitions"},
+        glue = {"classpath:io/mersys/test/stepDefinitions"},
         dryRun = false,    // true olduğunda testi çalıştırma sadece feature lara
         // ait steplerin varlığını kontrol eder.
         // false olduğunda ise testi çalıştırır.
