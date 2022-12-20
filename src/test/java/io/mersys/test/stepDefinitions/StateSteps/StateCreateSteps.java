@@ -11,7 +11,11 @@ import io.mersys.test.utilities.BaseDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+
+import java.time.Duration;
 
 public class StateCreateSteps {
     LeftNav ln = new LeftNav();
@@ -19,6 +23,7 @@ public class StateCreateSteps {
     Faker fakeData = new Faker();
     StatesContent sk= new StatesContent();
     Actions actions=new Actions(BaseDriver.getDriver());
+    WebDriverWait wait = new WebDriverWait(BaseDriver.getDriver(), Duration.ofSeconds(30));
     @And("Navigate to State page")
     public void navigateToStatePage() {
         ln.findAndClick("setupOne"); // Setup Click
@@ -29,8 +34,11 @@ public class StateCreateSteps {
 
     @When("Create a new State name as {string} short name as {string} from existing Country {string}")
     public void createANewStateNameAsShortNameAsFromExistingCountry(String StatName,String shortName, String countryName) {
+
         dc.findAndClick("addButton");
-        actions.moveToElement(sk.selectCountryinWindow).click().sendKeys(countryName).click().build().perform();
+        Action scrollClick = actions.moveToElement(sk.selectCountryinWindow).click().sendKeys(countryName).click().build();
+        wait.until(ExpectedConditions.visibilityOf(sk.selectCountryinWindow));
+        scrollClick.perform();
         sk.findAndSend("nameInput",StatName);
         dc.findAndSend("shortName",shortName);
         dc.findAndClick("saveButton");
