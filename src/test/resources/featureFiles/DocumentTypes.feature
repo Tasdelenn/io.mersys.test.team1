@@ -77,3 +77,19 @@ Feature: Document Types under Parameters Setup Functionality
       | MuharremTR2626Edit |
 
     Then Success message should be displayed
+
+
+  Scenario: Negative Delete Document Types
+
+    And Click on the element in the left Nav
+      | setupOne      |
+      | parameters    |
+      | documentTypes |
+
+    And User sending the keys in Dialog content
+      | searchInput | MuharremTR2626Edit |
+
+    And Click on the element in the Dialog content
+      | searchButton |
+
+    Then Verify that there is no data to display
