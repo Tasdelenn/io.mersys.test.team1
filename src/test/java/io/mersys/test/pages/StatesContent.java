@@ -21,6 +21,8 @@ public class StatesContent extends BaseFunctions{
     @FindBy(xpath = "//mat-select[@formcontrolname='id']//div[2]")
     public WebElement selectCountryinWindow;
 
+    @FindBy(xpath = "(//mat-select[@formcontrolname='id']//div[2])[2]")
+    public WebElement selectStateWindow;
     @FindBy(xpath="//ms-text-field//input")
     private WebElement searchNameInput;
 
@@ -52,6 +54,8 @@ public class StatesContent extends BaseFunctions{
     @FindBy(xpath = "//tbody/tr/td/div")
     private WebElement noData;
 
+    @FindBy(xpath = "//div[contains(text(),'Could not delete')]")
+    private WebElement notDeleteMessage;
     WebElement myElement;
 
     public void findAndClick(String strElement) {
@@ -82,7 +86,7 @@ public class StatesContent extends BaseFunctions{
     public void findAndContainsText(String strElement, String text) {  // 2.aşama
         switch (strElement) {
             case "noData": myElement = noData; break;
-
+            case "notDeleteMessage": myElement=notDeleteMessage;break;
         }
 
         verifyContainsText(myElement, text);
