@@ -23,12 +23,19 @@ Feature: State Multi delete Scenario
 
   @Negative
   Scenario: Delete6) User should not be able to delete State from the Country which used by City
-    When Create a new country name as "Talossan" code as "TL" from New State window
+    When Create a new country name as "ABALOSSAN" code as "AL" from New State window
     And Success message should be displayed
-    Then Create a new State name as"Abavila" short name as"AB" from "Talossan"
+    Then Create a new State name as"Abavila" short name as"AB" from "ABALOSSAN"
     And Success message should be displayed
-    And Navigate to Cities page and create a new City named "Vila" frome Country "Talossan" State "Abavila"
+    And Navigate to Cities page and create a new City named "Vila" frome Country "ABALOSSAN" State "Abavila"
     And Success message should be displayed
     And Navigate to State page and delete the state "Abavila"
     And  User Should not be able to delete successfully
 
+
+  Scenario: User should be able to delete City and delete State then delete Country successfully
+    When Navigate to Cities page and delete city "Vila"
+    And Success message should be displayed
+    Then Navigate to State page and delete the state "Abavila"
+    And Success message should be displayed
+    Then Navigate to country page and delete the Country name as"ABALOSSAN"
