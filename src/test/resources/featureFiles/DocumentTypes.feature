@@ -6,6 +6,7 @@ Feature: Document Types under Parameters Setup Functionality
     Then User should be login successfuly
 
 
+  @Smoke
   Scenario: Add Document Types
 
     And Click on the element in the left Nav
@@ -34,6 +35,7 @@ Feature: Document Types under Parameters Setup Functionality
     Then Success message should be displayed
 
 
+  @Smoke
   Scenario: Edit Document Types
 
     And Click on the element in the left Nav
@@ -65,7 +67,7 @@ Feature: Document Types under Parameters Setup Functionality
 
     Then Success message should be displayed
 
-
+  @Smoke
   Scenario: Delete Document Types
 
     And Click on the element in the left Nav
