@@ -6,6 +6,7 @@ Feature: Document Types under Parameters Setup Functionality
     Then User should be login successfuly
 
 
+  @Smoke @Regression
   Scenario: Add Document Types
 
     And Click on the element in the left Nav
@@ -34,6 +35,7 @@ Feature: Document Types under Parameters Setup Functionality
     Then Success message should be displayed
 
 
+  @Smoke @Regression
   Scenario: Edit Document Types
 
     And Click on the element in the left Nav
@@ -65,7 +67,7 @@ Feature: Document Types under Parameters Setup Functionality
 
     Then Success message should be displayed
 
-
+  @Smoke @Regression
   Scenario: Delete Document Types
 
     And Click on the element in the left Nav
@@ -79,6 +81,7 @@ Feature: Document Types under Parameters Setup Functionality
     Then Success message should be displayed
 
 
+  @Regression
   Scenario: Negative Delete Document Types
 
     And Click on the element in the left Nav
