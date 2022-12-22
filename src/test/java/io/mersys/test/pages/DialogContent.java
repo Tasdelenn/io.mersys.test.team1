@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
-public class DialogContent extends BaseFunctions{
+public class DialogContent extends BaseFunctions {
 
     public DialogContent() {
         PageFactory.initElements(BaseDriver.getDriver(), this);
@@ -72,7 +72,7 @@ public class DialogContent extends BaseFunctions{
     private WebElement priorityCode;
     @FindBy(xpath = "//mat-slide-toggle[@formcontrolname='active']//span")
     private WebElement active;
-//    @FindBy(xpath = "(//mat-slide-toggle[@formcontrolname='active']/label/span)[1]")
+    //    @FindBy(xpath = "(//mat-slide-toggle[@formcontrolname='active']/label/span)[1]")
 //    private WebElement active;
     @FindBy(xpath = "(//button[@class='consent-give'])[1]")
     private WebElement acceptCookies;
@@ -89,7 +89,7 @@ public class DialogContent extends BaseFunctions{
     @FindBy(xpath = "//ms-edit-button//button[@color='accent']")
     private WebElement editButton;
 
-    @FindBy(xpath="//ms-edit-button/button")
+    @FindBy(xpath = "//ms-edit-button/button")
     private WebElement editButton2;
 
     @FindBy(xpath = "//ms-text-field[@formcontrolname='description']//input")
@@ -100,6 +100,10 @@ public class DialogContent extends BaseFunctions{
 
     @FindBy(xpath = "//div[contains(text(),'There is no data to display')]")
     private WebElement noDataMessage;
+
+    @FindBy(css = "mat-select[role='combobox'][formcontrolname='id']")
+    private WebElement countryNameInput0;
+
 
     WebElement myElement;
 
@@ -142,6 +146,9 @@ public class DialogContent extends BaseFunctions{
             case "codeintegration":
                 myElement = codeintegration;
                 break;
+            case "countryNameInput0":
+                myElement = countryNameInput0;
+                break;
 
 
         }
@@ -176,9 +183,15 @@ public class DialogContent extends BaseFunctions{
             case "acceptCookies":
                 myElement = acceptCookies;
                 break;
-            case "editButton": myElement = editButton; break;
-            case "editButton2": myElement = editButton2; break;
-            case "active": myElement = active;break;
+            case "editButton":
+                myElement = editButton;
+                break;
+            case "editButton2":
+                myElement = editButton2;
+                break;
+            case "active":
+                myElement = active;
+                break;
 
         }
 

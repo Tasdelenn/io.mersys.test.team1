@@ -9,7 +9,6 @@ package io.mersys.test.runners;
         import org.testng.annotations.AfterClass;
         import org.testng.annotations.Listeners;
 
-@RunWith(Cucumber.class)
 @CucumberOptions(
         tags = "@HumanResourcesTest",
         features = {"src/test/resources/featureFiles/_Samples_"},
@@ -17,7 +16,7 @@ package io.mersys.test.runners;
 )
 
 @Listeners({ExtentITestListenerClassAdapter.class})
-public class SampleHumanResourcesExtendReport {
+public class SampleHumanResourcesExtendReport extends AbstractTestNGCucumberTests{
 
     @AfterClass
     public static void writeExtentReport() {
