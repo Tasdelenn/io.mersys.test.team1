@@ -4,6 +4,8 @@ import io.mersys.test.utilities.BaseDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -54,5 +56,13 @@ public class BaseFunctions {
         WebDriverWait wait = new WebDriverWait(BaseDriver.getDriver(), Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfAllElements(elementList));
         return elementList;
+    }
+
+    public void ActionFunction(WebElement element){
+        waitUntilClickable(element);
+        waitUntilVisible(element);
+        Actions actions= new Actions(BaseDriver.getDriver());
+        Action action=actions.moveToElement(element).click().build();
+        action.perform();
     }
 }
