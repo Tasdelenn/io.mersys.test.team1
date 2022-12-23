@@ -32,6 +32,15 @@ public class FormContent extends BaseFunctions{
     @FindBy(xpath = "(//mat-option[@role='option']/span)[5]")
     private WebElement selectContract;
 
+    @FindBy(xpath = "//span[text()=' Turkey ']")
+    private WebElement Turkey;
+
+    @FindBy(xpath = "//mat-select[@formcontrolname='id']/div")
+    private WebElement countryBlog;
+
+    @FindBy(xpath = "//div[contains(@class,'mat-form-field-infix ng-tns-c77')]/mat-select")
+    private WebElement countryBlogSearchForm;
+
     WebElement myElement;
 
     public void findAndClick(String strElement){
@@ -45,9 +54,21 @@ public class FormContent extends BaseFunctions{
             case "selectCertificate" : myElement=selectCertificate; break;
             case "selectEmployment" : myElement=selectEmployment; break;
             case "selectContract" : myElement=selectContract; break;
+            case "Turkey" : myElement=Turkey; break;
         }
 
         clickFunction(myElement);
+    }
+
+    public void findAndAction(String strElement){
+
+        switch (strElement)
+        {
+            case "countryBlog" : myElement=countryBlog; break;
+            case "countryBlogSearchForm" : myElement=countryBlogSearchForm; break;
+        }
+
+        ActionFunction(myElement);
     }
 }
 
