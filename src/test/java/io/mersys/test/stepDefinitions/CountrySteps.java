@@ -48,4 +48,12 @@ public class CountrySteps {
         dc.findAndSend("codeInput", code);
         dc.findAndClick("saveButton");
     }
+
+    @And("User should update the country name as {string} code as {string}")
+    public void userShouldUpdateTheCountryNameAsStringCodeAsString(String countryName, String code) {
+        dc.findAndClick("editButton2");
+        dc.findAndSend("nameInput", countryName);
+        dc.findAndSend("codeInput", code);
+        dc.findAndClick("saveButton");
+    }
 }
