@@ -21,9 +21,10 @@ public class StateCreateSteps {
     LeftNav ln = new LeftNav();
     DialogContent dc = new DialogContent();
     Faker fakeData = new Faker();
-    StatesContent sk= new StatesContent();
-    Actions actions=new Actions(BaseDriver.getDriver());
+    StatesContent sk = new StatesContent();
+    Actions actions = new Actions(BaseDriver.getDriver());
     WebDriverWait wait = new WebDriverWait(BaseDriver.getDriver(), Duration.ofSeconds(30));
+
     @And("Navigate to State page")
     public void navigateToStatePage() {
         ln.findAndClick("setupOne"); // Setup Click
@@ -33,14 +34,14 @@ public class StateCreateSteps {
     }
 
     @When("Create a new State name as {string} short name as {string} from existing Country {string}")
-    public void createANewStateNameAsShortNameAsFromExistingCountry(String StatName,String shortName, String countryName) {
+    public void createANewStateNameAsShortNameAsFromExistingCountry(String StatName, String shortName, String countryName) {
 
         dc.findAndClick("addButton");
         Action scrollClick = actions.moveToElement(sk.selectCountryinWindow).click().sendKeys(countryName).click().build();
         wait.until(ExpectedConditions.visibilityOf(sk.selectCountryinWindow));
         scrollClick.perform();
-        sk.findAndSend("nameInput",StatName);
-        dc.findAndSend("shortName",shortName);
+        sk.findAndSend("nameInput", StatName);
+        dc.findAndSend("shortName", shortName);
         dc.findAndClick("saveButton");
 
 
@@ -51,7 +52,7 @@ public class StateCreateSteps {
     public void createANewCountryNameAsCodeAsFromNewStateWindow(String CountryName, String code) {
         dc.findAndClick("addButton");
         sk.findAndClick("addCountry");
-        sk.findAndSend("countryNameInput",CountryName);
+        sk.findAndSend("countryNameInput", CountryName);
         dc.findAndSend("codeInput", code);
         sk.findAndClick("stateExists");
         sk.findAndClick("countrySaveButton");
@@ -59,10 +60,12 @@ public class StateCreateSteps {
     }
 
     @And("Create a new State name as{string} short name as{string} from {string}")
-    public void createANewStateNameAsShortNameAs(String stateName, String shortName,String countryName) {
-        actions.moveToElement(sk.selectCountryinWindow).click().sendKeys(countryName).click().build().perform();
-        sk.findAndSend("nameInput",stateName);
-        dc.findAndSend("shortName",shortName);
+    public void createANewStateNameAsShortNameAs(String stateName, String shortName, String countryName) {
+        Action scrollClick = actions.moveToElement(sk.selectCountryinWindow).click().sendKeys(countryName).click().build();
+        wait.until(ExpectedConditions.visibilityOf(sk.selectCountryinWindow));
+        scrollClick.perform();
+        sk.findAndSend("nameInput", stateName);
+        dc.findAndSend("shortName", shortName);
         dc.findAndClick("saveButton");
     }
 
@@ -70,14 +73,16 @@ public class StateCreateSteps {
     public void createANewCountryWithoutStateFromNewStateWindow(String countryName, String code) {
         dc.findAndClick("addButton");
         sk.findAndClick("addCountry");
-        sk.findAndSend("countryNameInput",countryName);
+        sk.findAndSend("countryNameInput", countryName);
         dc.findAndSend("codeInput", code);
         sk.findAndClick("countrySaveButton");
     }
 
     @Then("The created Country not found and new state was not successfully created")
     public void theCreatedCountryNotFoundAndNewStateWasNotSuccessfullyCreated() {
-        actions.moveToElement(sk.selectCountryinWindow).click().build().perform();
+        Action scrollClick = actions.moveToElement(sk.selectCountryinWindow).click().build();
+        wait.until(ExpectedConditions.visibilityOf(sk.selectCountryinWindow));
+        scrollClick.perform();
         for (WebElement e : sk.countryNameList)
             Assert.assertFalse(e.getText().toLowerCase().contains("Jana Kazak".toLowerCase()));
     }

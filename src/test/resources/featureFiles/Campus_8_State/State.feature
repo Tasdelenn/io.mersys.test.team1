@@ -8,11 +8,11 @@ Feature: State Multi Scenario
 
 
   Scenario: Create1) Create a new State from existing Countries
-    When Create a new State name as "melek sehir" short name as "mk" from existing Country "Australia"
+    When Create a new State name as "melek sehir" short name as "mk" from existing Country "Ukraine"
     Then Success message should be displayed
 
   Scenario: Edit1) Update State from existing Countries
-    When Edit State name as "Melek Sehri" short name as "MK" from existing Country
+    When Edit State name as "Melek Sehri" short name as "MK" from existing Country "Ukraine"
     Then Success message should be displayed
 
   Scenario: Delete1) Delete new created State from existing Countries
@@ -28,7 +28,7 @@ Feature: State Multi Scenario
   Scenario: Edit2) Update the new State by create a new Country and use it
     When  Edit the State named "Almaty" by create a new country name as "Atlant", code as "AT"
     And Success message should be displayed
-    Then Update State name as "Almaty1" and save
+    Then Update State name as "Almaty1" then select country "Atlant" and save
     And Success message should be displayed
 
   @Negative
@@ -36,6 +36,8 @@ Feature: State Multi Scenario
     When Edit from State name as "Almaty1" and create a new country name as "Kazak Yeli" code as "KY" without state
     And Success message should be displayed
     Then The created Country not found and the state was not successfully updated
+    
+  Scenario: Delete the Country without State
     And Navigate to country page and delete the Country name as"Kazak Yeli"
 
   @Negative
@@ -43,7 +45,9 @@ Feature: State Multi Scenario
     When Create a new country name as "Jana Khazak" code "JK" without state from New State window
     And Success message should be displayed
     Then The created Country not found and new state was not successfully created
-    And Navigate to country page and delete the Country name as"Jana Khzak"
+
+  Scenario: Delete the Country2 without State
+    And Navigate to country page and delete the Country name as"Jana Khazak"
 
 
   Scenario: Delete2) Delete new created State from the new created Country
