@@ -56,4 +56,10 @@ public class CountrySteps {
         dc.findAndSend("codeInput", code);
         dc.findAndClick("saveButton");
     }
+
+    @Then("The user search and delete an unavailable Country {string}")
+    public void theUserSearchAndDeleteAnUnavailableCountry(String countryName) {
+        dc.findAndSend("searchInput", countryName);
+        dc.findAndClick("searchButton");
+    }
 }
