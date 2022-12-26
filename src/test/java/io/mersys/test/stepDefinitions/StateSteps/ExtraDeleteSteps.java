@@ -25,7 +25,7 @@ public class ExtraDeleteSteps {
 
     @Then("Navigate to country page and delete the Country name as{string}")
     public void navigateToCountryPageAndDeleteTheCountryNameAs(String Country) {
-        actions.dragAndDropBy(sk.scroll, 0, -200).build().perform();
+        actions.dragAndDropBy(sk.getMyElement("scroll"), 0, -200).build().perform();
         ln.findAndClick("countries");
         BaseDriver.Bekle(2);
        dc.SearchAndDelete(Country);
@@ -39,15 +39,15 @@ public class ExtraDeleteSteps {
 
     @And("Navigate to Cities page and create a new City named {string} frome Country {string} State {string}")
     public void navigateToCitiesPageAndCreateANewCityNamedStringFromeCountryStringStateString(String cityName, String countryName, String stateName) {
-        actions.dragAndDropBy(sk.scroll, 0, -200).build().perform();
+        actions.dragAndDropBy(sk.getMyElement("scroll"), 0, -200).build().perform();
         ln.findAndClick("cities");
         BaseDriver.Bekle(2);
         dc.findAndClick("addButton");
-        Action scrollClick = actions.moveToElement(sk.selectCountryinWindow).click().sendKeys(countryName).click().build();
-        wait.until(ExpectedConditions.visibilityOf(sk.selectCountryinWindow));
+        Action scrollClick = actions.moveToElement(sk.getMyElement("selectCountryinWindow")).click().sendKeys(countryName).click().build();
+        wait.until(ExpectedConditions.visibilityOf(sk.getMyElement("selectCountryinWindow")));
         scrollClick.perform();
-        Action scrollClick2 = actions.moveToElement(sk.selectStateWindow).click().sendKeys(stateName).click().build();
-        wait.until(ExpectedConditions.visibilityOf(sk.selectStateWindow));
+        Action scrollClick2 = actions.moveToElement(sk.getMyElement("selectStateWindow")).click().sendKeys(stateName).click().build();
+        wait.until(ExpectedConditions.visibilityOf(sk.getMyElement("selectStateWindow")));
         scrollClick2.perform();
         dc.findAndSend("nameInput",cityName);
         dc.findAndClick("saveButton");
@@ -56,7 +56,7 @@ public class ExtraDeleteSteps {
 
     @And("Navigate to State page and delete the state {string}")
     public void navigateToStatePageAndDeleteTheStateSting(String stateName) {
-        actions.dragAndDropBy(sk.scroll, 0, -200).build().perform();
+        actions.dragAndDropBy(sk.getMyElement("scroll"), 0, -200).build().perform();
         ln.findAndClick("states");
         BaseDriver.Bekle(2);
         dc.SearchAndDelete(stateName);
@@ -64,7 +64,7 @@ public class ExtraDeleteSteps {
 
     @When("Navigate to Cities page and delete city {string}")
     public void navigateToCitiesPageAndDeleteCity(String cityName) {
-        actions.dragAndDropBy(sk.scroll, 0, -200).build().perform();
+        actions.dragAndDropBy(sk.getMyElement("scroll"), 0, -200).build().perform();
         ln.findAndClick("cities");
         BaseDriver.Bekle(2);
         dc.SearchAndDelete(cityName);

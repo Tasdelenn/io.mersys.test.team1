@@ -37,8 +37,8 @@ public class StateCreateSteps {
     public void createANewStateNameAsShortNameAsFromExistingCountry(String StatName, String shortName, String countryName) {
 
         dc.findAndClick("addButton");
-        Action scrollClick = actions.moveToElement(sk.selectCountryinWindow).click().sendKeys(countryName).click().build();
-        wait.until(ExpectedConditions.visibilityOf(sk.selectCountryinWindow));
+        Action scrollClick = actions.moveToElement(sk.getMyElement("selectCountryinWindow")).click().sendKeys(countryName).click().build();
+        wait.until(ExpectedConditions.visibilityOf(sk.getMyElement("selectCountryinWindow")));
         scrollClick.perform();
         sk.findAndSend("nameInput", StatName);
         dc.findAndSend("shortName", shortName);
@@ -61,8 +61,8 @@ public class StateCreateSteps {
 
     @And("Create a new State name as{string} short name as{string} from {string}")
     public void createANewStateNameAsShortNameAs(String stateName, String shortName, String countryName) {
-        Action scrollClick = actions.moveToElement(sk.selectCountryinWindow).click().sendKeys(countryName).click().build();
-        wait.until(ExpectedConditions.visibilityOf(sk.selectCountryinWindow));
+        Action scrollClick = actions.moveToElement(sk.getMyElement("selectCountryinWindow")).click().sendKeys(countryName).click().build();
+        wait.until(ExpectedConditions.visibilityOf(sk.getMyElement("selectCountryinWindow")));
         scrollClick.perform();
         sk.findAndSend("nameInput", stateName);
         dc.findAndSend("shortName", shortName);
@@ -80,8 +80,8 @@ public class StateCreateSteps {
 
     @Then("The created Country not found and new state was not successfully created")
     public void theCreatedCountryNotFoundAndNewStateWasNotSuccessfullyCreated() {
-        Action scrollClick = actions.moveToElement(sk.selectCountryinWindow).click().build();
-        wait.until(ExpectedConditions.visibilityOf(sk.selectCountryinWindow));
+        Action scrollClick = actions.moveToElement(sk.getMyElement("selectCountryinWindow")).click().build();
+        wait.until(ExpectedConditions.visibilityOf(sk.getMyElement("selectCountryinWindow")));
         scrollClick.perform();
         for (WebElement e : sk.countryNameList)
             Assert.assertFalse(e.getText().toLowerCase().contains("Jana Kazak".toLowerCase()));
