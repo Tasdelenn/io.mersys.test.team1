@@ -7,13 +7,16 @@ import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public abstract class BaseDriver {
 
+    private static WebDriverWait wait;
     public static WebDriver driver;
 
     // Bana neler lazım:  1 browser tipi lazım burada ona göre oluşturucam.
@@ -91,6 +94,13 @@ public abstract class BaseDriver {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static WebDriverWait getWait() {
+        if (wait == null) {
+            wait = new WebDriverWait(BaseDriver.getDriver(), Duration.ofSeconds(30));
+        }
+        return wait;
     }
 
 
