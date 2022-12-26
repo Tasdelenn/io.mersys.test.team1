@@ -91,4 +91,13 @@ public class StatesContent extends BaseFunctions{
 
         verifyContainsText(myElement, text);
     }
+
+    public WebElement getMyElement(String strElement) {
+        switch (strElement){
+            //case "garantiDahaFazlaBtn":myElement=garantiDahaFazlaBtn;break;
+
+        }
+        return myElement;
+    }
+
 }
