@@ -11,10 +11,8 @@ Feature:  Country Functionality
 
   @Regression
   Scenario: Add Country
-
     When Click on the element in the Dialog content
       | addButton |
-
     And User sending the keys in Dialog content
       | nameInput | Tallsan |
       | codeInput | TL      |
