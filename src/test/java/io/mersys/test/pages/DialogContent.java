@@ -92,6 +92,9 @@ public class DialogContent extends BaseFunctions {
     @FindBy(xpath = "//ms-edit-button/button")
     private WebElement editButton2;
 
+    @FindBy(css = "ms-edit-button[class='ng-star-inserted'] button")
+    private List<WebElement> editButton3;
+
     @FindBy(xpath = "//ms-text-field[@formcontrolname='description']//input")
     private WebElement description1;
 
@@ -188,6 +191,10 @@ public class DialogContent extends BaseFunctions {
                 break;
             case "editButton2":
                 myElement = editButton2;
+                break;
+            case "editButton3":
+                BaseDriver.getWait().until(ExpectedConditions.numberOfElementsToBeLessThan(By.cssSelector("ms-edit-button[class='ng-star-inserted'] button"), editButton3.size()));
+                myElement = editButton3.get(0);
                 break;
             case "active":
                 myElement = active;
