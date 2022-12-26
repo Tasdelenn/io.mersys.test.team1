@@ -49,8 +49,8 @@ public class StateUpdateSteps {
 
     @Then("Update State name as {string} then select country {string} and save")
     public void updateStateAndSave(String stateName, String countryName) {
-        Action scrollClick = actions.moveToElement(sk.selectCountryinWindow).click().sendKeys(countryName).click().build();
-        wait.until(ExpectedConditions.visibilityOf(sk.selectCountryinWindow));
+        Action scrollClick = actions.moveToElement(sk.getMyElement("selectCountryinWindow")).click().sendKeys(countryName).click().build();
+        wait.until(ExpectedConditions.visibilityOf(sk.getMyElement("selectCountryinWindow")));
         scrollClick.perform();
         sk.findAndSend("nameInput", stateName);
         dc.findAndClick("saveButton");
@@ -72,8 +72,8 @@ public class StateUpdateSteps {
     @Then("The created Country not found and the state was not successfully updated")
     public void theCreatedCountryNotFoundAndTheStateWasNotSuccessfullyUpdated() {
 
-        Action scrollClick = actions.moveToElement(sk.selectCountryinWindow).click().build();
-        wait.until(ExpectedConditions.visibilityOf(sk.selectCountryinWindow));
+        Action scrollClick = actions.moveToElement(sk.getMyElement("selectCountryinWindow")).click().build();
+        wait.until(ExpectedConditions.visibilityOf(sk.getMyElement("selectCountryinWindow")));
         scrollClick.perform();
         for (WebElement e : sk.countryNameList)
             Assert.assertFalse(e.getText().toLowerCase().contains("Kazak Yeli".toLowerCase()));

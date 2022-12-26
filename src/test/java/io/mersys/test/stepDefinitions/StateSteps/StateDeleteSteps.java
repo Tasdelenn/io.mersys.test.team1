@@ -45,13 +45,13 @@ public class StateDeleteSteps {
 
     @When("The Country named as {string} in the dropdown menu does not have State")
     public void theCountryInTheDropdownMenuDoesNotHaveState(String sendName) {
-        sk.findAndClick("selectCountryinSrearch");
-        Action scrollClick = actions.moveToElement(sk.selectCountryinSrearch).click().sendKeys(sendName).click().build();
-        wait.until(ExpectedConditions.visibilityOf(sk.selectCountryinSrearch));
+        BaseDriver.getWait().until(ExpectedConditions.visibilityOf(sk.getMyElement("selectCountryinSrearch")));
+        Action scrollClick = actions.moveToElement(sk.getMyElement("selectCountryinSrearch")).click().sendKeys(sendName).click().build();
+        wait.until(ExpectedConditions.visibilityOf(sk.getMyElement("selectCountryinSrearch")));
         scrollClick.perform();
         BaseDriver.Bekle(2);
         sk.findAndContainsText("noData","no data");
-        actions.dragAndDropBy(sk.scroll, 0,-200).build().perform();
+        actions.dragAndDropBy(sk.getMyElement("scroll"), 0,-200).build().perform();
         BaseDriver.Bekle(2);
 
     }
@@ -67,7 +67,7 @@ public class StateDeleteSteps {
 
     @And("Click on dropdown menu and the Country name as {string} should not be visible")
     public void clickOnDropdownMenuAndTheCountryShouldNotBeVisible(String countryName) {
-        actions.moveToElement(sk.selectCountryinWindow).click().build().perform();
+        actions.moveToElement(sk.getMyElement("selectCountryinWindow")).click().build().perform();
         for (WebElement e : sk.countryNameList)
             Assert.assertFalse(e.getText().toLowerCase().contains(countryName.toLowerCase()));
 

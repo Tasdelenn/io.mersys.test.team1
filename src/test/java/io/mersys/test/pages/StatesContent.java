@@ -12,22 +12,19 @@ public class StatesContent extends BaseFunctions{
         PageFactory.initElements(BaseDriver.getDriver(), this);
     }
 
-    //@FindBy(xpath = "//ms-add-button[contains(@tooltip,'TITLE.ADD')]//button")
-    //private WebElement addState;
-
-    @FindBy(xpath = "(//div[contains(@class,'mat-form-field-infix')])[1]//mat-select//span")
-    public WebElement selectCountryinSrearch;
+    @FindBy(xpath = "(//div[contains(@class,'mat-form-field-infix')])[1]//mat-select")
+    private WebElement selectCountryinSrearch;
 
     @FindBy(xpath = "//mat-select[@formcontrolname='id']//div[2]")
-    public WebElement selectCountryinWindow;
+    private WebElement selectCountryinWindow;
 
     @FindBy(xpath = "(//mat-select[@formcontrolname='id']//div[2])[2]")
-    public WebElement selectStateWindow;
+    private WebElement selectStateWindow;
     @FindBy(xpath="//ms-text-field//input")
     private WebElement searchNameInput;
 
     @FindBy(css = "div[class='ps__thumb-y']")
-    public WebElement scroll;
+    private WebElement scroll;
     @FindBy(xpath="//ms-text-field[@formcontrolname='name']//input")
     private WebElement nameInput;
 
@@ -60,7 +57,6 @@ public class StatesContent extends BaseFunctions{
 
     public void findAndClick(String strElement) {
         switch (strElement) {
-          //  case "addState": myElement = addState; break;
             case "selectCountry": myElement = selectCountryinWindow; break;
             case "addCountry": myElement = addCountry; break;
             case "stateExists": myElement = stateExists; break;
@@ -83,7 +79,7 @@ public class StatesContent extends BaseFunctions{
 
         sendKeysFunction(myElement, value);
     }
-    public void findAndContainsText(String strElement, String text) {  // 2.aşama
+    public void findAndContainsText(String strElement, String text) {
         switch (strElement) {
             case "noData": myElement = noData; break;
             case "notDeleteMessage": myElement=notDeleteMessage;break;
@@ -94,7 +90,11 @@ public class StatesContent extends BaseFunctions{
 
     public WebElement getMyElement(String strElement) {
         switch (strElement){
-            //case "garantiDahaFazlaBtn":myElement=garantiDahaFazlaBtn;break;
+            case "selectCountryinSrearch":myElement=selectCountryinSrearch;break;
+            case "selectCountryinWindow":myElement=selectCountryinWindow;break;
+            case "selectStateWindow":myElement=selectStateWindow;break;
+            case "scroll":myElement=scroll;break;
+
 
         }
         return myElement;
