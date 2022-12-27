@@ -8,8 +8,8 @@ import io.mersys.test.pages.LeftNav;
 
 public class CitizenshipSteps {
 
-    LeftNav ln=new LeftNav();
-    DialogContent dc=new DialogContent();
+    LeftNav ln = new LeftNav();
+    DialogContent dc = new DialogContent();
 
     @And("Navigate to citizenship page")
     public void navigateToCitizenshipPage() {
@@ -21,17 +21,25 @@ public class CitizenshipSteps {
     @When("Create a citizenship")
     public void createACitizenship() {
         dc.findAndClick("addButton");
-        dc.findAndSend("nameInput","deneme123");
-        dc.findAndSend("shortName","dnm123");
+        dc.findAndSend("nameInput", "vatandas");
+        dc.findAndSend("shortName", "vd");
         dc.findAndClick("saveButton");
     }
 
-
-    @When("User update the created Citizenship")
-    public void userUpdateTheCreatedCitizenship() {
+    @When("User Create Again Citizenship name as {string} short name as {string}")
+    public void userCreateAgainCitizenshipNameAsShortNameAs(String name, String shortName) {
+        dc.findAndClick("addButton");
+        dc.findAndSend("nameInput",name);
+        dc.findAndSend("shortName",shortName);
+        dc.findAndClick("saveButton");
     }
 
-    @When("User delete the updated Citizenship")
-    public void userDeleteTheUpdatedCitizenship() {
+    @And("User should be update the citizenship name as {string} code as {string}")
+    public void userShouldUpdateTheCitizanshipNameAsStringCodeAsString(String citizenshipName, String shortName) {
+        dc.findAndClick("editButton3");
+        dc.findAndSend("nameInput", citizenshipName);
+        dc.findAndSend("shortName", shortName);
+        dc.findAndClick("saveButton");
     }
+
 }
