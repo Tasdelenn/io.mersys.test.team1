@@ -46,8 +46,8 @@ public class FeesSteps {
     public void userEditFee() {
         dc.findAndSend("searchInput", "Document8");
         dc.findAndClick("searchButton");
-        BaseDriver.Bekle(1);
-        dc.findAndClick("editButton2");
+        //BaseDriver.Bekle(1);
+        dc.findAndClick("editButton3");
         dc.findAndSend("nameInput", "Document45");
         dc.findAndSend("codeInput", "Doc45");
         dc.findAndSend("integrationCode", "dc45");
@@ -81,8 +81,8 @@ public class FeesSteps {
         dc.findAndClick("closeDialog");
         dc.findAndSend("searchInput", "Document8");
         dc.findAndClick("searchButton");
-        BaseDriver.Bekle(1);
-        dc.findAndClick("deleteButton");
+        //BaseDriver.Bekle(1);
+        dc.findAndClick("deleteButton2");
         dc.findAndClick("deleteDialogBtn");
     }
 
