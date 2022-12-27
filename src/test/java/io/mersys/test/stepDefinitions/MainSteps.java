@@ -55,4 +55,8 @@ public class MainSteps {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(text(),'successfully')]")));
     }
 
+    @And("Click on close button")
+    public void clickOnCloseButton() {
+        dc.findAndClick("closeDialog");
+    }
 }

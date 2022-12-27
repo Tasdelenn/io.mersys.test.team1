@@ -32,11 +32,11 @@ public class BelirliFeaturelariCalistir extends AbstractTestNGCucumberTests {   
 
         @AfterClass
         public static void writeExtentReport() {
-                ExtentService.getInstance().setSystemInfo("Team Name", "Team-1@TechnoStudy : HumanResources Tests");
+                ExtentService.getInstance().setSystemInfo("Team Name", "Team-1@TechnoStudy : Login ve Country");
                 ExtentService.getInstance().setSystemInfo("Application Name", "Campus");
                 ExtentService.getInstance().setSystemInfo("Operating System Info", System.getProperty("os.name").toString());
                 ExtentService.getInstance().setSystemInfo("Department", "QA");
-                ExtentService.getInstance().setSystemInfo("Ek Satır", "HumanResources Test Sonucu");
+                ExtentService.getInstance().setSystemInfo("Ek Satır", "Login ve CreateCountry Test Sonucu");
         }
 
 }
