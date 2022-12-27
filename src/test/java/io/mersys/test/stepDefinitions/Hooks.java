@@ -46,7 +46,7 @@ public class Hooks {
 
             try {
                 FileUtils.copyFile(ekranDosyasi,
-                        new File("target/FailedScreenShots/"+ scenario.getId()+date.format(formatter)+".png"));
+                        new File("target/FailedScreenShots/"+ scenario.getName()+date.format(formatter)+".png"));
 
             } catch (IOException e) {
                 e.printStackTrace();
