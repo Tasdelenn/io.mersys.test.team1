@@ -38,5 +38,3 @@ Feature: Human Resources Attestations
     When The user search and delete the item from Dialog Page
       | Veli Onay |
     Then Success message should be displayed
-
-
