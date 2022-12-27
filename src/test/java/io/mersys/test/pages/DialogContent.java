@@ -62,6 +62,9 @@ public class DialogContent extends BaseFunctions {
     @FindBy(xpath = "//ms-delete-button//button")
     private WebElement deleteButton;
 
+    @FindBy(xpath = "//ms-delete-button//button")
+    private List<WebElement> deleteButton2;
+
     @FindBy(xpath = "//span[contains(text(),'Delete')]")
     private WebElement deleteDialogBtn;
 
@@ -179,6 +182,10 @@ public class DialogContent extends BaseFunctions {
                 break;
             case "deleteButton":
                 myElement = deleteButton;
+                break;
+            case "deleteButton2":
+                BaseDriver.getWait().until(ExpectedConditions.numberOfElementsToBeLessThan(By.xpath("//ms-delete-button//button"), deleteButton2.size()));
+                myElement = deleteButton2.get(0);
                 break;
             case "deleteDialogBtn":
                 myElement = deleteDialogBtn;
