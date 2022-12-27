@@ -1,5 +1,6 @@
 package io.mersys.test.stepDefinitions;
 
+import com.aventstack.extentreports.service.ExtentTestManager;
 import io.mersys.test.utilities.BaseDriver;
 import io.mersys.test.utilities.ExcelUtility;
 import io.cucumber.java.After;
@@ -42,7 +43,7 @@ public class Hooks {
             File ekranDosyasi = screenshot.getScreenshotAs(OutputType.FILE);
 
             //Extend Reporta ekleniyor  EXTEND report olmadığında burası kaldırılmalı !!! yoksa browserlar KAPANMAZ
-            //ExtentTestManager.getTest().addScreenCaptureFromBase64String(getBase64Screenshot());
+            ExtentTestManager.getTest().addScreenCaptureFromBase64String(getBase64Screenshot());
 
             try {
                 FileUtils.copyFile(ekranDosyasi,
