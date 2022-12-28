@@ -87,7 +87,6 @@
             <scope>test</scope>
         </dependency>
 
-
         <!-- Excel işlemleri için aşağıdaki 2 depency ye kullanılıyor-->
         <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
         <dependency>
@@ -146,7 +145,6 @@
 
     </dependencies>
 
-
     <build>
         <plugins>
             <plugin>
@@ -154,9 +152,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M1</version>
                 <configuration>
-                    <!--    <source>9</source>
-                            <target>9</target>
-                            -->
                     <suiteXmlFiles>
                         src/test/resources/XMLFiles/TestNG.xml
                     </suiteXmlFiles>
@@ -164,6 +159,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>
