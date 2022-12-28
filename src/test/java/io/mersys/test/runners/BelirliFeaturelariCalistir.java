@@ -9,22 +9,23 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.Listeners;
 
 @CucumberOptions(
+        tags = "",
+        features = {"src/test/resources/featureFiles/_Public_Login/login.feature",
+                "src/test/resources/featureFiles/_Samples_/country.feature"
+        },
+        glue = {"classpath:io/mersys/test/stepDefinitions"},
         plugin = {
                 "rerun:target/rerun.txt",
                 "json:target/cucumber.json",
                 "timeline:target/timeline-report",
                 "html:target//cucumber-reports.html"
         },
-        features = {"src/test/resources/featureFiles/_Public_Login/login.feature",
-                "src/test/resources/featureFiles/_Samples_/country.feature"
-        },
-        glue = {"classpath:io/mersys/test/stepDefinitions"},
-        dryRun = false,    // true olduğunda testi çalıştırma sadece feature lara
+        dryRun = false,
+        // true olduğunda testi çalıştırma sadece feature lara
         // ait steplerin varlığını kontrol eder.
         // false olduğunda ise testi çalıştırır.
-        tags = "",
-        publish = true
 
+        publish = true
 )
 
 @Listeners({ExtentITestListenerClassAdapter.class})
