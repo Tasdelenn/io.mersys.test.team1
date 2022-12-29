@@ -1,9 +1,9 @@
 Feature: Human Resources Attestations
 
   Background:
-    Given Navigate to Mersys Campus
-    When Enter username and password and click login button
-    Then User should be login successfuly
+#    Given Navigate to Mersys Campus
+#    When Enter username and password and click login button
+#    Then User should be login successfuly
     And Click on the element in the left Nav
       | humanResources |
       | hrSetup        |
@@ -26,7 +26,7 @@ Feature: Human Resources Attestations
     And Click on the element in the Dialog
       | searchButton |
     And Click on the element in the Dialog
-      | editButton |
+      | editButton3 |
     And User sending the keys in Dialog content
       | nameInput | Veli Onay |
     And Click on the element in the Dialog
