@@ -1,10 +1,9 @@
 Feature: Cities add, update and delete functionality
 
   Background: Navigate and choose cities functionality
-
-    Given Navigate to Mersys Campus
-    When Enter username and password and click login button
-    Then User should be login successfuly
+#    Given Navigate to Mersys Campus
+#    When Enter username and password and click login button
+#    Then User should be login successfuly
     And Click on the element in the left Nav
       | setupOne   |
       | parameters |

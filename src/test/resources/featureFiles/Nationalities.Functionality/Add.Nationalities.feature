@@ -1,10 +1,10 @@
 Feature: Nationalities Functionality
 
   Background:
-    Given Navigate to Mersys Campus
-    When Enter username and password and click login button
-    Then User should be login successfuly
-    And Click on the element in the left Nav
+#    Given Navigate to Mersys Campus
+#    When Enter username and password and click login button
+#    Then User should be login successfuly
+    Given Click on the element in the left Nav
       | setupOne      |
       | parameters    |
       | nationalities |

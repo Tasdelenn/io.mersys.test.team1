@@ -62,7 +62,7 @@ public class DialogContent extends BaseFunctions {
     @FindBy(xpath = "//ms-delete-button//button")
     private WebElement deleteButton;
 
-    @FindBy(xpath = "//ms-delete-button//button")
+    @FindBy(xpath = "//ms-delete-button/button/span")
     private List<WebElement> deleteButton2;
 
     @FindBy(xpath = "//span[contains(text(),'Delete')]")
@@ -95,7 +95,8 @@ public class DialogContent extends BaseFunctions {
     @FindBy(xpath = "//ms-edit-button/button")
     private WebElement editButton2;
 
-    @FindBy(css = "ms-edit-button[class='ng-star-inserted'] button")
+    //@FindBy(css = "ms-edit-button[class='ng-star-inserted'] button") /** locator değişmiş */
+    @FindBy(css = "ms-edit-button[class^='ng-']")
     private List<WebElement> editButton3;
 
     @FindBy(xpath = "//ms-text-field[@formcontrolname='description']//input")
@@ -200,7 +201,7 @@ public class DialogContent extends BaseFunctions {
                 myElement = editButton2;
                 break;
             case "editButton3":
-                BaseDriver.getWait().until(ExpectedConditions.numberOfElementsToBeLessThan(By.cssSelector("ms-edit-button[class='ng-star-inserted'] button"), editButton3.size()));
+                BaseDriver.getWait().until(ExpectedConditions.numberOfElementsToBeLessThan(By.cssSelector("ms-edit-button[class^='ng-']"), editButton3.size()));
                 myElement = editButton3.get(0);
                 break;
             case "active":
@@ -227,6 +228,10 @@ public class DialogContent extends BaseFunctions {
             case "noDataMessage":
                 myElement = noDataMessage;
                 break;
+            case "loginButton":
+                myElement = loginButton;
+                break;
+
         }
 
         verifyContainsText(myElement, text);

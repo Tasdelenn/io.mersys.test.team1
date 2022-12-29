@@ -81,7 +81,7 @@ public class FeesSteps {
         dc.findAndClick("closeDialog");
         dc.findAndSend("searchInput", "Document8");
         dc.findAndClick("searchButton");
-        //BaseDriver.Bekle(1);
+        //BaseDriver.Bekle(2);
         dc.findAndClick("deleteButton2");
         dc.findAndClick("deleteDialogBtn");
     }
