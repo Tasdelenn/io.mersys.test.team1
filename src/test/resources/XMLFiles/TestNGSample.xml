@@ -1,0 +1,10 @@
+<suite name="Jenkins Login and country test" parallel="none">
+    <listeners>
+        <listener class-name="com.aventstack.extentreports.testng.listener.ExtentITestListenerClassAdapter"></listener>
+    </listeners>
+    <test name="CampusTest">
+        <classes>
+            <class name="io.mersys.test.runners.BelirliFeaturelariCalistir" />
+        </classes>
+    </test>
+</suite>
