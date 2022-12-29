@@ -22,12 +22,16 @@ public class Hooks {
     public void before()
     {
         System.out.println("::: Starting Automation:::");
+        LoginSteps login = new LoginSteps();
+        login.navigateToCampus();
+        login.enterUsernameAndPasswordAndClickLoginButton();
+        login.userShouldLoginSuccessfuly();
     }
 
     @After
     public void after(Scenario scenario)
     {
-        System.out.println(":::(^_^) End of test execution ($_$):::");
+        System.out.println("::: End of test execution :::");
         System.out.println("Result of Scenario = "+ scenario.getStatus());
         System.out.println("is Scenario Failed ? = "+ scenario.isFailed());
 
