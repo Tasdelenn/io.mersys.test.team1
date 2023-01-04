@@ -7,6 +7,7 @@ import io.mersys.test.pages.DialogContent;
 import io.mersys.test.pages.LeftNav;
 import io.mersys.test.utilities.BaseDriver;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -18,6 +19,7 @@ public class FeesSteps {
     DialogContent dc = new DialogContent();
     Faker faker = new Faker();
     Actions actions = new Actions(BaseDriver.getDriver());
+    WebDriverWait wait = new WebDriverWait(BaseDriver.getDriver(),Duration.ofSeconds(30));
 
     @And("Navigate to fees page")
     public void navigateToFeesPage() {
@@ -46,7 +48,6 @@ public class FeesSteps {
     public void userEditFee() {
         dc.findAndSend("searchInput", "Document8");
         dc.findAndClick("searchButton");
-        //BaseDriver.Bekle(1);
         dc.findAndClick("editButton3");
         dc.findAndSend("nameInput", "Document45");
         dc.findAndSend("codeInput", "Doc45");
@@ -75,20 +76,15 @@ public class FeesSteps {
         dc.findAndClick("saveButton");
     }
 
-
-    @And("Close the dialog content and Delete fee")
-    public void closeTheDialogContent() {
-        dc.findAndClick("closeDialog");
-        dc.findAndSend("searchInput", "Document8");
-        dc.findAndClick("searchButton");
-        //BaseDriver.Bekle(2);
-        dc.findAndClick("deleteButton2");
-        dc.findAndClick("deleteDialogBtn");
-    }
-
     @Then("The user search and delete an unavaible fee")
     public void theUserSearchAndDeleteAnUnavaibleFee() {
         dc.findAndSend("searchInput", "School Fee");
         dc.findAndClick("searchButton");
+    }
+
+    @And("The user search and delete the item from Dialog Page {string}")
+    public void theUserSearchAndDeleteTheItemFromDialogPage(String searchInput) {
+        dc.SearchAndDelete(searchInput);
+
     }
 }

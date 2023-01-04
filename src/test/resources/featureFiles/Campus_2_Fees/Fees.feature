@@ -1,9 +1,6 @@
 Feature: Fees under Setup-Parameters Functionality
 
   Background:
-#    Given Navigate to Mersys Campus
-#    When Enter username and password and click login button
-#    Then User should be login successfuly
     And Navigate to fees page
 
   Scenario: Add, Edit and Delete Fees
@@ -22,7 +19,8 @@ Feature: Fees under Setup-Parameters Functionality
 
       Then User add a exist fee name
       And Already Exist message should be displayed
-      And Close the dialog content and Delete fee
+      And Click on close button
+      And The user search and delete the item from Dialog Page "document8"
       And Success message should be displayed
 
     Scenario: Search and delete an unavailable fee
