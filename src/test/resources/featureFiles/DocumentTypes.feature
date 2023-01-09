@@ -67,6 +67,7 @@ Feature: Document Types under Parameters Setup Functionality
 
     Then Success message should be displayed
 
+
   @Regression @DocumentTypes @DocumentTypesNegative
   Scenario: Delete Document Types
 
