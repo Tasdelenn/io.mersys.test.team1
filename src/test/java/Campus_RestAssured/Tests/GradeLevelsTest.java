@@ -18,7 +18,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class GradeLevelsTest {
     Cookies cookies;
-    Faker faker;
+    Faker faker = new Faker();
 
     @BeforeClass
     public void login() {
@@ -59,13 +59,10 @@ public class GradeLevelsTest {
 
     @Test
     public void createGradeLevel() {
-        //gradeLevelName=getRandomName();
-        //gradeLevelOrder=getRandomOrder();
-        //gradeLevelShortName=getRandomShortName();
-        gradeLevelName = faker.educator().secondarySchool();
-        gradeLevelOrder = String.valueOf(((int)(Math.random()*10)));
-        gradeLevelShortName = gradeLevelName.substring(0,3);
 
+        gradeLevelName = faker.educator().secondarySchool();
+        gradeLevelShortName = gradeLevelName.substring(0, 4);
+        gradeLevelOrder = String.valueOf(faker.random().nextInt(10));
 
         GradeLevels gradeLevels = new GradeLevels();
         gradeLevels.setName(gradeLevelName);
@@ -76,16 +73,7 @@ public class GradeLevelsTest {
                 given()
                         .cookies(cookies)
                         .contentType(ContentType.JSON)
-                        .body("{\n" +
-                                "  \"id\": null,\n" +
-                                "  \"name\": \"bbccbbb\",\n" +
-                                "  \"shortName\": \"bcb\",\n" +
-                                "  \"nextGradeLevel\": null,\n" +
-                                "  \"order\": \"1\",\n" +
-                                "  \"translateName\": [],\n" +
-                                "  \"translateShortName\": [],\n" +
-                                "  \"active\": true\n" +
-                                "}")
+                        .body(gradeLevels)
 
                         .when()
                         .post("school-service/api/grade-levels")
@@ -140,10 +128,9 @@ public class GradeLevelsTest {
     @Test(dependsOnMethods = "createGradeLevel")
     public void updateGradeLevel() {
 
-        gradeLevelName = getRandomName();
-        gradeLevelShortName = getRandomShortName();
-        gradeLevelOrder = getRandomOrder();
-
+        gradeLevelName = "Team1 " + gradeLevelName;
+        gradeLevelShortName = "T1 " + gradeLevelShortName;
+        gradeLevelOrder = String.valueOf(faker.random().nextInt(10));
 
         GradeLevels gradeLevels = new GradeLevels();
         gradeLevels.setId(gradeLevelID);
@@ -171,6 +158,7 @@ public class GradeLevelsTest {
         given()
                 .cookies(cookies)
                 .pathParam("gradeLevelID", gradeLevelID)
+                .log().uri()
 
                 .when()
                 .delete("school-service/api/grade-levels/{gradeLevelID}")
@@ -186,7 +174,7 @@ public class GradeLevelsTest {
         given()
                 .cookies(cookies)
                 .pathParam("gradeLevelID", gradeLevelID)
-                .log().uri()
+
                 .when()
                 .delete("school-service/api/grade-levels/{gradeLevelID}")
 
