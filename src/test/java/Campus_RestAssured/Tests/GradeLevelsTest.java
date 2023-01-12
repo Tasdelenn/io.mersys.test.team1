@@ -55,19 +55,19 @@ public class GradeLevelsTest {
     String gradeLevelID;
     String gradeLevelName;
     String gradeLevelShortName;
-    String gradeLevelOrder;
+    int gradeLevelOrder;
 
     @Test
     public void createGradeLevel() {
 
         gradeLevelName = faker.educator().secondarySchool();
         gradeLevelShortName = gradeLevelName.substring(0, 4);
-        gradeLevelOrder = String.valueOf(faker.random().nextInt(10));
+        gradeLevelOrder = (faker.random().nextInt(10));
 
         GradeLevels gradeLevels = new GradeLevels();
         gradeLevels.setName(gradeLevelName);
         gradeLevels.setShortName(gradeLevelShortName);
-        gradeLevels.setOrder(gradeLevelOrder);
+        gradeLevels.setOrder(String.valueOf(gradeLevelOrder));
 
         gradeLevelID =
                 given()
@@ -95,19 +95,18 @@ public class GradeLevelsTest {
         return RandomStringUtils.randomAlphabetic(3).toLowerCase();
     }
 
-    public String getRandomOrder() {
-        return RandomStringUtils.randomAlphanumeric(2).toLowerCase();
+    public int getRandomOrder() {
+        return (int)(Math.random()*100);
     }
 
 
     @Test(dependsOnMethods = "createGradeLevel")
     public void createGradeLevelNegative() {
-        //"message": "The Country with Name \"France 375\" already exists.",
-
+        //"message": "The Grade Level with Name \"Foo Bar\" already exists.",
         GradeLevels gradeLevels = new GradeLevels();
         gradeLevels.setName(gradeLevelName);
         gradeLevels.setShortName(gradeLevelShortName);
-        gradeLevels.setOrder(gradeLevelOrder);
+        gradeLevels.setOrder(String.valueOf(gradeLevelOrder));
 
 
         given()
@@ -130,13 +129,13 @@ public class GradeLevelsTest {
 
         gradeLevelName = "Team1 " + gradeLevelName;
         gradeLevelShortName = "T1 " + gradeLevelShortName;
-        gradeLevelOrder = String.valueOf(faker.random().nextInt(10));
+        gradeLevelOrder = (faker.random().nextInt(10));
 
         GradeLevels gradeLevels = new GradeLevels();
         gradeLevels.setId(gradeLevelID);
         gradeLevels.setName(gradeLevelName);
         gradeLevels.setShortName(gradeLevelShortName);
-        gradeLevels.setOrder(gradeLevelOrder);
+        gradeLevels.setOrder(String.valueOf(gradeLevelOrder));
 
         given()
                 .cookies(cookies)
@@ -195,7 +194,7 @@ public class GradeLevelsTest {
         gradeLevels.setId(gradeLevelID);
         gradeLevels.setName(gradeLevelName);
         gradeLevels.setShortName(gradeLevelShortName);
-        gradeLevels.setOrder(gradeLevelOrder);
+        gradeLevels.setOrder(String.valueOf(gradeLevelOrder));
 
         given()
                 .cookies(cookies)
@@ -208,7 +207,7 @@ public class GradeLevelsTest {
                 .then()
                 .log().body()
                 .statusCode(400)
-                .body("message", equalTo("Grade Level  not found"))
+                .body("message", equalTo("Grade Level not found."))
         ;
     }
 
