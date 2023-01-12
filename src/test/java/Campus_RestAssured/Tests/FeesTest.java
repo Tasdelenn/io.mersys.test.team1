@@ -58,10 +58,10 @@ public class FeesTest {
     @Test
     public void createFees() {
 
-        feesName = "document "+ String.valueOf(faker.random().nextInt(50));
-        feesCode = "doc "+String.valueOf(faker.random().nextInt(50));
-        feesIntegrationCode = String.valueOf(faker.random().nextInt(100));
-        feesPriority = faker.number().numberBetween(1,250);
+        feesName = "document "+ String.valueOf(faker.random().nextInt(1000));
+        feesCode = "doc "+String.valueOf(faker.random().nextInt(1000));
+        feesIntegrationCode = String.valueOf(faker.random().nextInt(1000));
+        feesPriority = faker.number().numberBetween(1,1000);
 
         Fees fees = new Fees();
         fees.setName(feesName);
@@ -106,13 +106,13 @@ public class FeesTest {
                 .then()
                 .log().body()
                 .statusCode(400)
-                .body("message", equalTo("The Fee Type  with Name \""+feesName+"\" already exists."))
+                .body("message", equalTo("The Fee Type with Name \""+feesName+"\" already exists."))
         ;
     }
 
     @Test(dependsOnMethods = "createFees")
     public void updateFees() {
-        feesName = "document "+ String.valueOf(faker.random().nextInt(50));
+        feesName = "document "+ String.valueOf(faker.random().nextInt(1000)) + " " + faker.name().lastName();
 
         Fees fees = new Fees();
         fees.setId(feesID);
@@ -129,6 +129,7 @@ public class FeesTest {
                 .put("/school-service/api/fee-types")
                 .then()
                 .statusCode(200)
+                .log().body()
                 .body("name", equalTo(feesName))
         ;
 
