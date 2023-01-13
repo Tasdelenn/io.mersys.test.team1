@@ -61,8 +61,29 @@ public class CitizenShipsTest {
     String citizenShipId;
 
     @Test
+    public void searchCitizenship() {
+
+        given()
+                .cookies(cookies)
+                .body("{}")
+                .contentType(ContentType.JSON)
+
+                .when()
+                .post("/school-service/api/citizenships/search")
+
+                .then()
+                .statusCode(200)
+                .log().body()
+        ;
+
+    }
+
+
+    @Test
     public void createCitizenship() {
         Citizenship citizenship = new Citizenship(name, shortName);
+
+
 
         citizenShipId = given()
                 .cookies(cookies)
@@ -80,6 +101,7 @@ public class CitizenShipsTest {
         ;
         System.out.println("name manual = " + name);
     }
+
 
     @Test(dependsOnMethods = "createCitizenship")
     public void createCitizenshipNegative() {
@@ -151,9 +173,5 @@ public class CitizenShipsTest {
                 .statusCode(400)
                 .log().body()
         ;
-
-
     }
-
-
 }
