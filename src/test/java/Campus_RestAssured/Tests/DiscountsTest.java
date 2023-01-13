@@ -185,5 +185,21 @@ public class DiscountsTest {
                 .body("message", equalTo("Discount not found"))
         ;
     }
+    @Test
+    public void listOfDiscounts() {
+
+        given()
+                .cookies(cookies)
+                .body("{}")
+                .contentType(ContentType.JSON)
+
+                .when()
+                .post("/school-service/api/discounts/search")
+
+                .then()
+                .statusCode(200)
+                .log().body()
+        ;
+    }
 
 }
