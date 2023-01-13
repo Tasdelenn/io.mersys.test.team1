@@ -4,14 +4,14 @@ public class States {
     private String id;
     private String name;
     private String shortName;
-    private String country_id;
+    private StatesCountry country;
 
-    public String getCountry_id() {
-        return country_id;
+    public StatesCountry getCountry() {
+        return country;
     }
 
-    public void setCountry_id(String country_id) {
-        this.country_id = country_id;
+    public void setCountry(StatesCountry country) {
+        this.country = country;
     }
 
     public String getId() {
