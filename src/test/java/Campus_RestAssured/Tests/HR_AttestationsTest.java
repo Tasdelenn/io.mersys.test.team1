@@ -1,52 +1,14 @@
 package Campus_RestAssured.Tests;
 
 import Campus_RestAssured.Models.HR_Attestations;
-import com.github.javafaker.Faker;
-import io.mersys.test.utilities.ConfigurationReader;
 import io.restassured.http.ContentType;
-import io.restassured.http.Cookies;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-public class HR_AttestationsTest {
-    Cookies cookies;
-
-    @BeforeClass
-    public void loginCampus() {
-        String uriValue = ConfigurationReader.getProperty("url");
-        String usernameValue = ConfigurationReader.getProperty("confUsername");
-        String passwordValue = ConfigurationReader.getProperty("confPassword");
-        String rememberMeValue = ConfigurationReader.getProperty("confRememberMe");
-
-        baseURI = uriValue;
-
-        Map<String, String> credential = new HashMap<>();
-        credential.put("username", usernameValue);
-        credential.put("password", passwordValue);
-        credential.put("rememberMe", rememberMeValue);
-
-        cookies =
-                given()
-                        .contentType(ContentType.JSON)
-                        .body(credential)
-
-                        .when()
-                        .post("auth/login")
-
-                        .then()
-                        //.log().cookies()
-                        .statusCode(200)
-                        .extract().response().getDetailedCookies()
-        ;
-    }
+public class HR_AttestationsTest extends Hooks {
 
     String attestationsID;
     String attestationsName;
@@ -122,8 +84,10 @@ public class HR_AttestationsTest {
         ;
     }
 
-    @Test
+    @Test(dependsOnMethods = "updateAttestations")
     public void deleteAttestationsById() {
+        // HR_Attestations attestation = new HR_Attestations();
+        // attestationsID = attestation.getId();
         given()
                 .cookies(cookies)
                 .pathParam("attestationsID", attestationsID)
@@ -133,7 +97,7 @@ public class HR_AttestationsTest {
 
                 .then()
                 .log().body()
-                .statusCode(200)
+                .statusCode(204)
         ;
     }
 
@@ -172,9 +136,7 @@ public class HR_AttestationsTest {
                 .then()
                 .log().body()
                 .statusCode(400)
-                .body("message", equalTo("Attestation not found"))
+                .body("message", equalTo("Can't find Attestation"))
         ;
     }
-
-
 }

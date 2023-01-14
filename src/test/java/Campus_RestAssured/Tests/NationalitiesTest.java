@@ -1,57 +1,14 @@
 package Campus_RestAssured.Tests;
 
-import Campus_RestAssured.Models.Document;
 import Campus_RestAssured.Models.Nationalities;
-import io.mersys.test.utilities.ConfigurationReader;
 import io.restassured.http.ContentType;
-import io.restassured.http.Cookies;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
-
-import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-public class NationalitiesTest {
-
-    Cookies cookies;
-
-    @BeforeClass
-    public void Login() {
-        String urlValue = ConfigurationReader.getProperty("url");
-        String usernameValue = ConfigurationReader.getProperty("confUsername");
-        String passwordValue = ConfigurationReader.getProperty("confPassword");
-        String rememberMeValue = ConfigurationReader.getProperty("confRememberMe");
-
-
-        baseURI = urlValue;
-
-        Map<String, String> account = new HashMap<>();
-        account.put("username", usernameValue);
-        account.put("password", passwordValue);
-        account.put("rememberMe", rememberMeValue);
-
-
-        cookies =
-                given()
-                        .contentType(ContentType.JSON)
-                        .body(account)
-
-                        .when()
-                        .post("/auth/login")
-
-
-                        .then()
-                        .statusCode(200)
-                        .extract().response().getDetailedCookies()
-        ;
-    }
-
+public class NationalitiesTest extends Hooks {
 
     String nationalityID;
     String nationalityName;
@@ -77,10 +34,8 @@ public class NationalitiesTest {
                         .log().body()
                         .statusCode(201)
                         .extract().jsonPath().getString("id")
-
         ;
     }
-
 
     @Test(dependsOnMethods = "createNationality")
     public void createNationalityNegative() {
@@ -103,7 +58,6 @@ public class NationalitiesTest {
         ;
     }
 
-
     @Test(dependsOnMethods = "createNationalityNegative")
     public void updateNationality() {
 
@@ -123,10 +77,8 @@ public class NationalitiesTest {
                 .log().body()
                 .statusCode(200)
                 .body("name", equalTo(nationalityName+"Düzenlendi"))
-
         ;
     }
-
 
     @Test(dependsOnMethods = "updateNationality")
     public void deleteNationalityByID() {
@@ -141,10 +93,8 @@ public class NationalitiesTest {
                 .then()
                 .log().body()
                 .statusCode(200)
-
         ;
     }
-
 
     @Test(dependsOnMethods = "deleteNationalityByID")
     public void deleteNationalityByIDNegative() {
@@ -181,11 +131,9 @@ public class NationalitiesTest {
                 .then()
                 .log().body()
                 .statusCode(400)
-                .body("message", equalTo("GENERAL.ERROR.ATTACHMENT_TYPE_NOT_FOUND"))
-
+                .body("message", equalTo("Can't find Nationality"))
         ;
     }
-
 
     public String getRandomName() {
         String rdm = RandomStringUtils.randomAlphabetic(3).toLowerCase();
@@ -197,6 +145,4 @@ public class NationalitiesTest {
 //        return rd.nextBoolean();
         return new Random().nextBoolean();
     }
-
-
 }
