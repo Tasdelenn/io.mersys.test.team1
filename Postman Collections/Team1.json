@@ -1,0 +1,5102 @@
+{
+	"info": {
+		"_postman_id": "cc420f33-8e51-41b9-bc07-f4073f63ef5f",
+		"name": "test.mersys.io",
+		"description": "**Techno Study** _**Campus**_ web uygulaması olan [**https://test.mersys.io**](https://demo.mersys.io) sitesine ait modüllerin API testleridir.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "+Setup",
+			"item": [
+				{
+					"name": "School Setup",
+					"item": [
+						{
+							"name": "Schools (Admin)",
+							"item": [],
+							"_postman_id": "a668f521-f3d2-4a4f-bce3-1840a7096936",
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "School (Active)",
+							"item": [],
+							"_postman_id": "8d67e64b-bd6a-42d0-b272-0544e8fed8ef",
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Academic Calendar",
+							"item": [],
+							"_postman_id": "f9d9aae2-ca85-41de-9cfc-bf203cac4585",
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Locations",
+							"item": [
+								{
+									"name": "Login",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "80c0c357-9f77-4d03-a39a-6c75cbde7193",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "fd50ff9c-0a38-4d88-9cba-08a9681a5f88",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"rememberMe\": \"true\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://test.mersys.io/auth/login"
+									},
+									"response": []
+								},
+								{
+									"name": "ADD Locations",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4f49571f-2dbb-4fc6-a926-97b5920850bf",
+												"exec": [
+													"var body = pm.response.json();\r",
+													"var locationsID = body.id;\r",
+													"var locationsName = body.name;\r",
+													"var locationShortName = body.shortName;\r",
+													"var locationsCap = body.capacity;\r",
+													"var schoolId = body.school;\r",
+													"\r",
+													"pm.collectionVariables.set(\"locationsID\", locationsID);\r",
+													"pm.collectionVariables.set(\"locationsName\", locationsName);\r",
+													"pm.collectionVariables.set(\"locationShortName\", locationShortName);\r",
+													"pm.collectionVariables.set(\"locationsCap\", locationsCap);\r",
+													"pm.collectionVariables.set(\"schoolId\", schoolId);\r",
+													"\r",
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "76686248-7412-4f79-93f3-7105d1435d18",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": null,\r\n    \"name\": \"{{$randomAdjective}}{{$randomInt}}\",\r\n    \"shortName\": \"{{$randomInt}}{{$randomCurrencyCode}}\",\r\n    \"active\": true,\r\n    \"capacity\": \"{{$randomInt}}\",\r\n    \"type\": \"LABORATORY\",\r\n    \"school\": \"6390f3207a3bcb6a7ac977f9\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}location"
+									},
+									"response": []
+								},
+								{
+									"name": "ADD Locations Negative",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4f49571f-2dbb-4fc6-a926-97b5920850bf",
+												"exec": [
+													"pm.test(\"Body matches string\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"already exists\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "958dcbfc-5cb1-4ae3-bae6-f104ced7740b",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{locationsName}}\",\r\n  \"shortName\": \"{{locationShortName}}\",\r\n  \"active\": true,\r\n  \"capacity\": \"{{locationsCap}}\",\r\n  \"type\": \"LABORATORY\",\r\n  \"school\": \"{{schoolId}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}location"
+									},
+									"response": []
+								},
+								{
+									"name": "EDIT Locations",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "e17ca59e-87a3-4c8b-986d-7e99c3d755cc",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "783aefaf-b253-4fbd-bc2d-bacd23228c85",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"{{locationsID}}\",\r\n  \"name\": \"team1 {{locationsName}}\",\r\n  \"shortName\": \"t1 {{locationShortName}}\",\r\n  \"active\": true,\r\n  \"capacity\": \"100\",\r\n  \"type\": \"CLASS\",\r\n  \"school\": \"{{schoolId}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}location"
+									},
+									"response": []
+								},
+								{
+									"name": "DELETE Locations",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "40a53ea8-7cbe-4d1c-977d-f79ab22d682f",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "e16f446f-903d-4ee5-8171-f7141a6f2e61",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}location/{{locationsID}}"
+									},
+									"response": []
+								},
+								{
+									"name": "DELETE Locations Negative",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "40a53ea8-7cbe-4d1c-977d-f79ab22d682f",
+												"exec": [
+													"pm.test(\"Body matches string\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"SCHOOL_LOCATION_NOT_FOUND\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "c546d829-6d84-4f56-93c7-726225c37289",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}location/{{locationsID}}"
+									},
+									"response": []
+								},
+								{
+									"name": "EDIT Locations Negative",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "e17ca59e-87a3-4c8b-986d-7e99c3d755cc",
+												"exec": [
+													"pm.test(\"Body matches string\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"SCHOOL_LOCATION_NOT_FOUND\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "70fd83e0-4a57-457c-9f72-e5a29ba455c8",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"{{locationsID}}\",\r\n  \"name\": \"team1 Library\",\r\n  \"shortName\": \"t1\",\r\n  \"active\": true,\r\n  \"capacity\": \"3425\",\r\n  \"type\": \"CLASS\",\r\n  \"school\": \"{{schoolId}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}location"
+									},
+									"response": []
+								}
+							],
+							"_postman_id": "e5d1c29c-510c-4274-a28b-c0501e73d59c",
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Departments",
+							"item": [
+								{
+									"name": "Login",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "80c0c357-9f77-4d03-a39a-6c75cbde7193",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "f1b4731f-001a-4d06-a6ff-15527035c68b",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"rememberMe\": \"true\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://test.mersys.io/auth/login"
+									},
+									"response": []
+								},
+								{
+									"name": "ADD Departments",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "7b2ac382-68e3-4584-96a0-9d06fa7378c9",
+												"exec": [
+													"var body = pm.response.json();\r",
+													"var departmentsID = pm.response.json().id;\r",
+													"var departmentsName = pm.response.json().name;\r",
+													"console.log(body);\r",
+													"\r",
+													"pm.collectionVariables.set(\"departmentsID\", departmentsID);\r",
+													"pm.collectionVariables.set(\"departmentsName\", departmentsName);\r",
+													"\r",
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "98608962-6370-4d05-a758-c7b7ccdea806",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"{{$randomDepartment}}\",\r\n  \"code\": \"{{$randomCurrencyCode}}\",\r\n  \"school\": \"{{schoolId}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}department"
+									},
+									"response": []
+								},
+								{
+									"name": "ADD Departments Negative",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "7b2ac382-68e3-4584-96a0-9d06fa7378c9",
+												"exec": [
+													"pm.test(\"Body matches string\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"There is already Department\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "a1e32c47-041d-4456-91e4-f35620d3b9a8",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{departmentsName}}\",\r\n  \"code\": \"any\",\r\n  \"active\": true,\r\n  \"school\": \"6390f3207a3bcb6a7ac977f9\",\r\n  \"sections\": [],\r\n  \"constants\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}department"
+									},
+									"response": []
+								},
+								{
+									"name": "EDIT Departments",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "e47888d4-da13-4afc-a143-ef3f9d2afd5c",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "b7380cef-c454-4a55-96a5-e5b4ae6fc37d",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"{{departmentsID}}\",\r\n  \"name\": \"team1 {{$randomDepartment}}\",\r\n  \"code\": \"t1 {{$randomCurrencyCode}}\",\r\n  \"school\": \"{{schoolId}}\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}department"
+									},
+									"response": []
+								},
+								{
+									"name": "DELETE Departments",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "1637a026-b6ec-44aa-8218-cd0c6776df8f",
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {\r",
+													"    pm.response.to.have.status(204);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "fb67636f-7f7e-449d-852f-abdc2c2fc062",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": "{{url}}department/{{departmentsID}}"
+									},
+									"response": []
+								},
+								{
+									"name": "DELETE Departments Negative",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "1637a026-b6ec-44aa-8218-cd0c6776df8f",
+												"exec": [
+													"//pm.test(\"Status code is 400\", function () {\r",
+													"//    pm.response.to.have.status(400);\r",
+													"//});\r",
+													"\r",
+													"//pm.test(\"Body matches string\", function () {\r",
+													"//pm.expect(pm.response.text()).to.include(\"not found\");\r",
+													"//});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "0044c255-7440-4bb2-8d7c-50cfca256d37",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": "{{url}}department/{{departmentsID}}"
+									},
+									"response": []
+								},
+								{
+									"name": "EDIT Departments Negative",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0812c5fc-d2c4-404d-a436-ba6c339c5d7c",
+												"exec": [
+													"\r",
+													"var departmentMessage = pm.response.json().message;\r",
+													"console.log(\"message:\",departmentMessage);\r",
+													"\r",
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Is body message include\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"error.http.400\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "a41a9fd1-e1d6-4eb1-a40f-57d4d168d004",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": \"{{departmentsID}}\",\r\n    \"name\": \"Team1 {{$randomDepartment}}\",\r\n    \"code\": \"T1 {{$randomCurrencyCode}}\",\r\n    \"active\": false,\r\n    \"school\": {{schoolId}}\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}department"
+									},
+									"response": []
+								}
+							],
+							"_postman_id": "2920d2c2-2a27-4626-a3a8-984b75489010",
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Classes",
+							"item": [],
+							"_postman_id": "ed5dc851-3cba-485a-8e85-bc4b1956cb84",
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Users",
+							"item": [],
+							"_postman_id": "4b469392-c97e-4955-a0e6-e84d9abbc46b",
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Imported Users",
+							"item": [],
+							"_postman_id": "c0840527-0a13-412b-975b-bdd38d8bb0bd",
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Contract Templates",
+							"item": [],
+							"_postman_id": "17a7c5ff-6de6-4a90-be9c-d255c377eabc",
+							"_postman_isSubFolder": true
+						}
+					],
+					"_postman_id": "d0578eef-f450-4bad-a18f-142bb58cfc79",
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Parameters",
+					"item": [
+						{
+							"name": "Countries",
+							"item": [
+								{
+									"name": "Login",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "80c0c357-9f77-4d03-a39a-6c75cbde7193",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "9459bc34-efe6-430b-b3ee-0d3b50fa5dc5",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "oauth2",
+											"oauth2": {
+												"tokenType": "",
+												"addTokenTo": "header"
+											}
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"username\": \"turkeyts\",\r\n  \"password\": \"TechnoStudy123\",\r\n  \"rememberMe\": \"true\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://test.mersys.io/auth/login"
+									},
+									"response": []
+								},
+								{
+									"name": "List Country (Empty Search)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "83237909-2e77-4b8c-8bdd-ce05d2eae3fa",
+												"exec": [
+													"pm.test(\"Successful POST request\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "0fe189c0-ba95-4667-8088-9fb9460a64f6",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}countries/search"
+									},
+									"response": []
+								},
+								{
+									"name": "Create Country",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "83237909-2e77-4b8c-8bdd-ce05d2eae3fa",
+												"exec": [
+													"var body=pm.response.json();\r",
+													"var id=body.id;\r",
+													"var name=body.name;\r",
+													"console.log(body , name , id); // kod doğruluk kontrolü\r",
+													"\r",
+													"pm.collectionVariables.set(\"countryID\", id); // collection variable set olacak\r",
+													"pm.collectionVariables.set(\"countryName\", body.name);\r",
+													"\r",
+													"pm.test(\"Successful POST request\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "08a29198-889f-4d8d-a911-9314d38212a1",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{$randomCountry}} {{$randomInt}}\",\r\n  \"code\": \"{{$randomCountryCode}} {{$randomInt}}\",\r\n  \"translateName\": [],\r\n  \"hasState\": false\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}countries"
+									},
+									"response": []
+								},
+								{
+									"name": "Create Again Same Country (NEGATIVE)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "83237909-2e77-4b8c-8bdd-ce05d2eae3fa",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "9e3c55e9-6739-431e-afc6-dce6133f48c4",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{countryName}}\",\r\n  \"code\": null,\r\n  \"translateName\": [],\r\n  \"hasState\": false\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}countries"
+									},
+									"response": []
+								},
+								{
+									"name": "Update Country",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b4859833-4e9f-4429-8416-97e8bcffb832",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "44c8eb37-f254-4935-9538-e85b0cee377a",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"{{countryID}}\",\r\n  \"name\": \"foobaristan {{$randomInt}}\",\r\n  \"code\": \"kod {{$randomInt}}\",\r\n  \"translateName\": null,\r\n  \"hasState\": false\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}countries"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Country",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b4859833-4e9f-4429-8416-97e8bcffb832",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "425ac22a-925a-4e65-887a-bd6a42edfea9",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}countries/{{countryID}}"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Again Same Country (NEGATIVE)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b4859833-4e9f-4429-8416-97e8bcffb832",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "91bd4ed1-4059-44c3-93d5-511443161be5",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"{{countryID}}\",\r\n  \"name\": \"hqn {{$randomInt}}\",\r\n  \"code\": \"Kod {{$randomInt}}\",\r\n  \"translateName\": null,\r\n  \"hasState\": false\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}countries/{{countryID}}"
+									},
+									"response": []
+								},
+								{
+									"name": "Update Deleted Country (NEGATIVE)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b4859833-4e9f-4429-8416-97e8bcffb832",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Body matches string\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"Country not found\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "69798c48-ab63-4c50-a7b2-6ccca04ec48f",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"{{countryID}}\",\r\n  \"name\": \"foobaristan {{$randomInt}}\",\r\n  \"code\": \"kod {{$randomInt}}\",\r\n  \"translateName\": null,\r\n  \"hasState\": false\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}countries"
+									},
+									"response": []
+								}
+							],
+							"_postman_id": "712976dc-52be-4bf5-9f96-79423798b958",
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "States",
+							"item": [
+								{
+									"name": "Login",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "80c0c357-9f77-4d03-a39a-6c75cbde7193",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "76a64058-5df8-4319-b877-166d78f05199",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "oauth2",
+											"oauth2": {
+												"tokenType": "",
+												"addTokenTo": "header"
+											}
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"username\": \"turkeyts\",\r\n  \"password\": \"TechnoStudy123\",\r\n  \"rememberMe\": \"true\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://test.mersys.io/auth/login"
+									},
+									"response": []
+								},
+								{
+									"name": "List State",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0ef7bfe3-465b-4457-ad65-7decc28f6488",
+												"exec": [
+													"pm.test(\"Successful POST request\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "e0f8a106-b17a-4839-ac3c-b02ee8cb9be2",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}states/search"
+									},
+									"response": []
+								},
+								{
+									"name": "Create1) Create a new State from existing Countries",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b48c1786-a0b1-48e9-a599-fd90e8d493b3",
+												"exec": [
+													"var body=pm.response.json();\r",
+													"var id=body.id;\r",
+													"var name=body.name;\r",
+													"var shortName=body.shortName;\r",
+													"\r",
+													"console.log(body,id,name,shortName);\r",
+													"pm.collectionVariables.set(\"StateID\",id);\r",
+													"pm.collectionVariables.set(\"StateName\",name);\r",
+													"pm.collectionVariables.set(\"StateShortName\",shortName);\r",
+													"\r",
+													"pm.test(\"Successful POST request\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "30d804b0-329b-458f-b9ac-9b5936cb1424",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": null,\r\n    \"country\": {\r\n        \"id\": \"63a45bdbcb75ee5c2199a8cf\",\r\n        \"name\": null,\r\n        \"shortName\": null,\r\n\r\n        \"translateName\": null,\r\n        \"code\": null,\r\n        \"hasState\": false\r\n    },\r\n    \"name\": \"melek sehir\",\r\n    \"translateName\": [],\r\n    \"shortName\": \"ms\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}states"
+									},
+									"response": []
+								},
+								{
+									"name": "Create Negative(Create the same  State)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a904046a-4e23-4ced-935f-0b3ba805e48f",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "cd592d4f-fcb4-43d9-99c3-ed4b50244d25",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": null,\r\n    \"country\": {\r\n        \"id\": \"63a45bdbcb75ee5c2199a8cf\",\r\n        \"name\": null,\r\n        \"shortName\": null,\r\n        \"translateName\": null,\r\n        \"code\": null,\r\n        \"hasState\": false\r\n    },\r\n    \"name\": \"{{StateName}}\",\r\n    \"translateName\": [],\r\n    \"shortName\": \"{{StateShortName}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}states"
+									},
+									"response": []
+								},
+								{
+									"name": "Edit1) Update State from existing Countries",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3fe66893-f144-488a-9e84-e8dd841cf0a3",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "4b074cda-b9dc-4173-aa19-40055e8d6aba",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": \"{{StateID}}\",\r\n    \"name\": \"Meelek seehir\",\r\n    \"shortName\": \"ms\",\r\n    \"country\": {\r\n        \"id\": \"63a45bdbcb75ee5c2199a8cf\"\r\n    },\r\n    \"translateName\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}states"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete1) Delete new created State from existing Countries",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "5f19de74-8dca-4777-945f-899a4d2b1d95",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "5ea9c41a-7e98-4843-bcdd-b3cb25598f01",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": "{{url}}states/{{StateID}}"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Negative(Delete the deleted State by ID)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "5009b155-93bd-4998-94d0-744eda6cc1aa",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "01039ade-a4ed-432b-be63-973cb8f5483c",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": "{{url}}states/{{StateID}}"
+									},
+									"response": []
+								},
+								{
+									"name": "Edit Netagive(Update the deleted State)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "e7ea9ba0-2c50-4986-99ec-d7d9b83d1dad",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "f2ebc6d5-36dd-42cb-ad3e-4908880edb55",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": \"{{StateID}}\",\r\n    \"country\": {\r\n        \"id\": \"63a45bdbcb75ee5c2199a8cf\",\r\n        \"name\": null,\r\n        \"shortName\": null,\r\n        \"translateName\": null,\r\n        \"code\": null,\r\n        \"hasState\": false\r\n    },\r\n    \"name\": \"Zhambul\",\r\n    \"translateName\": [],\r\n    \"shortName\": \"ZB\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}states"
+									},
+									"response": []
+								},
+								{
+									"name": "Create a new Country with State",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "203ab8a8-9639-4a1c-8fa1-9a8b01ef03fd",
+												"exec": [
+													"var body=pm.response.json();\r",
+													"var id=body.id;\r",
+													"var name=body.name;\r",
+													"console.log(body , name , id); \r",
+													"\r",
+													"pm.collectionVariables.set(\"countryID\", id);\r",
+													"pm.collectionVariables.set(\"countryName\", body.name);\r",
+													"\r",
+													"pm.test(\"Successful POST request\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "65645a02-f170-4631-bf98-5a78bc96ff3b",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{$randomCountry}} {{$randomInt}}\",\r\n  \"code\": \"{{$randomCountryCode}} {{$randomInt}}\",\r\n  \"translateName\": [],\r\n  \"hasState\": true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}countries"
+									},
+									"response": []
+								},
+								{
+									"name": "Create2) Create a new State from new created Country",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0179414c-368e-4911-b0be-02b6da39efcd",
+												"exec": [
+													"var body=pm.response.json();\r",
+													"var id=body.id;\r",
+													"var name=body.name;\r",
+													"var shortName=body.shortName;\r",
+													"\r",
+													"console.log(body,id,name,shortName);\r",
+													"pm.collectionVariables.set(\"StateID\",id);\r",
+													"pm.collectionVariables.set(\"StateName\",name);\r",
+													"pm.collectionVariables.set(\"StateShortName\",shortName);\r",
+													"\r",
+													"pm.test(\"Successful POST request\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "2149192c-a8af-42a9-a5a1-92937e54edd6",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": null,\r\n    \"country\": {\r\n        \"id\": \"{{countryID}}\",\r\n        \"name\": null,\r\n        \"shortName\": null,\r\n\r\n        \"translateName\": null,\r\n        \"code\": null,\r\n        \"hasState\": false\r\n    },\r\n    \"name\": \"melek sehir\",\r\n    \"translateName\": [],\r\n    \"shortName\": \"ms\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}states"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Negative(Delete the Country wich has a State)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "72383e2e-6478-45a2-851a-09c89cb0c61a",
+												"exec": [
+													"pm.test(\"Status code is 500\", function () {\r",
+													"    pm.response.to.have.status(500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Body matches string\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"Could not delete from the specified record. Because the record being used by another document(s) : State\");\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "9a62a355-3480-44f8-a997-bca4fb1d4618",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": "{{url}}countries/{{countryID}}"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete2)Delete the State",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6c23c661-e193-4d5e-b1f8-4f9aba202c80",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "72ee8082-6cc8-4564-9b4d-e0fb643b2308",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": "{{url}}states/{{StateID}}"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete the new created Country",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "aefc3a3e-0a50-46e5-9933-cbaf7cefee25",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "103fdd85-9475-44bb-96ed-91e28d3c0d57",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": "{{url}}countries/{{countryID}}"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Negative(Delete the deleted Country)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "68c31518-a629-405e-b810-2e5045cbcd59",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "6e0c4393-3de7-4af5-84ad-fc67bbb4bdb2",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": "{{url}}countries/{{countryID}}"
+									},
+									"response": []
+								}
+							],
+							"_postman_id": "cf8b4ba0-e0e8-439d-858f-efa8e033cb4f",
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Cities",
+							"item": [
+								{
+									"name": "Login",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "5d8b7d17-5b72-4f4f-9ef9-2de9d51388bc",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "b524f5a3-d855-477d-b822-409ff0940669",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"rememberMe\": true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://test.mersys.io/auth/login"
+									},
+									"response": []
+								},
+								{
+									"name": "List Cities (EmptySearch)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0ef7bfe3-465b-4457-ad65-7decc28f6488",
+												"exec": [
+													"pm.test(\"Successful POST request\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "205b34c4-9118-433e-8554-bcfc804d10df",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}cities/search"
+									},
+									"response": []
+								},
+								{
+									"name": "Create a new City from existing Country",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b48c1786-a0b1-48e9-a599-fd90e8d493b3",
+												"exec": [
+													"var body=pm.response.json();\r",
+													"var id=body.id;\r",
+													"var name=body.name;\r",
+													"console.log(body,id,name);\r",
+													"\r",
+													"pm.collectionVariables.set(\"cityID\",id);\r",
+													"pm.collectionVariables.set(\"cityName\",name);\r",
+													"\r",
+													"pm.test(\"Successful POST request\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "db608004-8731-4f28-9b10-74e22b5f0173",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": null,\r\n    \"country\": {\r\n        \"id\": \"63a41a0dcb75ee5c2199a8bc\", \r\n        \"name\": null,\r\n        \"shortName\": null,\r\n        \"translateName\": null,\r\n        \"code\": null,\r\n        \"hasState\": false\r\n    },\r\n    \"state\": null,\r\n    \"name\": \"{{$randomCity}}\",\r\n    \"shortName\": null,\r\n    \"translateName\": [],\r\n    \"code\": null\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}cities"
+									},
+									"response": []
+								},
+								{
+									"name": "Create Again Same City (NEGATIVE)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a904046a-4e23-4ced-935f-0b3ba805e48f",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "b203c514-ee8a-4694-91a8-e789f36528bb",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": null,\r\n    \"country\": {\r\n        \"id\": \"63a41a0dcb75ee5c2199a8bc\", \r\n        \"name\": null,\r\n        \"shortName\": null,\r\n        \"translateName\": null,\r\n        \"code\": null,\r\n        \"hasState\": false\r\n    },\r\n    \"state\": null,\r\n    \"name\": \"{{cityName}}\",\r\n    \"shortName\": null,\r\n    \"translateName\": [],\r\n    \"code\": null\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}cities"
+									},
+									"response": []
+								},
+								{
+									"name": "Create Country for City Creation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "83237909-2e77-4b8c-8bdd-ce05d2eae3fa",
+												"exec": [
+													"var body=pm.response.json();\r",
+													"var id=body.id;\r",
+													"var name=body.name;\r",
+													"console.log(body , name , id); // kod doğruluk kontrolü\r",
+													"\r",
+													"pm.collectionVariables.set(\"countryID\", id); // collection variable set olacak\r",
+													"pm.collectionVariables.set(\"countryName\", body.name);\r",
+													"\r",
+													"pm.test(\"Successful POST request\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "8b9a2145-9856-4fa1-8257-ed9f463cd2ed",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{$randomCountry}} {{$randomInt}}\",\r\n  \"code\": \"{{$randomCountryCode}} {{$randomInt}}\",\r\n  \"translateName\": [],\r\n  \"hasState\": false\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}countries"
+									},
+									"response": []
+								},
+								{
+									"name": "Create a new City from just existing Country",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b48c1786-a0b1-48e9-a599-fd90e8d493b3",
+												"exec": [
+													"var body=pm.response.json();\r",
+													"var id=body.id;\r",
+													"var name=body.name;\r",
+													"console.log(body,id,name);\r",
+													"\r",
+													"pm.collectionVariables.set(\"cityID\",id);\r",
+													"pm.collectionVariables.set(\"cityName\",name);\r",
+													"\r",
+													"pm.test(\"Successful POST request\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "cd12dd4a-c13b-483d-965c-56fff9babea6",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": null,\r\n    \"country\": {\r\n        \"id\": \"63a41a0dcb75ee5c2199a8bc\", \r\n        \"name\": null,\r\n        \"shortName\": null,\r\n        \"translateName\": null,\r\n        \"code\": null,\r\n        \"hasState\": false\r\n    },\r\n    \"state\": null,\r\n    \"name\": \"{{$randomCity}}\",\r\n    \"shortName\": null,\r\n    \"translateName\": [],\r\n    \"code\": null\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}cities"
+									},
+									"response": []
+								},
+								{
+									"name": "Update City From Existing Country",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3fe66893-f144-488a-9e84-e8dd841cf0a3",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "4f34b2a9-a880-4851-a0b0-2f198d36d942",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"{{cityID}}\",\r\n  \"name\": \"{{cityName}} t12\",\r\n  \"country\": {\r\n    \"id\": \"{{countryID}}\"\r\n  },\r\n  \"state\": null,\r\n  \"translateName\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}cities"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete City of New Created from existing Country",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "5f19de74-8dca-4777-945f-899a4d2b1d95",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "25ecca22-8471-4f0e-bedb-e4b0c1c66256",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": "{{url}}cities/{{cityID}}"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Again Same City of New Created from existing Country",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "5009b155-93bd-4998-94d0-744eda6cc1aa",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "88b8a97d-a695-423e-a558-086eb3903ce2",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": "{{url}}cities/{{cityID}}"
+									},
+									"response": []
+								},
+								{
+									"name": "Update The Deleted City (NEGATIVE)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "e7ea9ba0-2c50-4986-99ec-d7d9b83d1dad",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Body matches string\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"Can't find City\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "5dc6f3f6-0935-40a3-a7b5-f835efbeaf3d",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"{{cityID}}\",\r\n  \"name\": \"{{cityName}} t12\",\r\n  \"country\": {\r\n    \"id\": \"{{countryID}}\"\r\n  },\r\n  \"state\": null,\r\n  \"translateName\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}cities"
+									},
+									"response": []
+								}
+							],
+							"_postman_id": "25a4c38e-c022-47bd-a5f9-a377653fcb91",
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Citizenships",
+							"item": [
+								{
+									"name": "Login",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "5d8b7d17-5b72-4f4f-9ef9-2de9d51388bc",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "6f988357-c915-4477-a745-3dd19d55e3eb",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"rememberMe\": true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://test.mersys.io/auth/login"
+									},
+									"response": []
+								},
+								{
+									"name": "List Citizenships (Empty Search)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "83237909-2e77-4b8c-8bdd-ce05d2eae3fa",
+												"exec": [
+													"pm.test(\"Successful POST request\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "84ebf231-841d-4d03-a92f-24773f6b2469",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}citizenships/search"
+									},
+									"response": []
+								},
+								{
+									"name": "Create Citizenships",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "83237909-2e77-4b8c-8bdd-ce05d2eae3fa",
+												"exec": [
+													"var body=pm.response.json();\r",
+													"var id=body.id;\r",
+													"var name=body.name;\r",
+													"console.log(body , name , id); // kod doğruluk kontrolü\r",
+													"\r",
+													"pm.collectionVariables.set(\"citizenShipID\", id); // collection variable set olacak\r",
+													"pm.collectionVariables.set(\"citizenShipName\", body.name);\r",
+													"\r",
+													"pm.test(\"Successful POST request\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "b422e1fa-5b01-43fc-9f19-8b5feff6fffe",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": null,\r\n    \"name\": \"citizenship_{{$randomCity}}\",\r\n    \"shortName\": \"cs_{{$randomAlphaNumeric}}\",\r\n    \"translateName\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}citizenships"
+									},
+									"response": []
+								},
+								{
+									"name": "Create Again Same Citizenships (NEGATIVE)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "83237909-2e77-4b8c-8bdd-ce05d2eae3fa",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "da757318-b9e1-46c5-8fad-ad31e28decb3",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{citizenShipName}}\",\r\n  \"shortName\": null,\r\n  \"translateName\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}citizenships"
+									},
+									"response": []
+								},
+								{
+									"name": "Update Citizenships",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b4859833-4e9f-4429-8416-97e8bcffb832",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "1ab84f7f-feaf-46db-b1bd-863c867df647",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": \"{{citizenShipID}}\",\r\n    \"name\": \"citizenship_{{$randomCity}}\",\r\n    \"shortName\": \"cs_{{$randomAlphaNumeric}}\",\r\n    \"translateName\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}citizenships"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Citizenships",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b4859833-4e9f-4429-8416-97e8bcffb832",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "6e05414b-e17f-46f0-b47a-06ccf928699b",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}citizenships/{{citizenShipID}}"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Again Same Citizenships (NEGATIVE)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b4859833-4e9f-4429-8416-97e8bcffb832",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "6bedaab8-698e-45b5-9562-184105bb6d72",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}citizenships/{{citizenShipID}}"
+									},
+									"response": []
+								},
+								{
+									"name": "Update Deleted Citizenships (NEGATIVE)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b4859833-4e9f-4429-8416-97e8bcffb832",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Body matches string\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"Citizenship not found\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "d3b45b63-69b0-460e-b4ae-bb991ef3ead4",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": \"{{citizenShipID}}\",\r\n    \"name\": \"citizenship_{{$randomCity}}\",\r\n    \"shortName\": \"cs_{{$randomAlphaNumeric}}\",\r\n    \"translateName\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}citizenships"
+									},
+									"response": []
+								}
+							],
+							"_postman_id": "0090bd08-86d2-4d47-9a20-e4dd5083e534",
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Nationalities",
+							"item": [
+								{
+									"name": "Login",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "27f7043c-067a-4ea7-98d3-c1f81d0252c9",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "71b672b1-c9df-4517-98ca-06469bac533e",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"username\": \"turkeyts\",\r\n  \"password\": \"TechnoStudy123\",\r\n  \"rememberMe\": \"true\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://test.mersys.io/auth/login"
+									},
+									"response": []
+								},
+								{
+									"name": "Create Nationalities",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "492b272b-38ee-4cfe-aef7-34d3d999d672",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "f9259e5a-7589-4683-8907-2c46316a0ecb",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"Georgiann\",\r\n  \"translateName\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://test.mersys.io/school-service/api/nationality"
+									},
+									"response": []
+								},
+								{
+									"name": "Search Nationalities",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "f9e5e49f-c0e3-4bc9-9de3-ef26a820a862",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "e830c8a6-5238-4a1d-b30d-91d8fa660c63",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Georgian\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://test.mersys.io/school-service/api/nationality/search"
+									},
+									"response": []
+								},
+								{
+									"name": "Update Nationalities",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "8fb66a26-5e13-4b01-a791-41ebfba22b88",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "9d7f08e2-eb5d-4472-a4ac-c50aafa47574",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"63b16ad5a82823009a165e82\",\r\n  \"name\": \"Georgianser\",\r\n  \"translateName\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://test.mersys.io/school-service/api/nationality"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Nationalities",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "1a764145-a521-42e2-99ee-d8a2c0969d64",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "0c603659-e3d8-4466-b27a-d0799382e24f",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://test.mersys.io/school-service/api/nationality/63c079c7bff29b76b07e2960"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Negatif",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "cce44124-143a-438f-b703-4de0345dc70c",
+												"exec": [
+													"pm.test(\"Status code is 400\", function (){\r",
+													"    pm.response.to.have.status(400)\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "49f5d528-658b-4855-8ee1-46408ab6d97d",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://test.mersys.io/school-service/api/nationality/63c079c7bff29b76b07e2960"
+									},
+									"response": []
+								}
+							],
+							"_postman_id": "96108a42-bb2b-485c-8511-a21b8b09a508",
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Fees",
+							"item": [
+								{
+									"name": "Login",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "5d8b7d17-5b72-4f4f-9ef9-2de9d51388bc",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "80179d92-aa5f-4507-9fda-a80c8b277f9b",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"rememberMe\": true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://test.mersys.io/auth/login"
+									},
+									"response": []
+								},
+								{
+									"name": "Add A New Fee",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2e824863-d718-4f48-ad68-ad423fb1eec8",
+												"exec": [
+													"var body=pm.response.json();\r",
+													"var id=body.id;\r",
+													"console.log(body);\r",
+													"\r",
+													"pm.collectionVariables.set(\"feeID\", id);\r",
+													"pm.collectionVariables.set(\"feeName\", body.name);\r",
+													"pm.collectionVariables.set(\"feeCode\", body.code);\r",
+													"pm.collectionVariables.set(\"feeIntCode\", body.intCode);\r",
+													"pm.collectionVariables.set(\"feePriority\", body.priority);\r",
+													"\r",
+													"pm.test(\"Successful POST request\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "8a40e2f9-04ac-458e-bb59-8f2e6b44b8a8",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": null,\r\n    \"budgetAccountIntegrationCode\": \"{{$randomInt}}\",\r\n    \"name\": \"document{{$randomInt}}\",\r\n    \"code\": \"doc{{$randomInt}}\",\r\n    \"priority\": \"{{$randomInt}}\",\r\n    \"translateName\": [],\r\n    \"active\": true,\r\n    \"tenantId\": null\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}fee-types"
+									},
+									"response": []
+								},
+								{
+									"name": "Add A Exist Fee (Negative)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b1492136-0132-4305-beb7-df697123709a",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "837fbb13-6e59-465d-8d3b-e6f23781721d",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": null,\r\n    \"budgetAccountIntegrationCode\": \"{{feeIntCode}}\",\r\n    \"name\": \"{{feeID}}\",\r\n    \"code\": \"{{feeCode}}\",\r\n    \"priority\": \"{{feePriority}}\",\r\n    \"translateName\": [],\r\n    \"active\": true,\r\n    \"tenantId\": null\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}fee-types"
+									},
+									"response": []
+								},
+								{
+									"name": "Update A Fee",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6afda627-bccd-4d4d-893a-9d730b0afc5b",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "8dd83f08-6ec9-411e-99a5-0d801af531b2",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"{{feeID}}\",\r\n  \"name\": \"document{{$randomInt}}\",\r\n  \"translateName\": [],\r\n  \"code\": \"doc{{$randomInt}}\",\r\n  \"priority\": {{$randomInt}},\r\n  \"active\": true,\r\n  \"budgetAccountIntegrationCode\": \"{{$randomInt}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}fee-types"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete A Fee",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "f2945bf2-3529-49a8-9646-e15bc86d0068",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "5d94f20c-2d72-4ef5-804a-8dc5afdad9cd",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}fee-types/{{feeID}}"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete A Non-Exist Fee (Negative)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "e2b35d76-63f6-45b9-b2df-2816be2aa4de",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "2a5c2715-ddee-4577-94a9-6c03c23971e9",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}fee-types/{{feeID}}"
+									},
+									"response": []
+								},
+								{
+									"name": "Update A Non-Exist Fee (Negative)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "de112102-7545-4679-9da5-f896f2a98724",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "bcfeaf3f-2922-457d-91ca-81a0e0e493ea",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"{{feeID}}\",\r\n  \"name\": \"document{{$randomInt}}\",\r\n  \"translateName\": [],\r\n  \"code\": \"doc{{$randomInt}}\",\r\n  \"priority\": {{$randomInt}},\r\n  \"active\": true,\r\n  \"budgetAccountIntegrationCode\": \"{{$randomInt}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}fee-types"
+									},
+									"response": []
+								},
+								{
+									"name": "Get List of Fee Names",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "39610382-70cd-40e1-ab82-45306a9e98d4",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "ae31267f-33d2-444e-b47d-de6b860b7c17",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}fee-types/search"
+									},
+									"response": []
+								}
+							],
+							"_postman_id": "42b6f32b-418a-4ed6-abc3-6940b066ebc4",
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Discounts",
+							"item": [
+								{
+									"name": "Login",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "abcd7db1-5c3c-4e06-be51-f4802791aa3b",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "9037c137-ee4c-483c-8f71-3b3b363abd5d",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"username\": \"turkeyts\",\r\n  \"password\": \"TechnoStudy123\",\r\n  \"rememberMe\": \"true\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://test.mersys.io/auth/login"
+									},
+									"response": []
+								},
+								{
+									"name": "Create  Discounts",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b7a8e1ea-aab8-43ec-a87b-0068424e9f51",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "2afdcbba-f210-460f-9e7a-2381431e762f",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": null,\r\n  \"description\": \"seslim\",\r\n  \"code\": \"23\",\r\n  \"active\": true,\r\n  \"translateDescription\": [],\r\n  \"priority\": 19\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://test.mersys.io/school-service/api/discounts"
+									},
+									"response": []
+								},
+								{
+									"name": "Search Discounts",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4c48eea9-49d7-4d77-87a6-7ca8e0cddde5",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "3c8ee993-4feb-4339-b955-280e8bb9674c",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"description\": \"seslim\",\r\n  \"code\": \"23\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://test.mersys.io/school-service/api/discounts/search"
+									},
+									"response": []
+								},
+								{
+									"name": "Update Discounts",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2086768b-60db-4896-adaf-50910c0de6d7",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "ee0dd356-af9e-4102-9483-bd47a05f7424",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": null,\r\n  \"description\": \"seslim1\",\r\n  \"code\": \"25\",\r\n  \"active\": true,\r\n  \"translateDescription\": [],\r\n  \"priority\": 20\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://test.mersys.io/school-service/api/discounts"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "cc8cc47f-7d68-4e66-a9de-2ce63df5da59",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "f6917ac3-3e5f-4081-ac9c-f5e0d3b59919",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://test.mersys.io/school-service/api/discounts"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Negatif",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c6cf6065-0de0-4cfd-b2fe-595dc8e443f4",
+												"exec": [
+													"\r",
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "a171ac42-81f5-4554-bfee-59351d3e805a",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://test.mersys.io/school-service/api/discounts"
+									},
+									"response": []
+								}
+							],
+							"_postman_id": "6f924b2a-e760-4933-9ded-bb9b300339b0",
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Grade Levels",
+							"item": [
+								{
+									"name": "Login",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "80c0c357-9f77-4d03-a39a-6c75cbde7193",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "f777185e-b997-4b41-b06b-c31774a58dfb",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"rememberMe\": \"true\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://test.mersys.io/auth/login"
+									},
+									"response": []
+								},
+								{
+									"name": "ADD Grade Level",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4f49571f-2dbb-4fc6-a926-97b5920850bf",
+												"exec": [
+													"var body = pm.response.json();\r",
+													"var gradeID = body.id;\r",
+													"var gradeName = body.name;\r",
+													"var gradeShortName = body.shortName;\r",
+													"\r",
+													"pm.collectionVariables.set(\"gradeID\", gradeID);\r",
+													"pm.collectionVariables.set(\"gradeName\", gradeName);\r",
+													"pm.collectionVariables.set(\"gradeShortName\", gradeShortName);\r",
+													"\r",
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "8dd87bc9-9654-4bc6-b067-b433297f7f59",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": null,\r\n    \"name\": \"{{$randomAdjective}} _ {{$randomAlphaNumeric}}\",\r\n    \"shortName\": \"{{$randomAlphaNumeric}}{{$randomCurrencyCode}}\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}grade-levels"
+									},
+									"response": []
+								},
+								{
+									"name": "ADD Grade Level Negative",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "68c083a7-bbcd-4605-8823-4ceab392ac01",
+												"exec": [
+													"pm.test(\"Body matches string\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"already exists.\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "c79b35d1-5324-41f9-b2a3-4d99023a3277",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": null,\r\n    \"name\": \"{{gradeName}}\",\r\n    \"shortName\": \"{{gradeShortName}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}grade-levels"
+									},
+									"response": []
+								},
+								{
+									"name": "EDIT Grade Level",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "e17ca59e-87a3-4c8b-986d-7e99c3d755cc",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"var body = pm.response.json();\r",
+													"var gradeID = body.id;\r",
+													"var gradeName = body.name;\r",
+													"var gradeShortName = body.shortName;\r",
+													"pm.collectionVariables.set(\"gradeID\", gradeID);\r",
+													"pm.collectionVariables.set(\"gradeName\", gradeName);\r",
+													"pm.collectionVariables.set(\"gradeShortName\", gradeShortName);\r",
+													"\r",
+													"console.log(gradeName);"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "8a6dfe85-435d-46ea-b73a-6c5f3253825d",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "d8390e92-381a-4825-b19c-2f04dd722de4",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"{{gradeID}}\",\r\n  \"name\": \"team1 {{gradeName}}\",\r\n  \"shortName\": \"t1 {{gradeShortName}}\",\r\n  \"nextGradeLevel\": null\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}grade-levels"
+									},
+									"response": []
+								},
+								{
+									"name": "DELETE Grade Level",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "40a53ea8-7cbe-4d1c-977d-f79ab22d682f",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "66a6427b-c910-4fab-a8e9-a9beb9bc1500",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}grade-levels/{{gradeID}}"
+									},
+									"response": []
+								},
+								{
+									"name": "DELETE Grade Level Negative",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "40a53ea8-7cbe-4d1c-977d-f79ab22d682f",
+												"exec": [
+													"pm.test(\"Body matches string\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"Grade Level not found.\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "5d9a9c8c-da21-46f1-ae9f-6a2b9cebff96",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}grade-levels/{{gradeID}}"
+									},
+									"response": []
+								},
+								{
+									"name": "EDIT Grade Level Negative",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "e17ca59e-87a3-4c8b-986d-7e99c3d755cc",
+												"exec": [
+													"pm.test(\"Body matches string\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"Grade Level not found.\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "a463dd2c-e38e-492e-95b8-ef797f95c1b1",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"{{gradeID}}\",\r\n  \"name\": \"team1 {{gradeName}}\",\r\n  \"shortName\": \"t1 {{gradeShortName}}\",\r\n  \"nextGradeLevel\": null\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}grade-levels"
+									},
+									"response": []
+								},
+								{
+									"name": "EDIT Grade Level Alt  Negative",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "e17ca59e-87a3-4c8b-986d-7e99c3d755cc",
+												"exec": [
+													"var body = pm.response.json();\r",
+													"var gradeMessage = body.message;\r",
+													"\r",
+													"pm.test(\"Body matches string\", function(){\r",
+													"    pm.expect(pm.response.text()).to.include(\"Name cannot be empty\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "6467c12a-2fd1-48ab-9ec2-cccb4f8ef52c",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"{{gradeID}}\",\r\n  \"name\": null,\r\n  \"shortName\": null,\r\n  \"nextGradeLevel\": null\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}grade-levels"
+									},
+									"response": []
+								}
+							],
+							"_postman_id": "0845d5d8-c7e4-4920-84c7-f335731df6e6",
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Document Types",
+							"item": [
+								{
+									"name": "Login",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "89d706a6-d88a-4d5d-915b-d5ff66fd4a6e",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"_postman_id": "9fcd846a-c4fc-46e2-886f-3cea7e755c2f",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"rememberMe\": \"true\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://test.mersys.io/auth/login"
+									},
+									"response": []
+								},
+								{
+									"name": "Add Document",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"\r",
+													"var body=pm.response.json();\r",
+													"var id=body.id;\r",
+													"var name=body.name;\r",
+													"\r",
+													"pm.collectionVariables.set(\"documentID\", id);\r",
+													"pm.collectionVariables.set(\"documentName\", name);\r",
+													"\r",
+													"\r",
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"id": "cdd2048f-35d6-4c12-925d-9d613a4e00b0"
+											}
+										}
+									],
+									"_postman_id": "17b1559f-c065-44fc-bcce-c9b8571c81ce",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{$randomInt}} ->MK[ESK26]<- {{$randomInt}}\",\r\n  \"description\": \"MK-TR-ESK-26\",\r\n  \"attachmentStages\": [\r\n    \"STUDENT_REGISTRATION\",\r\n    \"EXAMINATION\",\r\n    \"EMPLOYMENT\",\r\n    \"CERTIFICATE\",\r\n    \"CONTRACT\",\r\n    \"DISMISSAL\"\r\n  ],\r\n  \"active\": {{$randomBoolean}},\r\n  \"required\": {{$randomBoolean}},\r\n  \"useCamera\": {{$randomBoolean}},\r\n  \"translateName\": [],\r\n  \"schoolId\": \"6390f3207a3bcb6a7ac977f9\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}attachments/create"
+									},
+									"response": []
+								},
+								{
+									"name": "Add Document Negative",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"\r",
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"id": "d74652a4-e5b2-4c57-8d65-55b9d84d09fe"
+											}
+										}
+									],
+									"_postman_id": "52363483-1c30-433e-bd24-a4872a308b74",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"{{documentID}}\",\r\n  \"name\": \"{{documentName}}\",\r\n  \"description\": \"MK-TR-ESK-26\",\r\n  \"attachmentStages\": [\r\n    \"STUDENT_REGISTRATION\",\r\n    \"EXAMINATION\",\r\n    \"EMPLOYMENT\",\r\n    \"CERTIFICATE\",\r\n    \"CONTRACT\",\r\n    \"DISMISSAL\"\r\n  ],\r\n  \"active\": {{$randomBoolean}},\r\n  \"required\": {{$randomBoolean}},\r\n  \"useCamera\": {{$randomBoolean}},\r\n  \"translateName\": [],\r\n  \"schoolId\": \"6390f3207a3bcb6a7ac977f9\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}attachments/create"
+									},
+									"response": []
+								},
+								{
+									"name": "Edit Document",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"id": "2d1962ad-7ef4-4e4d-a131-e01ed65290a3"
+											}
+										}
+									],
+									"_postman_id": "5c5a6eb8-912f-4b42-9cde-5a78d977ad9e",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"{{documentID}}\",\r\n  \"name\": \"{{$randomInt}} ->MK[ESK26]TR<- {{$randomInt}}\",\r\n  \"description\": \"Muharrem Karapazar tarafından düzenlenmiştir.   ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀        ... API TEAM1...\",\r\n  \"attachmentStages\": [\r\n    \"STUDENT_REGISTRATION\",\r\n    \"EXAMINATION\",\r\n    \"EMPLOYMENT\",\r\n    \"CERTIFICATE\",\r\n    \"CONTRACT\",\r\n    \"DISMISSAL\"\r\n  ],\r\n  \"schoolId\": \"6390f3207a3bcb6a7ac977f9\",\r\n  \"active\": {{$randomBoolean}},\r\n  \"required\": {{$randomBoolean}},\r\n  \"translateName\": [],\r\n  \"useCamera\": {{$randomBoolean}}\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}attachments"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Document",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"id": "264e3cb0-8804-42fe-98af-2e2cf586b6c8"
+											}
+										}
+									],
+									"_postman_id": "177134d4-e950-4937-b076-63bbedad3325",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}attachments/{{documentID}}"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Document Negative",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400, Attachment Type with id: 633b338fe919fd14ad5ed187, not found\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"id": "d78a1d5d-7819-4557-8636-8fd08fd227c9"
+											}
+										}
+									],
+									"_postman_id": "10b94069-be60-4ec9-801e-8a13d7cb51dc",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}attachments/{{documentID}}"
+									},
+									"response": []
+								},
+								{
+									"name": "Edit Document Negative",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400, Attachment Type with id: 633b338fe919fd14ad5ed187, not found\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"id": "f93468f3-5b3d-4b0e-8802-7e08adcf2c55"
+											}
+										}
+									],
+									"_postman_id": "60bd99f8-c44c-43ed-8d6b-3f051b300aa5",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"{{documentID}}\",\r\n  \"name\": \"{{$randomInt}} ->MK[ESK26]TR<- {{$randomInt}}\",\r\n  \"description\": \"Muharrem Karapazar tarafından düzenlenmiştir.   ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀        ... API TEAM1...\",\r\n  \"attachmentStages\": [\r\n    \"STUDENT_REGISTRATION\",\r\n    \"EXAMINATION\",\r\n    \"EMPLOYMENT\",\r\n    \"CERTIFICATE\",\r\n    \"CONTRACT\",\r\n    \"DISMISSAL\"\r\n  ],\r\n  \"schoolId\": \"6390f3207a3bcb6a7ac977f9\",\r\n  \"active\": {{$randomBoolean}},\r\n  \"required\": {{$randomBoolean}},\r\n  \"translateName\": [],\r\n  \"useCamera\": {{$randomBoolean}}\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}attachments"
+									},
+									"response": []
+								}
+							],
+							"_postman_id": "860d1c83-29f0-4132-baff-0779b402e825",
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Bank Accounts",
+							"item": [],
+							"_postman_id": "a6e708c1-522b-4fb5-97b0-5f8fcc6bb955",
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Fields",
+							"item": [],
+							"_postman_id": "64c48c88-43fe-42da-be48-6b0d9f62a4a7",
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Field Settings",
+							"item": [],
+							"_postman_id": "15aefcff-28c6-4954-8aa8-320640c610d1",
+							"_postman_isSubFolder": true
+						}
+					],
+					"_postman_id": "d53c39de-ce76-471b-890b-78b8d0a54ec6",
+					"_postman_isSubFolder": true
+				}
+			],
+			"_postman_id": "88b22ef5-04fc-4413-9160-3cac2558b16c"
+		},
+		{
+			"name": "+Messagigng",
+			"item": [],
+			"_postman_id": "01e8c564-d518-4251-8780-3ddf6e5b139f"
+		},
+		{
+			"name": "+Entrance Exam",
+			"item": [],
+			"_postman_id": "ff3a9cdb-9a94-435d-b17d-451c4a37b782"
+		},
+		{
+			"name": "+Student",
+			"item": [],
+			"_postman_id": "f9467de1-f511-46be-8c54-8497abf11b97"
+		},
+		{
+			"name": "+Finance",
+			"item": [],
+			"_postman_id": "da7eb4ca-3bc7-4629-be4f-8e8978ce65bf"
+		},
+		{
+			"name": "+Human Resources",
+			"item": [
+				{
+					"name": "Positions",
+					"item": [
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5d8b7d17-5b72-4f4f-9ef9-2de9d51388bc",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "b642872b-272f-411a-b9d5-23cad26cf66e",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"rememberMe\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "https://test.mersys.io/auth/login"
+							},
+							"response": []
+						},
+						{
+							"name": "List Position (Empty Search)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "83237909-2e77-4b8c-8bdd-ce05d2eae3fa",
+										"exec": [
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "a012b4a5-fb27-4183-bfe7-54adf902851c",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}employee-position/search"
+							},
+							"response": []
+						},
+						{
+							"name": "ADD Position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "80580eab-b5ef-4f1a-b8bd-96ce211d9188",
+										"exec": [
+											"var body=pm.response.json();\r",
+											"var positionName = body.name;\r",
+											"var positionShortName = body.shortName;\r",
+											"var positionId = body.id;\r",
+											"var tenantId = body.tenantId;\r",
+											"console.log(positionName, positionId);\r",
+											"console.log(body);\r",
+											"\r",
+											"pm.collectionVariables.set(\"positionName\", positionName);\r",
+											"pm.collectionVariables.set(\"positionShortName\", positionShortName);\r",
+											"pm.collectionVariables.set(\"positionId\", positionId);\r",
+											"\r",
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "5ce32de1-dc27-4e91-9ff3-4f6ca6c22137",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{$randomBsNoun}} {{$randomAlphaNumeric}}\",\r\n  \"shortName\": \"{{$randomAlphaNumeric}}{{$randomInt}}\",\r\n  \"translateName\": [],\r\n  \"tenantId\": \"6390ef53f697997914ec20c2\",\r\n  \"active\": true\r\n}\r\n\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}employee-position"
+							},
+							"response": []
+						},
+						{
+							"name": "ADD Position NEGATIVE",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "60272e8b-153d-4824-9448-d88b3852dcfa",
+										"exec": [
+											"var body = pm.response.json()\r",
+											"var positionMessage = body.message;\r",
+											"console.log(positionMessage);\r",
+											"\r",
+											"pm.test(\"Body matches string\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"The Position with Name \",pm.response.json().positionName,\" already exists.\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "979ffd6d-f9e0-4575-9a82-50b401e31d71",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{positionName}}\",\r\n  \"shortName\": \"null\",\r\n  \"translateName\": [],\r\n  \"tenantId\": \"6390ef53f697997914ec20c2\",\r\n  \"active\": true\r\n}\r\n\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}employee-position"
+							},
+							"response": []
+						},
+						{
+							"name": "EDIT Position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "8b7b07aa-9227-4e25-8250-f1ccf9f8de10",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"{{positionId}}\",\r\n    \"name\": \"team1 {{positionName}}\",\r\n    \"shortName\": \"t1 {{positionShortName}}\",\r\n    \"translateName\": [],\r\n    \"tenantId\": \"6390ef53f697997914ec20c2\",\r\n    \"active\": true\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}employee-position"
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE  Position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d0be4588-c32d-4d38-9acd-ec8977ca732f",
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "e4eee99d-1b17-4121-92a2-567205817e16",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}employee-position/{{positionId}}"
+							},
+							"response": []
+						},
+						{
+							"name": "Search  Deleted Position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f1c92dec-630b-4351-9605-396256a9ce73",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// Silinmiş değeri Search yaptığımızda, sorgunun sonucu boş olarak dönüyo mu?\r",
+											"pm.test(\"Body matches string\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"\"); \r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body is correct\", function () {\r",
+											"    pm.response.to.have.body(\"[]\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "ecd2bac0-6169-49c0-a9bb-03b9e97262e8",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"team1 {{positionName}}\",\r\n  \"shortName\": \"t1 {{positionShortName}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}employee-position/search"
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE  Position NEGATIVE",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+										"exec": [
+											"pm.test(\"Status code is 204 > No Content\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "870b3dd1-8ca3-4426-ab18-dd9cf7427d0f",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}employee-position/{{positionId}}"
+							},
+							"response": []
+						}
+					],
+					"_postman_id": "05d23f9d-f740-4e01-9df5-296212f727a8",
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Work Calendar",
+					"item": [],
+					"_postman_id": "cf3e800c-f326-4678-b132-8b48e70ab4cd",
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Attestations",
+					"item": [
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "80c0c357-9f77-4d03-a39a-6c75cbde7193",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "1231bf69-fbdc-4daf-b790-e4c9418870a2",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"rememberMe\": \"true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "https://test.mersys.io/auth/login"
+							},
+							"response": []
+						},
+						{
+							"name": "ADD Attestation",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+										"exec": [
+											"var body = pm.response.json();\r",
+											"var attestationName = body.name;\r",
+											"var attestationId = body.id;\r",
+											"console.log(attestationName, attestationId);\r",
+											"\r",
+											"pm.collectionVariables.set(\"attestationName\", attestationName);\r",
+											"pm.collectionVariables.set(\"attestationId\", attestationId);\r",
+											"\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "0f2cbb66-e49c-44b4-b3b7-7390ae4ed71e",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{$randomBsAdjective}} {{$randomInt}}\",\r\n  \"translateName\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}attestation"
+							},
+							"response": []
+						},
+						{
+							"name": "ADD Attestation NEGATIVE",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+										"exec": [
+											"var attestationMessage = pm.response.json().message;\r",
+											"console.log(attestationMessage);\r",
+											"\r",
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "960c377a-0ab6-45f8-b3b0-769be752b58c",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{attestationName}}\",\r\n  \"translateName\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}attestation"
+							},
+							"response": []
+						},
+						{
+							"name": "EDIT Attestation",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "79fccceb-858d-497b-9d9a-6519871c0f85",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"{{attestationId}}\",\r\n  \"name\": \"team1 {{attestationName}}\",\r\n  \"translateName\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}attestation"
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE  Attestation",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "38aa4d20-33e7-4c33-a367-ca88232d3fd5",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"{{attestationId}}\",\r\n  \"name\": \"team1 {{attestationName}}\",\r\n  \"translateName\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}attestation/{{attestationId}}"
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE  Attestation NEGATIVE",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+										"exec": [
+											"var attestationMessage = pm.response.json().message;\r",
+											"console.log(attestationMessage);\r",
+											"\r",
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Attestation not found\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"attestation not found\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "5f26471d-5bf6-43df-b442-5cfa714f9915",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"{{attestationId}}\",\r\n  \"name\": \"group2 {{attestationName}}\",\r\n  \"translateName\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}attestation/{{attestationId}}"
+							},
+							"response": []
+						},
+						{
+							"name": "EDIT Attestation NEGATIVE",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "96e897b8-03b4-4197-9a06-52868f77077b",
+										"exec": [
+											"var attestationMessage = pm.response.json().message;\r",
+											"var attestationDetails = pm.response.json().detail;\r",
+											"console.log(\"message:\",attestationMessage);\r",
+											"console.log(\"detail:\",attestationDetails);\r",
+											"\r",
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Can't find Attestation\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"Can't find Attestation\");\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "5844a580-fb3b-4017-96e4-35872277bdc9",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"{{attestationId}}\",\r\n  \"name\": \"team1 {{attestationName}}\",\r\n  \"translateName\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}attestation"
+							},
+							"response": []
+						}
+					],
+					"_postman_id": "5b11f427-dcce-4016-bfbb-b385d80f034b",
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Position Categories",
+					"item": [
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "80c0c357-9f77-4d03-a39a-6c75cbde7193",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "81e084a5-46e0-4da4-ad53-6e04c8d88973",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"rememberMe\": \"true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "https://test.mersys.io/auth/login"
+							},
+							"response": []
+						},
+						{
+							"name": "ADD Position Categories",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+										"exec": [
+											"var positionCatName = pm.response.json().name;\r",
+											"var positionCatId = pm.response.json().id;\r",
+											"console.log(positionCatName, positionCatId);\r",
+											"\r",
+											"pm.collectionVariables.set(\"positionCatName\", positionCatName);\r",
+											"pm.collectionVariables.set(\"positionCatId\", positionCatId);\r",
+											"\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "71a4f24a-139d-4284-abbc-1a7c13f28afb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "09d1defe-1d9d-460f-9818-07130b3729c8",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{$randomBsAdjective}} {{$randomInt}}\",\r\n  \"translateName\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}position-category"
+							},
+							"response": []
+						},
+						{
+							"name": "ADD Position Categories NEGATIVE",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+										"exec": [
+											"var positionCatMessage = pm.response.json().message;\r",
+											"console.log(positionCatMessage);\r",
+											"\r",
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Already Exists Message\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"already exists.\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "82f1048e-49f9-4bb4-8bc2-917afd4e1b4c",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{positionCatName}}\",\r\n  \"translateName\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}position-category"
+							},
+							"response": []
+						},
+						{
+							"name": "EDIT Position Categories",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "a360a6f5-404b-4f85-b367-d9ccaa27d0f9",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n  \"id\": \"{{positionCatId}}\",\r\n  \"name\": \"team1 {{positionCatName}}\",\r\n  \"translateName\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}position-category"
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE  Position Categories",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "8356b172-a65a-4246-9698-cca220aade26",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"{{positionCatId}}\",\r\n  \"name\": \"team1 {{positionCatName}}\",\r\n  \"translateName\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}position-category/{{positionCatId}}"
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE  Position Categories NEGATIVE",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+										"exec": [
+											"\r",
+											"positionCatMessage = pm.response.json().message;\r",
+											"console.log(positionCatMessage);\r",
+											"\r",
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Can not find\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"not  found\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "057e8271-d5f3-47b1-88c7-2bb5cada2e90",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n  \"id\": \"{{positionCatId}}\",\r\n  \"name\": \"team1 {{positionCatName}}\",\r\n  \"translateName\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}position-category/{{positionCatId}}"
+							},
+							"response": []
+						},
+						{
+							"name": "EDIT Position Categories NEGATIVE",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "96e897b8-03b4-4197-9a06-52868f77077b",
+										"exec": [
+											"var positionCatMessage = pm.response.json().message;\r",
+											"var positionCatDetails = pm.response.json().detail;\r",
+											"console.log(\"message:\",positionCatMessage);\r",
+											"console.log(\"detail:\",positionCatDetails);\r",
+											"\r",
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Can't find Position Category\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"Can't find Position Category\");\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "b9a09566-f672-4465-b71d-75ed8ceacbad",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"{{positionCatId}}\",\r\n  \"name\": \"team1 {{positionCatName}}\",\r\n  \"translateName\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}position-category"
+							},
+							"response": []
+						}
+					],
+					"_postman_id": "1278785c-00ad-4bc4-bfeb-db337c2f5a66",
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Dismissal Articles",
+					"item": [],
+					"_postman_id": "0cd524de-ef01-4c7f-821b-dece898863f1",
+					"_postman_isSubFolder": true
+				}
+			],
+			"_postman_id": "71daf455-283d-4780-83e7-d88a769ed99d"
+		},
+		{
+			"name": "+Education",
+			"item": [
+				{
+					"name": "Subject Categories",
+					"item": [
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "80c0c357-9f77-4d03-a39a-6c75cbde7193",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "90269f5e-bc6b-4008-b7a8-7d9c91c68ce7",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"rememberMe\": \"true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "https://test.mersys.io/auth/login"
+							},
+							"response": []
+						},
+						{
+							"name": "List Subject Categories (Empty Search)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d7af807a-908b-464d-be8f-0d8fbc9b1f40",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "e3b4e064-2cc8-4e83-bc14-3ba024409fa4",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}subject-categories/search"
+							},
+							"response": []
+						},
+						{
+							"name": "ADD Subject Categories",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d7af807a-908b-464d-be8f-0d8fbc9b1f40",
+										"exec": [
+											"var scName = pm.response.json().name;\r",
+											"var scCode = pm.response.json().code;\r",
+											"var scId = pm.response.json().id;\r",
+											"\r",
+											"pm.collectionVariables.set(\"subjectCategoriesName\", scName);\r",
+											"pm.collectionVariables.set(\"subjectCategoriesCode\", scCode);\r",
+											"pm.collectionVariables.set(\"subjectCategoriesId\", scId);\r",
+											"console.log(scName,scCode,scId);\r",
+											"\r",
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "94679d41-9c09-41f4-8ce0-d8953e5270e8",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{$randomJobDescriptor}}{{$randomInt}}\",\r\n  \"code\": \"{{$randomAlphaNumeric}}{{$randomInt}}\",\r\n  \"active\": false,\r\n  \"translateName\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}subject-categories"
+							},
+							"response": []
+						},
+						{
+							"name": "ADD Subject Categories NEGATIVE",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d7af807a-908b-464d-be8f-0d8fbc9b1f40",
+										"exec": [
+											"var scMessage = pm.response.json().message;\r",
+											"console.log(scMessage);\r",
+											"\r",
+											"pm.test(\"Body matches string\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"The Subject Category with Name \",pm.response.json().scName,\" already exists.\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "225ed38e-81b3-4bbb-bbc2-8d97f250018a",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{subjectCategoriesName}}\",\r\n  \"code\": \"{{subjectCategoriesCode}}\",\r\n  \"active\": false,\r\n  \"translateName\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}subject-categories"
+							},
+							"response": []
+						},
+						{
+							"name": "EDIT Subject Categories",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "b7007bf7-4f35-4bda-89e6-5a7a31333df9",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"{{subjectCategoriesId}}\",\r\n  \"name\": \"team1 {{subjectCategoriesName}}\",\r\n  \"code\": \"t1 {{subjectCategoriesCode}}\",\r\n  \"active\": true,\r\n  \"translateName\": []\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}subject-categories"
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Subject Categories",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "46679417-831c-42c4-8950-12df0870311f",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}subject-categories/{{subjectCategoriesId}}"
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Subject Categories NEGATIVE",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body matches string\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"SubjectCategory not  found\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "a090fc9e-5e8d-4245-950a-9a80457a477b",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}subject-categories/{{subjectCategoriesId}}"
+							},
+							"response": []
+						},
+						{
+							"name": "EDIT Subject Categories NEGATIVE",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body matches string\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"SubjectCategory is null\",\"Can't find Subject Category\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"_postman_id": "a707f203-edfa-43d4-8c1f-b2f9a66ea010",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"{{subjectCategoriesId}}\",\r\n  \"name\": \"team1 {{subjectCategoriesName}}\",\r\n  \"code\": \"t1 {{subjectCategoriesCode}}\",\r\n  \"active\": true,\r\n  \"translateName\": []\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}subject-categories"
+							},
+							"response": []
+						}
+					],
+					"_postman_id": "45648683-4928-4d0d-af05-483d5d020eda",
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Courses",
+					"item": [],
+					"_postman_id": "fc1eb70a-b97e-4bad-88f8-d70456ca2be4",
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Grade Categories",
+					"item": [],
+					"_postman_id": "d7cd1858-0a6c-4796-b19a-9e8bc46f34d6",
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Grading Schme",
+					"item": [],
+					"_postman_id": "980c6f81-806b-47e5-ac7e-2611a0f9834a",
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Grade Excuse Types",
+					"item": [],
+					"_postman_id": "06d52bfd-6d4d-44fb-8399-f3a3427ee904",
+					"_postman_isSubFolder": true
+				}
+			],
+			"_postman_id": "89746210-a86a-4c69-b6ea-f8e516ebc1ad"
+		},
+		{
+			"name": "+Video Conference",
+			"item": [],
+			"_postman_id": "0a468223-32b0-42e0-a977-5b9ad4033e2b"
+		},
+		{
+			"name": "+Surveys",
+			"item": [],
+			"_postman_id": "a52f367d-f5f9-4831-9b92-f477d0c0cdda"
+		},
+		{
+			"name": "+Question Bank",
+			"item": [],
+			"_postman_id": "364f7de3-bc96-4c3a-864f-d6af592b98a4"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "83f62ea8-cc03-4293-a842-2734e2d9ad5d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "0bb9d179-eea3-4bf5-b42f-c7a2a0724882",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "dd5ac8ff-385a-4b3d-a7da-575837bb896b",
+			"key": "countryID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "f0cfd793-4b42-441f-af0e-304d3407248f",
+			"key": "countryName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "77df04b7-2d82-4c8a-a43d-080fb4fd4f6c",
+			"key": "name",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "702a37dd-1a84-4193-a4fc-e1b0f51e6411",
+			"key": "positionCatName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "09665422-6c7e-4cf2-bccc-dd8c9f4e66ed",
+			"key": "positionCatId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "b233e3c5-530f-4460-a67b-2198e7c3b19b",
+			"key": "locationsID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "5a28d492-7494-4942-85d7-272d236b1886",
+			"key": "locationsName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "14496bc4-d1bd-41ba-9f20-ca80963fe5a6",
+			"key": "positionName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "ca484b4c-5f9f-41b9-829d-a219bb9227a6",
+			"key": "positionShortName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "f7eb6a21-ec9d-4035-95d1-790f8bac9f08",
+			"key": "positionId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "5ed905e1-4e4b-40ea-9041-d696599654eb",
+			"key": "tenantId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "bc1ea46b-cb46-4386-b5dc-c6ca4a0a33a8",
+			"key": "position.TenantId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "a0f37b62-059e-43de-a986-0713f3e6e674",
+			"key": "attestationName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "04cf803d-d9f7-4884-b568-930a6671ffed",
+			"key": "attestationId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "2891d541-1b1c-481a-aa1c-1d78643c4ef8",
+			"key": "subjectCategoriesName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "af6ed363-37db-47eb-be02-db573acfc2f5",
+			"key": "subjectCategoriesCode",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "acebb6a0-26f9-4fa6-af66-4f74cd08b735",
+			"key": "subjectCategoriesId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "afd54e04-cfd1-4e66-bb93-79b6f2ace0df",
+			"key": "departmentsID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "dda2de28-3e8e-447a-bf10-06a2c905d469",
+			"key": "departmentsName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "25a02c60-7fe0-4550-96d2-36726544152a",
+			"key": "URL",
+			"value": "https://test.mersys.io",
+			"type": "string"
+		},
+		{
+			"id": "390e9794-5843-461b-b062-02df7538ec12",
+			"key": "locationShortName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "51f404ea-e808-4415-8b6f-af0aeae9d4e2",
+			"key": "locationsCap",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "e322f033-4d61-4838-87b1-ce4c586f1865",
+			"key": "schoolId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "71ee83f1-d20a-4961-9665-d38acad4adb7",
+			"key": "feeID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "2b8caef7-de3c-4b90-8e0e-5ab548075330",
+			"key": "feeName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "1d5595e9-912c-4a6e-a1b3-95c79c9b5f1c",
+			"key": "feeCode",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "8aed2cff-fefc-41a7-95ab-b2b8981b03a7",
+			"key": "feeIntCode",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "53b34cb7-40a9-4a04-84b3-22e53ca85352",
+			"key": "feePriority",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "0cb3a5a9-1cec-4481-b9b0-fcc47986807a",
+			"key": "gradeID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "47555a16-9907-4721-830f-4fc5da98c7d6",
+			"key": "gradeName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "9cd87d30-68bd-42b2-9449-a01ff85d57b2",
+			"key": "gradeShortName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "1f45c099-6098-416a-881a-3f403d3274bb",
+			"key": "StateID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "8ec2d734-6271-482d-9fbc-88712eeef15c",
+			"key": "StateName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "82b2f895-da51-4020-8815-21d61b9e7e02",
+			"key": "StateShortName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "dae79da9-825a-43cc-a059-00da947e359e",
+			"key": "citizenShip",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "ada19764-8305-4429-9d43-f0763eb10bf4",
+			"key": "citizenShipID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "bc1340a7-d7b8-4c38-97df-44f082c56481",
+			"key": "citizenShipName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "12f69a7f-b0fd-4ec6-b255-54b005d2c91b",
+			"key": "documentID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "d69651e5-5e7f-4015-8254-f59b9ea7950a",
+			"key": "documentName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "0c7e761c-eb9f-490d-ac0a-0e014c2214b2",
+			"key": "cityName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "1c4ef041-8452-46e2-a11e-f048552827ca",
+			"key": "cityID",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
