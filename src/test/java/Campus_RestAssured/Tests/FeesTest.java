@@ -193,5 +193,21 @@ public class FeesTest {
                 .body("message", equalTo("Fee Type not found"))
         ;
     }
+    @Test
+    public void listOfFees() {
+
+        given()
+                .cookies(cookies)
+                .body("{}")
+                .contentType(ContentType.JSON)
+
+                .when()
+                .post("/school-service/api/fee-types/search")
+
+                .then()
+                .statusCode(200)
+                .log().body()
+        ;
+    }
 
 }
