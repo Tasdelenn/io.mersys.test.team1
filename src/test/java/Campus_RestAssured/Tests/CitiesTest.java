@@ -4,51 +4,13 @@ import Campus_RestAssured.Models.Cities;
 import Campus_RestAssured.Models.Country;
 import Campus_RestAssured.Models.States;
 import com.github.javafaker.Faker;
-import io.mersys.test.utilities.ConfigurationReader;
 import io.restassured.http.ContentType;
-import io.restassured.http.Cookies;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-public class CitiesTest {
-    Cookies cookies;
+public class CitiesTest extends Hooks{
     Faker fakeData = new Faker();
-
-    @BeforeClass
-    public void loginCampus() {
-        String urlValue = ConfigurationReader.getProperty("url");
-        String usernameValue = ConfigurationReader.getProperty("confUsername");
-        String passwordValue = ConfigurationReader.getProperty("confPassword");
-        String rememberMeValue = ConfigurationReader.getProperty("confRememberMe");
-
-        baseURI = urlValue;
-
-        Map<String, String> account = new HashMap<>();
-        account.put("username", usernameValue);
-        account.put("password", passwordValue);
-        account.put("rememberMe", rememberMeValue);
-
-        cookies =
-                given()
-                        .contentType(ContentType.JSON)
-                        .body(account)
-
-                        .when()
-                        .post("auth/login")
-
-                        .then()
-                        .statusCode(200)
-                        .extract().response().getDetailedCookies()
-        ;
-    }
-
     String cityName = fakeData.address().cityName();
     String cityID;
     Cities city;

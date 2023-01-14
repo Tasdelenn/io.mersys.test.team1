@@ -2,51 +2,14 @@ package Campus_RestAssured.Tests;
 
 import Campus_RestAssured.Models.Discounts;
 import com.github.javafaker.Faker;
-import io.mersys.test.utilities.ConfigurationReader;
 import io.restassured.http.ContentType;
-import io.restassured.http.Cookies;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-public class DiscountsTest {
-    Cookies cookies;
+public class DiscountsTest extends Hooks{
+
     Faker faker = new Faker();
-
-    @BeforeClass
-    public void loginCampus() {
-        String uriValue = ConfigurationReader.getProperty("url");
-        String usernameValue = ConfigurationReader.getProperty("confUsername");
-        String passwordValue = ConfigurationReader.getProperty("confPassword");
-        String rememberMeValue = ConfigurationReader.getProperty("confRememberMe");
-
-        baseURI = uriValue;
-
-        Map<String, String> credential = new HashMap<>();
-        credential.put("username", usernameValue);
-        credential.put("password", passwordValue);
-        credential.put("rememberMe", rememberMeValue);
-
-        cookies =
-                given()
-                        .contentType(ContentType.JSON)
-                        .body(credential)
-
-                        .when()
-                        .post("auth/login")
-
-                        .then()
-                        //.log().cookies()
-                        .statusCode(200)
-                        .extract().response().getDetailedCookies()
-        ;
-    }
     String discountsDescription;
     String discountsCode;
     int discountsPriority;
