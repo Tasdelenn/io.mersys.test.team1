@@ -110,6 +110,25 @@ public class DocumentTest extends Hooks {
         ;
     }
 
+
+    @Test(dependsOnMethods = "updateDocument")
+    public void deleteDocumentByID() {
+
+        given()
+                .cookies(cookies)
+                .pathParam("documentID", documentID)
+
+                .when()
+                .delete("school-service/api/attachments/{documentID}")
+
+                .then()
+                .log().body()
+                .statusCode(200)
+
+        ;
+    }
+
+
     public String getRandomName() {
         String rdm = RandomStringUtils.randomAlphabetic(3).toLowerCase();
         return rdm + "->MK26<-" + rdm;
