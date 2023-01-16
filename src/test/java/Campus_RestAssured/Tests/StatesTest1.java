@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-public class StatesTest extends Hooks {
+public class StatesTest1 extends Hooks {
 
     States state = new States();
     StatesCountry statesCountry = new StatesCountry("63a45bdbcb75ee5c2199a8cf");
@@ -37,7 +37,7 @@ public class StatesTest extends Hooks {
                         .post("school-service/api/states")
 
                         .then()
-                        //.log().body()
+                        .log().body()
                         .statusCode(201)
                         .extract().jsonPath().getString("id")
         ;
@@ -59,7 +59,7 @@ public class StatesTest extends Hooks {
                 .post("school-service/api/states")
 
                 .then()
-                //.log().body()
+                .log().body()
                 .statusCode(400)
                 .body("name", equalTo(null))
         ;
@@ -84,7 +84,7 @@ public class StatesTest extends Hooks {
                 .put("school-service/api/states")
 
                 .then()
-                //.log().body()
+                .log().body()
                 .statusCode(200)
                 .body("name", equalTo(stateName))
         ;
@@ -102,7 +102,7 @@ public class StatesTest extends Hooks {
                 .delete("school-service/api/states/{stateID}")
 
                 .then()
-                //.log().body()
+                .log().body()
                 .statusCode(200)
         ;
     }
@@ -124,8 +124,8 @@ public class StatesTest extends Hooks {
         ;
     }
 
-    @Test
-    public void EditNetagive_UpdateTheDeletedState(){
+    @Test(dependsOnMethods = "Delete1_DeleteNewCreatedStateFromExistingCountries")
+    public void EditNegative_UpdateTheDeletedState(){
         stateName =faker.address().state();
         stateShortName = faker.address().stateAbbr();
 
@@ -151,61 +151,5 @@ public class StatesTest extends Hooks {
 
     }
 
-    String countryID;
-    String countryName;
-    String countryCode;
 
-    @Test
-    public void CreateAnewCountryWithState(){
-        countryName = faker.country().name();
-        countryCode = faker.country().currencyCode();
-
-        Country country = new Country();
-        country.setName(countryName); // generateCountryName
-        country.setCode(countryCode); // generateCountryCode
-        country.setHasState(true);
-
-        countryID =
-                given()
-                        .cookies(cookies)
-                        .contentType(ContentType.JSON)
-                        .body(country)
-
-                        .when()
-                        .post("school-service/api/countries")
-
-                        .then()
-                        .log().body()
-                        .statusCode(201)
-                        .extract().jsonPath().getString("id")
-        ;
-
-    }
-
-    @Test(dependsOnMethods = "CreateAnewCountryWithState")
-    public void Create2_CreateAnewStateFromNewCreatedCountry(){
-        stateName =faker.address().state();
-        stateShortName = faker.address().stateAbbr();
-        StatesCountry stateCountry=new StatesCountry(countryID);
-
-        state.setName(stateName);
-        state.setShortName(stateShortName);
-        state.setCountry(stateCountry);
-
-        stateID =
-                given()
-                        .cookies(cookies)
-                        .contentType(ContentType.JSON)
-                        .body(state)
-
-                        .when()
-                        .post("school-service/api/states")
-
-                        .then()
-                        .log().body()
-                        .statusCode(201)
-                        .extract().jsonPath().getString("id")
-        ;
-
-    }
 }
