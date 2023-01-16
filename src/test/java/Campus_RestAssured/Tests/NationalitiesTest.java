@@ -1,8 +1,11 @@
 package Campus_RestAssured.Tests;
 
+import Campus_RestAssured.Models.GradeLevels;
 import Campus_RestAssured.Models.Nationalities;
+import com.aventstack.extentreports.service.ExtentService;
 import io.restassured.http.ContentType;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import java.util.Random;
 import static io.restassured.RestAssured.given;
@@ -145,4 +148,11 @@ public class NationalitiesTest extends Hooks {
 //        return rd.nextBoolean();
         return new Random().nextBoolean();
     }
+
+    @AfterClass
+    public static void writeExtentReport() {
+        ExtentService.getInstance().getStats();
+        ExtentService.getInstance().setSystemInfo(NationalitiesTest.class.getName(), "Sema Nur Arslan, Muharrem Karapazar");
+    }
+
 }

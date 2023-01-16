@@ -1,9 +1,12 @@
 package Campus_RestAssured.Tests;
 
+import Campus_RestAssured.Models.GradeLevels;
 import Campus_RestAssured.Models.States;
 import Campus_RestAssured.Models.StatesCountry;
+import com.aventstack.extentreports.service.ExtentService;
 import com.github.javafaker.Faker;
 import io.restassured.http.ContentType;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
@@ -149,6 +152,12 @@ public class StatesTest1 extends Hooks {
 
         ;
 
+    }
+
+    @AfterClass
+    public static void writeExtentReport() {
+        ExtentService.getInstance().getStats();
+        ExtentService.getInstance().setSystemInfo(StatesTest1.class.getName(), "Raziya Nur Kanatbek");
     }
 
 
