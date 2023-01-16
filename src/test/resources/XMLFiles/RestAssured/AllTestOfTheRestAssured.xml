@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Campus API _ All Test Suite">
+
+    <listeners>
+        <listener class-name="com.aventstack.extentreports.testng.listener.ExtentITestListenerClassAdapter">    </listener>
+    </listeners>
+
+    <test verbose="2" preserve-order="true" name="io.mersys.test.team1">
+
+        <classes>
+            <class name="Campus_RestAssured.Tests.CitiesTest">  </class>
+
+            <class name="Campus_RestAssured.Tests.CitizenShipsTest">    </class>
+
+            <class name="Campus_RestAssured.Tests.CountryTest"> </class>
+
+            <class name="Campus_RestAssured.Tests.DiscountsTest">   </class>
+
+            <class name="Campus_RestAssured.Tests.DocumentTest"> </class>
+
+            <class name="Campus_RestAssured.Tests.FeesTest"> </class>
+
+            <class name="Campus_RestAssured.Tests.GradeLevelsTest"> </class>
+
+            <class name="Campus_RestAssured.Tests.HR_AttestationsTest"> </class>
+
+            <class name="Campus_RestAssured.Tests.HR_PositionsTest"> </class>
+
+            <class name="Campus_RestAssured.Tests.NationalitiesTest"> </class>
+
+            <class name="Campus_RestAssured.Tests.StatesTest">  </class>
+
+        </classes>
+    </test>
+</suite>
