@@ -10,7 +10,7 @@
     <!-- Testimize isim veriyoruz   -->
     <test verbose="2" preserve-order="true" name="io.mersys.test.team1">
 
-        <!-- Test yapmak istediğimiz sınıfları (ve sınıflar içindeki methodları buraya yazıyoruz    -->
+        <!-- Test yapmak istediğimiz sınıfları (ve sınıflar içindeki methodları buraya yazıyoruz)    -->
         <classes>
 
             <!-- Fees için test örneği: çalıştırmak istemediğimiz method ları exclude'a aldık. -->
