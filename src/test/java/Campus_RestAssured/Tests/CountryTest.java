@@ -1,9 +1,12 @@
 package Campus_RestAssured.Tests;
 
 import Campus_RestAssured.Models.Country;
+import Campus_RestAssured.Models.GradeLevels;
+import com.aventstack.extentreports.service.ExtentService;
 import com.github.javafaker.Faker;
 import io.restassured.http.ContentType;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -152,6 +155,13 @@ public class CountryTest extends Hooks{
                 .body("message", equalTo("Country not found"))
         ;
     }
+
+    @AfterClass
+    public static void writeExtentReport() {
+        ExtentService.getInstance().getStats();
+        ExtentService.getInstance().setSystemInfo(CountryTest.class.getName(), "Anonymous");
+    }
+
 }
 
 

@@ -1,8 +1,11 @@
 package Campus_RestAssured.Tests;
 
 import Campus_RestAssured.Models.Fees;
+import Campus_RestAssured.Models.GradeLevels;
+import com.aventstack.extentreports.service.ExtentService;
 import com.github.javafaker.Faker;
 import io.restassured.http.ContentType;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.*;
@@ -172,4 +175,11 @@ public class FeesTest extends Hooks {
                 .log().body()
         ;
     }
+
+    @AfterClass
+    public static void writeExtentReport() {
+        ExtentService.getInstance().getStats();
+        ExtentService.getInstance().setSystemInfo(FeesTest.class.getName(), "Yasin Erkol");
+    }
+
 }

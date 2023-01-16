@@ -1,8 +1,11 @@
 package Campus_RestAssured.Tests;
 
 import Campus_RestAssured.Models.Discounts;
+import Campus_RestAssured.Models.GradeLevels;
+import com.aventstack.extentreports.service.ExtentService;
 import com.github.javafaker.Faker;
 import io.restassured.http.ContentType;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -164,5 +167,12 @@ public class DiscountsTest extends Hooks{
                 .log().body()
         ;
     }
+
+    @AfterClass
+    public static void writeExtentReport() {
+        ExtentService.getInstance().getStats();
+        ExtentService.getInstance().setSystemInfo(DiscountsTest.class.getName(), "Sema Nur Arslan, Yasin Erkol");
+    }
+
 
 }

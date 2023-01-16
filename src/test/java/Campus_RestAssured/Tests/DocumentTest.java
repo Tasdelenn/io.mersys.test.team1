@@ -1,8 +1,11 @@
 package Campus_RestAssured.Tests;
 
 import Campus_RestAssured.Models.Document;
+import Campus_RestAssured.Models.GradeLevels;
+import com.aventstack.extentreports.service.ExtentService;
 import io.restassured.http.ContentType;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
 import java.util.Random;
@@ -188,5 +191,11 @@ public class DocumentTest extends Hooks {
 //        Random rd = new Random();
 //        return rd.nextBoolean();
         return new Random().nextBoolean();
+    }
+
+    @AfterClass
+    public static void writeExtentReport() {
+        ExtentService.getInstance().getStats();
+        ExtentService.getInstance().setSystemInfo(DocumentTest.class.getName(), "Muharrem Karapazar");
     }
 }

@@ -2,9 +2,12 @@ package Campus_RestAssured.Tests;
 
 import Campus_RestAssured.Models.Cities;
 import Campus_RestAssured.Models.Country;
+import Campus_RestAssured.Models.GradeLevels;
 import Campus_RestAssured.Models.States;
+import com.aventstack.extentreports.service.ExtentService;
 import com.github.javafaker.Faker;
 import io.restassured.http.ContentType;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -133,4 +136,11 @@ public class CitiesTest extends Hooks{
                 .statusCode(400) // Silinmiş City'yi tekar silmek istediğimizde "* bulunamadı" hatası vermiyo; status 200 döndürüyo.
         ;
     }
+
+    @AfterClass
+    public static void writeExtentReport() {
+        ExtentService.getInstance().getStats();
+        ExtentService.getInstance().setSystemInfo(CitiesTest.class.getName(), "Mehmet Haşir Dut, Hakan Taşdelen");
+    }
+
 }
