@@ -9,9 +9,9 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.Listeners;
 
 @CucumberOptions(
-        tags = "",
-        features = {"src/test/resources/featureFiles/_Public_Login/login.feature",
-                "src/test/resources/featureFiles/_Samples_/country.feature"
+
+        features = {"src/test/resources/featureFiles/Campus15_Citizenship/",
+                "src/test/resources/featureFiles/_Samples_/"
         },
         glue = {"classpath:io/mersys/test/stepDefinitions"},
         plugin = {
@@ -31,13 +31,13 @@ import org.testng.annotations.Listeners;
 @Listeners({ExtentITestListenerClassAdapter.class})
 public class BelirliFeaturelariCalistir extends AbstractTestNGCucumberTests {   // abstract class a extend etmezsek çalışmaz
 
-        @AfterClass
-        public static void writeExtentReport() {
-                ExtentService.getInstance().setSystemInfo("Team Name", "Team-1@TechnoStudy : Login ve Country");
-                ExtentService.getInstance().setSystemInfo("Application Name", "Campus");
-                ExtentService.getInstance().setSystemInfo("Operating System Info", System.getProperty("os.name").toString());
-                ExtentService.getInstance().setSystemInfo("Department", "QA");
-                ExtentService.getInstance().setSystemInfo("Ek Satır", "Login ve CreateCountry Test Sonucu");
-        }
+    @AfterClass
+    public static void writeExtentReport() {
+        ExtentService.getInstance().setSystemInfo("Team Name", "Team-1@TechnoStudy");
+        ExtentService.getInstance().setSystemInfo("Application Name", "Campus_SomeFeatures");
+        ExtentService.getInstance().setSystemInfo("Operating System Info", System.getProperty("os.name").toString());
+        ExtentService.getInstance().setSystemInfo("Department", "QA");
+        ExtentService.getInstance().setSystemInfo("Ek Satır", "Samples ve Citizenships Test Sonucu");
+    }
 
 }
