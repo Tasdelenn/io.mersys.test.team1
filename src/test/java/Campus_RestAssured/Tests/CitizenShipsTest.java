@@ -2,52 +2,15 @@ package Campus_RestAssured.Tests;
 
 import Campus_RestAssured.Models.Citizenship;
 import com.github.javafaker.Faker;
-import io.mersys.test.utilities.ConfigurationReader;
 import io.restassured.http.ContentType;
-import io.restassured.http.Cookies;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 
-public class CitizenShipsTest {
-
-    Cookies cookies;
-    Faker faker = new Faker();
-
-    @BeforeClass
-    public void loginCampus() {
-        String uriValue = ConfigurationReader.getProperty("url");
-        String usernameValue = ConfigurationReader.getProperty("confUsername");
-        String passwordValue = ConfigurationReader.getProperty("confPassword");
-        String rememberMeValue = ConfigurationReader.getProperty("confRememberMe");
-
-        baseURI = uriValue;
-
-        Map<String, String> credential = new HashMap<>();
-        credential.put("username", usernameValue);
-        credential.put("password", passwordValue);
-        credential.put("rememberMe", rememberMeValue);
-
-        cookies = given()
-                .body(credential)
-                .contentType(ContentType.JSON)
-                .when()
-                .post("/auth/login")
-                .then()
-                .statusCode(200)
-                //.log().body()
-                .extract().response().getDetailedCookies()
-        ;
-        //System.out.println("cookies = " + cookies);
-    }
+public class CitizenShipsTest extends Hooks {
 
     public String getRandom(int value) {
         return RandomStringUtils.randomAlphabetic(value);
@@ -56,13 +19,35 @@ public class CitizenShipsTest {
     //Random method yerine faker class 'ı kullanabiliriz:
     //String name = getRandom(8);
     //String shortName = getRandom(4);
+    Faker faker = new Faker();
     String name = faker.nation().nationality();
     String shortName = faker.nation().flag();
     String citizenShipId;
 
     @Test
+    public void searchCitizenship() {
+
+        given()
+                .cookies(cookies)
+                .body("{}")
+                .contentType(ContentType.JSON)
+
+                .when()
+                .post("/school-service/api/citizenships/search")
+
+                .then()
+                .statusCode(200)
+                //.log().body()
+        ;
+
+    }
+
+
+    @Test
     public void createCitizenship() {
         Citizenship citizenship = new Citizenship(name, shortName);
+
+
 
         citizenShipId = given()
                 .cookies(cookies)
@@ -80,6 +65,7 @@ public class CitizenShipsTest {
         ;
         System.out.println("name manual = " + name);
     }
+
 
     @Test(dependsOnMethods = "createCitizenship")
     public void createCitizenshipNegative() {
@@ -151,9 +137,5 @@ public class CitizenShipsTest {
                 .statusCode(400)
                 .log().body()
         ;
-
-
     }
-
-
 }

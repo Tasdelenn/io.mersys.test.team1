@@ -2,52 +2,15 @@ package Campus_RestAssured.Tests;
 
 import Campus_RestAssured.Models.Fees;
 import com.github.javafaker.Faker;
-import io.mersys.test.utilities.ConfigurationReader;
 import io.restassured.http.ContentType;
-import io.restassured.http.Cookies;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static io.restassured.RestAssured.*;
-import static io.restassured.RestAssured.baseURI;
 import static org.hamcrest.Matchers.*;
 
-public class FeesTest {
-    Cookies cookies;
+public class FeesTest extends Hooks {
+
     Faker faker = new Faker();
-
-    @BeforeClass
-    public void loginCampus() {
-        String uriValue = ConfigurationReader.getProperty("url");
-        String usernameValue = ConfigurationReader.getProperty("confUsername");
-        String passwordValue = ConfigurationReader.getProperty("confPassword");
-        String rememberMeValue = ConfigurationReader.getProperty("confRememberMe");
-
-        baseURI = uriValue;
-
-        Map<String, String> credential = new HashMap<>();
-        credential.put("username", usernameValue);
-        credential.put("password", passwordValue);
-        credential.put("rememberMe", rememberMeValue);
-
-        cookies =
-                given()
-                        .contentType(ContentType.JSON)
-                        .body(credential)
-
-                        .when()
-                        .post("auth/login")
-
-                        .then()
-                        //.log().cookies()
-                        .statusCode(200)
-                        .extract().response().getDetailedCookies()
-        ;
-    }
     String feesName;
     String feesCode;
     String feesIntegrationCode;
@@ -58,10 +21,10 @@ public class FeesTest {
     @Test
     public void createFees() {
 
-        feesName = "document "+ String.valueOf(faker.random().nextInt(1000));
-        feesCode = "doc "+String.valueOf(faker.random().nextInt(1000));
+        feesName = "document " + String.valueOf(faker.random().nextInt(1000));
+        feesCode = "doc " + String.valueOf(faker.random().nextInt(1000));
         feesIntegrationCode = String.valueOf(faker.random().nextInt(1000));
-        feesPriority = faker.number().numberBetween(1,1000);
+        feesPriority = faker.number().numberBetween(1, 1000);
 
         Fees fees = new Fees();
         fees.setName(feesName);
@@ -106,13 +69,13 @@ public class FeesTest {
                 .then()
                 .log().body()
                 .statusCode(400)
-                .body("message", equalTo("The Fee Type with Name \""+feesName+"\" already exists."))
+                .body("message", equalTo("The Fee Type with Name \"" + feesName + "\" already exists."))
         ;
     }
 
     @Test(dependsOnMethods = "createFees")
     public void updateFees() {
-        feesName = "document "+ String.valueOf(faker.random().nextInt(1000)) + " " + faker.name().lastName();
+        feesName = "document " + String.valueOf(faker.random().nextInt(1000)) + " " + faker.name().lastName();
 
         Fees fees = new Fees();
         fees.setId(feesID);
@@ -168,9 +131,8 @@ public class FeesTest {
     }
 
     @Test(dependsOnMethods = "deleteFeesById")
-    public void updateFeesNegative()
-    {
-        feesName = "document "+ String.valueOf(faker.random().nextInt(50));
+    public void updateFeesNegative() {
+        feesName = "document " + String.valueOf(faker.random().nextInt(50));
 
         Fees fees = new Fees();
         fees.setId(feesID);
@@ -194,4 +156,20 @@ public class FeesTest {
         ;
     }
 
+    @Test
+    public void listOfFees() {
+
+        given()
+                .cookies(cookies)
+                .body("{}")
+                .contentType(ContentType.JSON)
+
+                .when()
+                .post("/school-service/api/fee-types/search")
+
+                .then()
+                .statusCode(200)
+                .log().body()
+        ;
+    }
 }

@@ -2,56 +2,16 @@ package Campus_RestAssured.Tests;
 
 import Campus_RestAssured.Models.GradeLevels;
 import com.github.javafaker.Faker;
-import io.mersys.test.utilities.ConfigurationReader;
 import io.restassured.http.ContentType;
-import io.restassured.http.Cookies;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-public class GradeLevelsTest {
-    Cookies cookies;
+public class GradeLevelsTest extends Hooks {
+
     Faker faker = new Faker();
-
-    @BeforeClass
-    public void login() {
-
-        // src/main/resources/configuration.properties dosyasından kullanıcı adı, şifre, url
-        // gibi bilgileri okuyup, String bir değişkene atadık:
-        String uriValue = ConfigurationReader.getProperty("url");
-        String usernameValue = ConfigurationReader.getProperty("confUsername");
-        String passwordValue = ConfigurationReader.getProperty("confPassword");
-        String rememberMeValue = ConfigurationReader.getProperty("confRememberMe");
-
-        baseURI = uriValue;
-
-        Map<String, String> credential = new HashMap<>();
-        credential.put("username", usernameValue);
-        credential.put("password", passwordValue);
-        credential.put("rememberMe", rememberMeValue);
-
-        cookies =
-                given()
-                        .contentType(ContentType.JSON)
-                        .body(credential)
-
-                        .when()
-                        .post("auth/login")
-
-                        .then()
-                        //.log().cookies()
-                        .statusCode(200)
-                        .extract().response().getDetailedCookies()
-        ;
-    }
-
     String gradeLevelID;
     String gradeLevelName;
     String gradeLevelShortName;
@@ -83,9 +43,7 @@ public class GradeLevelsTest {
                         .statusCode(201)
                         .extract().jsonPath().getString("id")
         ;
-
     }
-
 
     public String getRandomName() {
         return RandomStringUtils.randomAlphabetic(8).toLowerCase();
@@ -96,9 +54,8 @@ public class GradeLevelsTest {
     }
 
     public int getRandomOrder() {
-        return (int)(Math.random()*100);
+        return (int) (Math.random() * 100);
     }
-
 
     @Test(dependsOnMethods = "createGradeLevel")
     public void createGradeLevelNegative() {
@@ -210,8 +167,6 @@ public class GradeLevelsTest {
                 .body("message", equalTo("Grade Level not found."))
         ;
     }
-
-
 }
 
 
