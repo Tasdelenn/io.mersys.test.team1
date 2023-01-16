@@ -29,7 +29,9 @@
 
             <class name="Campus_RestAssured.Tests.NationalitiesTest"> </class>
 
-            <class name="Campus_RestAssured.Tests.StatesTest">  </class>
+            <class name="Campus_RestAssured.Tests.StatesTest1">  </class>
+
+            <class name="Campus_RestAssured.Tests.StatesTest2">  </class>
 
         </classes>
     </test>

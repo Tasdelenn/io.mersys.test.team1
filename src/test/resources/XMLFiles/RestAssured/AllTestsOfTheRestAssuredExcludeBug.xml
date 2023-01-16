@@ -28,9 +28,18 @@
 
             <class name="Campus_RestAssured.Tests.NationalitiesTest"> </class>
 
-            <class name="Campus_RestAssured.Tests.StatesTest">
+
+            <class name="Campus_RestAssured.Tests.StatesTest1">
                 <methods>
                     <exclude name="DeleteNegative_DeleteTheSameState"> </exclude>
+                    <exclude name="EditNegative_UpdateTheDeletedState"> </exclude>
+                </methods>
+            </class>
+
+            <class name="Campus_RestAssured.Tests.StatesTest2">
+                <methods>
+                    <exclude name="DeleteNegative_DeleteTheSameState"> </exclude>
+                    <exclude name="EditNegative_UpdateTheDeletedState"> </exclude>
                 </methods>
             </class>
 
