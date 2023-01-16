@@ -22,7 +22,9 @@
                     <exclude name="deleteFeesByIdNegative"> </exclude>
                     <exclude name="updateFeesNegative"> </exclude>
 
-                    <!-- Fees için test örneği: çalıştırmak istediğimiz method ları include'a aldık. Default olarak sınıfı çalıştırınca    -->
+                    <!-- Fees için test örneği: çalıştırmak istediğimiz method ları include'a aldık.
+                    Default olarak sınıfı çalıştırınca iclude lar zaten çalışıyo.
+                    Bu class özelinde aşağıdaki include kısımlarını yazmasak da olurdu...   -->
                     <include name="createFees"> </include>
                     <include name="updateFees"> </include>
                     <include name="deleteFeesById"> </include>
