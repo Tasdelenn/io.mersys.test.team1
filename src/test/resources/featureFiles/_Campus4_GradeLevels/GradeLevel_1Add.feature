@@ -6,26 +6,26 @@ Feature: Grade Level Fuctionality
       | parameters  |
       | gradeLevels |
 
-  @Regression @CreateGradeLevel
+  @Regression @Create @GradeLevel
   Scenario: Create a Grade Levels
     When Click on the element in the Dialog
       | addButton |
     And User sending the keys in Dialog content
-      | nameInput | Senior Level |
-      | shortName | SL           |
-      | order     | 14           |
+      | nameInput | Senior Level A |
+      | shortName | SLA            |
+      | order     | 23             |
     And Click on the element in the Dialog
       | saveButton |
     Then Success message should be displayed
 
-    @Negative @CreateGradeLevel
+    @Negative @Create @GradeLevel
   Scenario: Create again the same name Grade Levels
     When Click on the element in the Dialog
       | addButton |
     And User sending the keys in Dialog content
-      | nameInput | Senior Level |
-      | shortName | SL           |
-      | order     | 14           |
-    And Click on the element in the Dialog
+      | nameInput | Senior Level A |
+      | shortName | SLA            |
+      | order     | 23              |
+      And Click on the element in the Dialog
       | saveButton |
       Then Already Exist message should be displayed

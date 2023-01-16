@@ -6,7 +6,7 @@ Feature: Grade Level Fuctionality
       | parameters  |
       | gradeLevels |
 
-  @Regression @DeleteGradeLevel
+  @Regression @Delete @GradeLevel
   Scenario: Delete a Grade Levels
     When User delete the edited item
     Then Success message should be displayed
