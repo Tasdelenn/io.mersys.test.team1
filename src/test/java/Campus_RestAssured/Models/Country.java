@@ -4,6 +4,15 @@ public class Country {
     private String name;
     private String code;
     private String id;
+    private boolean hasState;
+
+    public boolean isHasState() {
+        return hasState;
+    }
+
+    public void setHasState(boolean hasState) {
+        this.hasState = hasState;
+    }
 
     public String getName() {
         return name;

@@ -162,4 +162,89 @@ public class StatesTest {
 
         ;
     }
+
+    @Test
+    public void EditNetagive_UpdateTheDeletedState(){
+        stateName =faker.address().state();
+        stateShortName = faker.address().stateAbbr();
+
+        state.setId(stateID);
+        state.setName(stateName);
+        state.setShortName(stateShortName);
+        state.setCountry(statesCountry);
+
+        given()
+
+                .cookies(cookies)
+                .contentType(ContentType.JSON)
+                .body(state)
+
+
+                .when()
+                .put("school-service/api/states")
+                .then()
+                .log().body()
+                .statusCode(400)
+
+        ;
+
+    }
+
+    String countryID;
+    String countryName;
+    String countryCode;
+
+    @Test
+    public void CreateAnewCountryWithState(){
+        countryName = faker.country().name();
+        countryCode = faker.country().currencyCode();
+
+        Country country = new Country();
+        country.setName(countryName); // generateCountryName
+        country.setCode(countryCode); // generateCountryCode
+        country.setHasState(true);
+
+        countryID =
+                given()
+                        .cookies(cookies)
+                        .contentType(ContentType.JSON)
+                        .body(country)
+
+                        .when()
+                        .post("school-service/api/countries")
+
+                        .then()
+                        .log().body()
+                        .statusCode(201)
+                        .extract().jsonPath().getString("id")
+        ;
+
+    }
+
+    @Test(dependsOnMethods = "CreateAnewCountryWithState")
+    public void Create2_CreateAnewStateFromNewCreatedCountry(){
+        stateName =faker.address().state();
+        stateShortName = faker.address().stateAbbr();
+        StatesCountry stateCountry=new StatesCountry(countryID);
+
+        state.setName(stateName);
+        state.setShortName(stateShortName);
+        state.setCountry(stateCountry);
+
+        stateID =
+                given()
+                        .cookies(cookies)
+                        .contentType(ContentType.JSON)
+                        .body(state)
+
+                        .when()
+                        .post("school-service/api/states")
+
+                        .then()
+                        .log().body()
+                        .statusCode(201)
+                        .extract().jsonPath().getString("id")
+        ;
+
+    }
 }
