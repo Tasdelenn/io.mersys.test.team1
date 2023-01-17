@@ -1,7 +1,6 @@
 package Campus_RestAssured.Tests;
 
 import Campus_RestAssured.Models.Country;
-import Campus_RestAssured.Models.GradeLevels;
 import com.aventstack.extentreports.service.ExtentService;
 import com.github.javafaker.Faker;
 import io.restassured.http.ContentType;
@@ -20,7 +19,7 @@ public class CountryTest extends Hooks{
 
     @Test
     public void createCountry() {
-        countryName = faker.country().name();
+        countryName = faker.country().name() + faker.letterify("a");
         countryCode = faker.country().currencyCode();
 
         Country country = new Country();
