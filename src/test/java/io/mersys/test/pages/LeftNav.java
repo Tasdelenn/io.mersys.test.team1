@@ -62,6 +62,12 @@ public class LeftNav extends BaseFunctions{
     @FindBy(xpath = "//span[text()='Attestations']")
     private WebElement attestations;
 
+    @FindBy(xpath = "//span[text()='School Setup']")
+    private WebElement schoolSetup;
+
+    @FindBy(xpath = "//span[text()='Locations']")
+    private WebElement locations;
+
     WebElement myElement;
 
     public void findAndClick(String strElement) {  // 2.aşama
@@ -84,6 +90,8 @@ public class LeftNav extends BaseFunctions{
             case "humanResources" : myElement =humanResources; break;
             case "hrSetup" : myElement =hrSetup; break;
             case "attestations" : myElement =attestations; break;
+            case "schoolSetup" : myElement =schoolSetup; break;
+            case "locations" : myElement =locations; break;
 
 
 
