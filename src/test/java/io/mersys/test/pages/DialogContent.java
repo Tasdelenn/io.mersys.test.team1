@@ -111,6 +111,9 @@ public class DialogContent extends BaseFunctions {
     @FindBy(css = "mat-select[role='combobox'][formcontrolname='id']")
     private WebElement countryNameInput0;
 
+    @FindBy(xpath = "//ms-integer-field[@formcontrolname='capacity']//input")
+    private WebElement capacity;
+
 
     WebElement myElement;
 
@@ -155,6 +158,9 @@ public class DialogContent extends BaseFunctions {
                 break;
             case "countryNameInput0":
                 myElement = countryNameInput0;
+                break;
+            case "capacity":
+                myElement = capacity;
                 break;
 
 
