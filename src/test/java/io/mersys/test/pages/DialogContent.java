@@ -120,49 +120,20 @@ public class DialogContent extends BaseFunctions {
     public void findAndSend(String strElement, String value) {  // 2.aşama
         // burda string isimden weblemente ulaşıcam
         switch (strElement) {
-            case "username":
-                myElement = username;
-                break;
-            case "password":
-                myElement = password;
-                break;
-            case "nameInput":
-                myElement = nameInput;
-                break;
-            case "codeInput":
-                myElement = codeInput;
-                break;
-            case "shortName":
-                myElement = shortName;
-                break;
-            case "searchInput":
-                myElement = searchInput;
-                break;
-            case "integrationCode":
-                myElement = integrationCode;
-                break;
-            case "priorityCode":
-                myElement = priorityCode;
-                break;
-            case "description":
-                myElement = description;
-                break;
-            case "order":
-                myElement = order;
-                break;
-            case "description1":
-                myElement = description1;
-                break;
-            case "codeintegration":
-                myElement = codeintegration;
-                break;
-            case "countryNameInput0":
-                myElement = countryNameInput0;
-                break;
-            case "capacity":
-                myElement = capacity;
-                break;
-
+            case "username": myElement = username; break;
+            case "password": myElement = password; break;
+            case "nameInput": myElement = nameInput; break;
+            case "codeInput": myElement = codeInput; break;
+            case "shortName": myElement = shortName; break;
+            case "searchInput": myElement = searchInput; break;
+            case "integrationCode": myElement = integrationCode; break;
+            case "priorityCode": myElement = priorityCode; break;
+            case "description": myElement = description; break;
+            case "order": myElement = order; break;
+            case "description1": myElement = description1; break;
+            case "codeintegration": myElement = codeintegration; break;
+            case "countryNameInput0": myElement = countryNameInput0; break;
+            case "capacity": myElement = capacity; break;
 
         }
 
@@ -172,47 +143,25 @@ public class DialogContent extends BaseFunctions {
     public void findAndClick(String strElement) {  // 2.aşama
         // burda string isimden weblemente ulaşıcam
         switch (strElement) {
-            case "loginButton":
-                myElement = loginButton;
-                break;
-            case "addButton":
-                myElement = addButton;
-                break;
-            case "saveButton":
-                myElement = saveButton;
-                break;
-            case "closeDialog":
-                myElement = closeDialog;
-                break;
-            case "searchButton":
-                myElement = searchButton;
-                break;
-            case "deleteButton":
-                myElement = deleteButton;
-                break;
+            case "loginButton": myElement = loginButton; break;
+            case "addButton": myElement = addButton; break;
+            case "saveButton": myElement = saveButton; break;
+            case "closeDialog": myElement = closeDialog; break;
+            case "searchButton": myElement = searchButton; break;
+            case "deleteButton": myElement = deleteButton; break;
             case "deleteButton2":
                 BaseDriver.getWait().until(ExpectedConditions.numberOfElementsToBeLessThan(By.xpath("//ms-delete-button//button"), deleteButton2.size()));
                 myElement = deleteButton2.get(0);
                 break;
-            case "deleteDialogBtn":
-                myElement = deleteDialogBtn;
-                break;
-            case "acceptCookies":
-                myElement = acceptCookies;
-                break;
-            case "editButton":
-                myElement = editButton;
-                break;
-            case "editButton2":
-                myElement = editButton2;
-                break;
+            case "deleteDialogBtn": myElement = deleteDialogBtn; break;
+            case "acceptCookies": myElement = acceptCookies; break;
+            case "editButton": myElement = editButton; break;
+            case "editButton2": myElement = editButton2; break;
             case "editButton3":
                 BaseDriver.getWait().until(ExpectedConditions.numberOfElementsToBeLessThan(By.cssSelector("ms-edit-button[class^='ng-']"), editButton3.size()));
                 myElement = editButton3.get(0);
                 break;
-            case "active":
-                myElement = active;
-                break;
+            case "active": myElement = active; break;
 
         }
 
@@ -222,27 +171,16 @@ public class DialogContent extends BaseFunctions {
     public void findAndContainsText(String strElement, String text) {  // 2.aşama
         // burda string isimden weblemente ulaşıcam
         switch (strElement) {
-            case "dashboard":
-                myElement = dashboard;
-                break;
-            case "successMessage":
-                myElement = successMessage;
-                break;
-            case "alreadyExist":
-                myElement = alreadyExist;
-                break;
-            case "noDataMessage":
-                myElement = noDataMessage;
-                break;
-            case "loginButton":
-                myElement = loginButton;
-                break;
+            case "dashboard": myElement = dashboard; break;
+            case "successMessage": myElement = successMessage; break;
+            case "alreadyExist": myElement = alreadyExist; break;
+            case "noDataMessage": myElement = noDataMessage; break;
+            case "loginButton": myElement = loginButton; break;
 
         }
 
         verifyContainsText(myElement, text);
     }
-
 
     public void SearchAndDelete(String searchText) {
 
@@ -254,7 +192,6 @@ public class DialogContent extends BaseFunctions {
 
         WebDriverWait wait = new WebDriverWait(BaseDriver.getDriver(), Duration.ofSeconds(30));
         wait.until(ExpectedConditions.textToBe(By.cssSelector("div[fxlayoutalign='center center'][class='control-full']"), "Search"));
-
 
         findAndClick("deleteButton");// silme butonua bas
         findAndClick("deleteDialogBtn");// dilogdaki silme butonuna bas
