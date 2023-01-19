@@ -2871,7 +2871,306 @@
 						},
 						{
 							"name": "Fields",
-							"item": [],
+							"item": [
+								{
+									"name": "Login Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "5d8b7d17-5b72-4f4f-9ef9-2de9d51388bc",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "d0014faf-b233-40e3-a324-799709432bb3",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"rememberMe\": true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://test.mersys.io/auth/login"
+									},
+									"response": []
+								},
+								{
+									"name": "Add A New Fee Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2e824863-d718-4f48-ad68-ad423fb1eec8",
+												"exec": [
+													"var body=pm.response.json();\r",
+													"var id=body.id;\r",
+													"console.log(body);\r",
+													"\r",
+													"pm.collectionVariables.set(\"feeID\", id);\r",
+													"pm.collectionVariables.set(\"feeName\", body.name);\r",
+													"pm.collectionVariables.set(\"feeCode\", body.code);\r",
+													"pm.collectionVariables.set(\"feeIntCode\", body.intCode);\r",
+													"pm.collectionVariables.set(\"feePriority\", body.priority);\r",
+													"\r",
+													"pm.test(\"Successful POST request\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "ce071d9b-cfe9-4cf8-9cbf-693efb11912a",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": null,\r\n    \"budgetAccountIntegrationCode\": \"{{$randomInt}}\",\r\n    \"name\": \"document{{$randomInt}}\",\r\n    \"code\": \"doc{{$randomInt}}\",\r\n    \"priority\": \"{{$randomInt}}\",\r\n    \"translateName\": [],\r\n    \"active\": true,\r\n    \"tenantId\": null\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}entity-field"
+									},
+									"response": []
+								},
+								{
+									"name": "Add A Exist Fee (Negative) Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b1492136-0132-4305-beb7-df697123709a",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "f016057b-a68b-4c7f-a087-46aa120be501",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": null,\r\n    \"budgetAccountIntegrationCode\": \"{{feeIntCode}}\",\r\n    \"name\": \"{{feeID}}\",\r\n    \"code\": \"{{feeCode}}\",\r\n    \"priority\": \"{{feePriority}}\",\r\n    \"translateName\": [],\r\n    \"active\": true,\r\n    \"tenantId\": null\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}fee-types"
+									},
+									"response": []
+								},
+								{
+									"name": "Update A Fee Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6afda627-bccd-4d4d-893a-9d730b0afc5b",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "c5d40940-7695-4aa8-ac2c-2ed564de4c49",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"{{feeID}}\",\r\n  \"name\": \"document{{$randomInt}}\",\r\n  \"translateName\": [],\r\n  \"code\": \"doc{{$randomInt}}\",\r\n  \"priority\": {{$randomInt}},\r\n  \"active\": true,\r\n  \"budgetAccountIntegrationCode\": \"{{$randomInt}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}fee-types"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete A Fee Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "f2945bf2-3529-49a8-9646-e15bc86d0068",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "6c91ca1d-01eb-48a5-bb21-ee96d2f67887",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}fee-types/{{feeID}}"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete A Non-Exist Fee (Negative) Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "e2b35d76-63f6-45b9-b2df-2816be2aa4de",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "339e73a9-0fa4-44a5-a848-2807831ce38e",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}fee-types/{{feeID}}"
+									},
+									"response": []
+								},
+								{
+									"name": "Update A Non-Exist Fee (Negative) Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "de112102-7545-4679-9da5-f896f2a98724",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "ed31a840-5a24-46da-a471-96a3341c1d5f",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"{{feeID}}\",\r\n  \"name\": \"document{{$randomInt}}\",\r\n  \"translateName\": [],\r\n  \"code\": \"doc{{$randomInt}}\",\r\n  \"priority\": {{$randomInt}},\r\n  \"active\": true,\r\n  \"budgetAccountIntegrationCode\": \"{{$randomInt}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}fee-types"
+									},
+									"response": []
+								},
+								{
+									"name": "Get List of Fee Names Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "39610382-70cd-40e1-ab82-45306a9e98d4",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "60464e01-7574-451f-9c59-c8f6a0699bf1",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}fee-types/search"
+									},
+									"response": []
+								}
+							],
 							"id": "64c48c88-43fe-42da-be48-6b0d9f62a4a7"
 						},
 						{
@@ -5156,210 +5455,210 @@
 	],
 	"variable": [
 		{
-			"id": "4fcf7636-3112-4857-a451-dd51a7a27799",
+			"id": "4988bef7-39eb-4340-a403-655971b3e31a",
 			"key": "countryID",
 			"value": ""
 		},
 		{
-			"id": "d5f2f629-ee54-49fe-ac70-b335288e8db6",
+			"id": "bcb50bf6-88ba-47c8-81fd-917f71517b49",
 			"key": "countryName",
 			"value": ""
 		},
 		{
-			"id": "681ecb4a-a1f2-4072-8fe5-47db36fd28d3",
+			"id": "f7576770-d222-4884-8d40-80a5aef5c80b",
 			"key": "name",
 			"value": ""
 		},
 		{
-			"id": "7bb660ce-e650-42d5-96ed-88626eae2829",
+			"id": "eae30c24-54a0-4609-a6c1-a7dc8e072298",
 			"key": "positionCatName",
 			"value": ""
 		},
 		{
-			"id": "7c89eec7-972f-4d04-8ae4-656992793d33",
+			"id": "18e38fc9-4cc0-4611-a7b3-21654c210a52",
 			"key": "positionCatId",
 			"value": ""
 		},
 		{
-			"id": "1a3ea798-c679-4690-8a9e-550bf5084367",
+			"id": "67bb88e0-a51b-4ccd-9674-fb56c15d41a4",
 			"key": "locationsID",
 			"value": ""
 		},
 		{
-			"id": "6a35ffa7-5aca-4b8d-8880-26f2d104c9b9",
+			"id": "1f2af41f-5774-424d-840c-3034d4cc23d0",
 			"key": "locationsName",
 			"value": ""
 		},
 		{
-			"id": "3f8de356-a9f3-444e-b4f8-0820adde842f",
+			"id": "e6afce0f-a1a5-4198-98b1-759f117f99b5",
 			"key": "positionName",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "7354cf74-881f-4b94-9fda-dafe80c5188f",
+			"id": "9ed5226b-74c8-4264-b493-5f9f11ae02d9",
 			"key": "positionShortName",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "b2c7378b-1242-4e8d-a844-7334d12af2ab",
+			"id": "91c6d20c-6de7-4df2-a991-8a67ee1d76ba",
 			"key": "positionId",
 			"value": ""
 		},
 		{
-			"id": "0accad07-7e0b-4e8b-9310-b6a59c7d6252",
+			"id": "c57866d0-1f3f-4b81-bea5-bd98a75b21f8",
 			"key": "tenantId",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "011d0f3c-9130-43ec-8b9e-e0f80b0157a3",
+			"id": "5ac6c547-d874-4f66-aa54-8e2f3e1c65e4",
 			"key": "position.TenantId",
 			"value": ""
 		},
 		{
-			"id": "65507f58-4ff1-4e2a-9d9b-f58f24923c19",
+			"id": "185ff4a5-4642-4d95-b678-aa04d6b6883c",
 			"key": "attestationName",
 			"value": ""
 		},
 		{
-			"id": "b528decc-ff41-4f36-aeda-f21f72d1d7e7",
+			"id": "7b269b4a-a16b-48d6-853b-51483fdef6a9",
 			"key": "attestationId",
 			"value": ""
 		},
 		{
-			"id": "a6427f02-cd08-4830-b0fc-032e634319b4",
+			"id": "4df9fe8a-8b10-4bb9-96f9-fb0388ed3a6c",
 			"key": "subjectCategoriesName",
 			"value": ""
 		},
 		{
-			"id": "6b570dda-44b4-47f1-86f8-6f3a58f7d5ce",
+			"id": "17ce5db1-221d-4c0c-a9c0-f2e62a998669",
 			"key": "subjectCategoriesCode",
 			"value": ""
 		},
 		{
-			"id": "aabda2e3-a34c-4b7e-a984-a9d87baac1ae",
+			"id": "5d5ba1f3-1383-46f2-b709-b9cd4d975765",
 			"key": "subjectCategoriesId",
 			"value": ""
 		},
 		{
-			"id": "a9542060-7299-4e15-a442-fcfc778f9013",
+			"id": "538f4259-dd0a-465e-9dda-c89f53dd26ba",
 			"key": "departmentsID",
 			"value": ""
 		},
 		{
-			"id": "26883acd-b128-44fc-98bf-95af484e5e66",
+			"id": "6a84b4fe-686f-47d8-9319-c76d366b33c9",
 			"key": "departmentsName",
 			"value": ""
 		},
 		{
-			"id": "38eafdb9-1eb3-4018-9d00-78bf5578d7bb",
+			"id": "eeb1f520-7b19-40e6-b81c-afba529334ea",
 			"key": "URL",
 			"value": "https://test.mersys.io"
 		},
 		{
-			"id": "9f05fc00-a66f-4013-9baa-5542ef23579e",
+			"id": "da9ff7d7-30c1-49d4-99f4-a362cbe4fd25",
 			"key": "locationShortName",
 			"value": ""
 		},
 		{
-			"id": "3ae844e0-a21d-40ad-a017-31a0fc46d384",
+			"id": "e1a556cd-e145-48ba-b9de-b19c2464488f",
 			"key": "locationsCap",
 			"value": ""
 		},
 		{
-			"id": "37b6eb1c-ddc2-4d38-bba3-211a1277ba73",
+			"id": "71580843-73ce-4add-8683-76944ecf02ff",
 			"key": "schoolId",
 			"value": ""
 		},
 		{
-			"id": "ca4a48a5-66b6-43c6-8d4b-4d0614c638f8",
+			"id": "db0254f7-fd54-4a79-ad2f-cc9e85c21035",
 			"key": "feeID",
 			"value": ""
 		},
 		{
-			"id": "41c5014f-33c3-4d40-af00-03663272a361",
+			"id": "83b65a8f-4fa8-4e6c-80aa-b449555104f4",
 			"key": "feeName",
 			"value": ""
 		},
 		{
-			"id": "8aab17ea-a1a6-4ade-a09d-25425309a298",
+			"id": "7e12df25-848d-4780-9b97-b0862f271f62",
 			"key": "feeCode",
 			"value": ""
 		},
 		{
-			"id": "44abcfba-0acb-44c5-9dab-2a1d5f037b37",
+			"id": "a130df96-d509-4751-8e04-027ba61fc4a5",
 			"key": "feeIntCode",
 			"value": ""
 		},
 		{
-			"id": "2b63d652-76bb-4782-9a21-1e98139419c3",
+			"id": "16d29f09-781e-4cd3-a477-914db77162e6",
 			"key": "feePriority",
 			"value": ""
 		},
 		{
-			"id": "394289e0-b955-45f8-982d-666cd9d73976",
+			"id": "c3fcb4f2-d92e-48d2-b9ed-bf285c57e154",
 			"key": "gradeID",
 			"value": ""
 		},
 		{
-			"id": "7e86e087-c2a8-4503-b615-fd98e527381b",
+			"id": "0b6a58ec-3184-45c4-8b45-3879ff98c00c",
 			"key": "gradeName",
 			"value": ""
 		},
 		{
-			"id": "6e28a664-35f3-4e8c-a02d-083b925aa41f",
+			"id": "d24d860b-ed4d-4680-b781-b95957cadad6",
 			"key": "gradeShortName",
 			"value": ""
 		},
 		{
-			"id": "41213dd6-b73a-45bf-9d51-1bea8a5ea548",
+			"id": "3851cfa4-832e-4191-9e98-15381d1587c6",
 			"key": "StateID",
 			"value": ""
 		},
 		{
-			"id": "eb309e2a-396c-4e0c-a75b-180253b48385",
+			"id": "4eccc08e-217e-419f-98ca-445731da1a3c",
 			"key": "StateName",
 			"value": ""
 		},
 		{
-			"id": "d8797cef-8c35-4589-b841-2247343109cf",
+			"id": "53986069-2df6-4bb2-99e2-da14f2b51658",
 			"key": "StateShortName",
 			"value": ""
 		},
 		{
-			"id": "871b2c31-41c9-4e3a-8cd9-672797096122",
+			"id": "614be961-452c-40cb-8be4-f1b7072a2d45",
 			"key": "citizenShip",
 			"value": ""
 		},
 		{
-			"id": "580eefb4-a6ae-4878-a926-ab5e8c915934",
+			"id": "03eeff73-5531-4dd8-ba0e-67637e4693fc",
 			"key": "citizenShipID",
 			"value": ""
 		},
 		{
-			"id": "6e9738dd-265f-4c97-a6bc-c996056be687",
+			"id": "0d0edf0c-81d9-4d49-8e6a-b1427e58bc93",
 			"key": "citizenShipName",
 			"value": ""
 		},
 		{
-			"id": "925477fd-5b51-4d82-80dc-c761957f3861",
+			"id": "45d18acc-eefb-4b12-ae80-af41f2576f32",
 			"key": "documentID",
 			"value": ""
 		},
 		{
-			"id": "b8d3f624-6bd9-44b6-8a9d-21c3828bccfd",
+			"id": "b44d0546-4e64-44d4-946b-ac233ca2a10b",
 			"key": "documentName",
 			"value": ""
 		},
 		{
-			"id": "029631cb-92fc-4fdd-a5af-a8a21560e3cb",
+			"id": "d9fc50c9-6923-403a-b1d3-f2a719fb7c17",
 			"key": "cityName",
 			"value": ""
 		},
 		{
-			"id": "1aac7db3-8713-45f2-a123-37bbec3b2097",
+			"id": "665c6114-984d-4f50-be9b-8045ed38b926",
 			"key": "cityID",
 			"value": ""
 		}
