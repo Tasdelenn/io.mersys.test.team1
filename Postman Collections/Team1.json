@@ -4133,942 +4133,948 @@
 			"name": "+Human Resources",
 			"item": [
 				{
-					"name": "Positions",
-					"item": [
-						{
-							"name": "Login",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "5d8b7d17-5b72-4f4f-9ef9-2de9d51388bc",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "b642872b-272f-411a-b9d5-23cad26cf66e",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"rememberMe\": true\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "https://test.mersys.io/auth/login"
-							},
-							"response": []
-						},
-						{
-							"name": "List Position (Empty Search)",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "83237909-2e77-4b8c-8bdd-ce05d2eae3fa",
-										"exec": [
-											"\r",
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "a012b4a5-fb27-4183-bfe7-54adf902851c",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{url}}employee-position/search"
-							},
-							"response": []
-						},
-						{
-							"name": "ADD Position",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "80580eab-b5ef-4f1a-b8bd-96ce211d9188",
-										"exec": [
-											"var body=pm.response.json();\r",
-											"var positionName = body.name;\r",
-											"var positionShortName = body.shortName;\r",
-											"var positionId = body.id;\r",
-											"var tenantId = body.tenantId;\r",
-											"console.log(positionName, positionId);\r",
-											"console.log(body);\r",
-											"\r",
-											"pm.collectionVariables.set(\"positionName\", positionName);\r",
-											"pm.collectionVariables.set(\"positionShortName\", positionShortName);\r",
-											"pm.collectionVariables.set(\"positionId\", positionId);\r",
-											"\r",
-											"pm.test(\"Status code is 201\", function () {\r",
-											"    pm.response.to.have.status(201);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "5ce32de1-dc27-4e91-9ff3-4f6ca6c22137",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{$randomBsNoun}} {{$randomAlphaNumeric}}\",\r\n  \"shortName\": \"{{$randomAlphaNumeric}}{{$randomInt}}\",\r\n  \"translateName\": [],\r\n  \"tenantId\": \"6390ef53f697997914ec20c2\",\r\n  \"active\": true\r\n}\r\n\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{url}}employee-position"
-							},
-							"response": []
-						},
-						{
-							"name": "ADD Position NEGATIVE",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "60272e8b-153d-4824-9448-d88b3852dcfa",
-										"exec": [
-											"var body = pm.response.json()\r",
-											"var positionMessage = body.message;\r",
-											"console.log(positionMessage);\r",
-											"\r",
-											"pm.test(\"Body matches string\", function () {\r",
-											"    pm.expect(pm.response.text()).to.include(\"The Position with Name \",pm.response.json().positionName,\" already exists.\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Status code is 400\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "979ffd6d-f9e0-4575-9a82-50b401e31d71",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{positionName}}\",\r\n  \"shortName\": \"null\",\r\n  \"translateName\": [],\r\n  \"tenantId\": \"6390ef53f697997914ec20c2\",\r\n  \"active\": true\r\n}\r\n\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{url}}employee-position"
-							},
-							"response": []
-						},
-						{
-							"name": "EDIT Position",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "8b7b07aa-9227-4e25-8250-f1ccf9f8de10",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"id\": \"{{positionId}}\",\r\n    \"name\": \"team1 {{positionName}}\",\r\n    \"shortName\": \"t1 {{positionShortName}}\",\r\n    \"translateName\": [],\r\n    \"tenantId\": \"6390ef53f697997914ec20c2\",\r\n    \"active\": true\r\n}\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{url}}employee-position"
-							},
-							"response": []
-						},
-						{
-							"name": "DELETE  Position",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "d0be4588-c32d-4d38-9acd-ec8977ca732f",
-										"exec": [
-											"pm.test(\"Status code is 204\", function () {\r",
-											"    pm.response.to.have.status(204);\r",
-											"});\r",
-											"\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "e4eee99d-1b17-4121-92a2-567205817e16",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{url}}employee-position/{{positionId}}"
-							},
-							"response": []
-						},
-						{
-							"name": "Search  Deleted Position",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "f1c92dec-630b-4351-9605-396256a9ce73",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"// Silinmiş değeri Search yaptığımızda, sorgunun sonucu boş olarak dönüyo mu?\r",
-											"pm.test(\"Body matches string\", function () {\r",
-											"    pm.expect(pm.response.text()).to.include(\"\"); \r",
-											"});\r",
-											"\r",
-											"pm.test(\"Body is correct\", function () {\r",
-											"    pm.response.to.have.body(\"[]\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "ecd2bac0-6169-49c0-a9bb-03b9e97262e8",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"name\": \"team1 {{positionName}}\",\r\n  \"shortName\": \"t1 {{positionShortName}}\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{url}}employee-position/search"
-							},
-							"response": []
-						},
-						{
-							"name": "DELETE  Position NEGATIVE",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
-										"exec": [
-											"pm.test(\"Status code is 204 > No Content\", function () {\r",
-											"    pm.response.to.have.status(204);\r",
-											"});\r",
-											"\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "870b3dd1-8ca3-4426-ab18-dd9cf7427d0f",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{url}}employee-position/{{positionId}}"
-							},
-							"response": []
-						}
-					],
-					"id": "05d23f9d-f740-4e01-9df5-296212f727a8"
-				},
-				{
-					"name": "Work Calendar",
-					"item": [],
-					"id": "cf3e800c-f326-4678-b132-8b48e70ab4cd"
-				},
-				{
-					"name": "Attestations",
-					"item": [
-						{
-							"name": "Login",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "80c0c357-9f77-4d03-a39a-6c75cbde7193",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "1231bf69-fbdc-4daf-b790-e4c9418870a2",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"rememberMe\": \"true\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "https://test.mersys.io/auth/login"
-							},
-							"response": []
-						},
-						{
-							"name": "ADD Attestation",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
-										"exec": [
-											"var body = pm.response.json();\r",
-											"var attestationName = body.name;\r",
-											"var attestationId = body.id;\r",
-											"console.log(attestationName, attestationId);\r",
-											"\r",
-											"pm.collectionVariables.set(\"attestationName\", attestationName);\r",
-											"pm.collectionVariables.set(\"attestationId\", attestationId);\r",
-											"\r",
-											"\r",
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(201);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "0f2cbb66-e49c-44b4-b3b7-7390ae4ed71e",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{$randomBsAdjective}} {{$randomInt}}\",\r\n  \"translateName\": []\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{url}}attestation"
-							},
-							"response": []
-						},
-						{
-							"name": "ADD Attestation NEGATIVE",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
-										"exec": [
-											"var attestationMessage = pm.response.json().message;\r",
-											"console.log(attestationMessage);\r",
-											"\r",
-											"pm.test(\"Status code is 400\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "960c377a-0ab6-45f8-b3b0-769be752b58c",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{attestationName}}\",\r\n  \"translateName\": []\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{url}}attestation"
-							},
-							"response": []
-						},
-						{
-							"name": "EDIT Attestation",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "79fccceb-858d-497b-9d9a-6519871c0f85",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"{{attestationId}}\",\r\n  \"name\": \"team1 {{attestationName}}\",\r\n  \"translateName\": []\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{url}}attestation"
-							},
-							"response": []
-						},
-						{
-							"name": "DELETE  Attestation",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
-										"exec": [
-											"pm.test(\"Status code is 204\", function () {\r",
-											"    pm.response.to.have.status(204);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "38aa4d20-33e7-4c33-a367-ca88232d3fd5",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"{{attestationId}}\",\r\n  \"name\": \"team1 {{attestationName}}\",\r\n  \"translateName\": []\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{url}}attestation/{{attestationId}}"
-							},
-							"response": []
-						},
-						{
-							"name": "DELETE  Attestation NEGATIVE",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
-										"exec": [
-											"var attestationMessage = pm.response.json().message;\r",
-											"console.log(attestationMessage);\r",
-											"\r",
-											"pm.test(\"Status code is 400\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Attestation not found\", function () {\r",
-											"    pm.expect(pm.response.text()).to.include(\"attestation not found\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "5f26471d-5bf6-43df-b442-5cfa714f9915",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"{{attestationId}}\",\r\n  \"name\": \"group2 {{attestationName}}\",\r\n  \"translateName\": []\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{url}}attestation/{{attestationId}}"
-							},
-							"response": []
-						},
-						{
-							"name": "EDIT Attestation NEGATIVE",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "96e897b8-03b4-4197-9a06-52868f77077b",
-										"exec": [
-											"var attestationMessage = pm.response.json().message;\r",
-											"var attestationDetails = pm.response.json().detail;\r",
-											"console.log(\"message:\",attestationMessage);\r",
-											"console.log(\"detail:\",attestationDetails);\r",
-											"\r",
-											"pm.test(\"Status code is 400\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Can't find Attestation\", function () {\r",
-											"    pm.expect(pm.response.text()).to.include(\"Can't find Attestation\");\r",
-											"});\r",
-											"\r",
-											"\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "5844a580-fb3b-4017-96e4-35872277bdc9",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"{{attestationId}}\",\r\n  \"name\": \"team1 {{attestationName}}\",\r\n  \"translateName\": []\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{url}}attestation"
-							},
-							"response": []
-						}
-					],
-					"id": "5b11f427-dcce-4016-bfbb-b385d80f034b"
-				},
-				{
-					"name": "Position Categories",
-					"item": [
-						{
-							"name": "Login",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "80c0c357-9f77-4d03-a39a-6c75cbde7193",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "81e084a5-46e0-4da4-ad53-6e04c8d88973",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"rememberMe\": \"true\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "https://test.mersys.io/auth/login"
-							},
-							"response": []
-						},
-						{
-							"name": "ADD Position Categories",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
-										"exec": [
-											"var positionCatName = pm.response.json().name;\r",
-											"var positionCatId = pm.response.json().id;\r",
-											"console.log(positionCatName, positionCatId);\r",
-											"\r",
-											"pm.collectionVariables.set(\"positionCatName\", positionCatName);\r",
-											"pm.collectionVariables.set(\"positionCatId\", positionCatId);\r",
-											"\r",
-											"\r",
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(201);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "71a4f24a-139d-4284-abbc-1a7c13f28afb",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "09d1defe-1d9d-460f-9818-07130b3729c8",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{$randomBsAdjective}} {{$randomInt}}\",\r\n  \"translateName\": []\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{url}}position-category"
-							},
-							"response": []
-						},
-						{
-							"name": "ADD Position Categories NEGATIVE",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
-										"exec": [
-											"var positionCatMessage = pm.response.json().message;\r",
-											"console.log(positionCatMessage);\r",
-											"\r",
-											"pm.test(\"Status code is 400\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Already Exists Message\", function () {\r",
-											"    pm.expect(pm.response.text()).to.include(\"already exists.\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "82f1048e-49f9-4bb4-8bc2-917afd4e1b4c",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{positionCatName}}\",\r\n  \"translateName\": []\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{url}}position-category"
-							},
-							"response": []
-						},
-						{
-							"name": "EDIT Position Categories",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "a360a6f5-404b-4f85-b367-d9ccaa27d0f9",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "\r\n{\r\n  \"id\": \"{{positionCatId}}\",\r\n  \"name\": \"team1 {{positionCatName}}\",\r\n  \"translateName\": []\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{url}}position-category"
-							},
-							"response": []
-						},
-						{
-							"name": "DELETE  Position Categories",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
-										"exec": [
-											"pm.test(\"Status code is 204\", function () {\r",
-											"    pm.response.to.have.status(204);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "8356b172-a65a-4246-9698-cca220aade26",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"{{positionCatId}}\",\r\n  \"name\": \"team1 {{positionCatName}}\",\r\n  \"translateName\": []\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{url}}position-category/{{positionCatId}}"
-							},
-							"response": []
-						},
-						{
-							"name": "DELETE  Position Categories NEGATIVE",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
-										"exec": [
-											"\r",
-											"positionCatMessage = pm.response.json().message;\r",
-											"console.log(positionCatMessage);\r",
-											"\r",
-											"pm.test(\"Status code is 400\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Can not find\", function () {\r",
-											"    pm.expect(pm.response.text()).to.include(\"not  found\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "057e8271-d5f3-47b1-88c7-2bb5cada2e90",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "\r\n{\r\n  \"id\": \"{{positionCatId}}\",\r\n  \"name\": \"team1 {{positionCatName}}\",\r\n  \"translateName\": []\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{url}}position-category/{{positionCatId}}"
-							},
-							"response": []
-						},
-						{
-							"name": "EDIT Position Categories NEGATIVE",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "96e897b8-03b4-4197-9a06-52868f77077b",
-										"exec": [
-											"var positionCatMessage = pm.response.json().message;\r",
-											"var positionCatDetails = pm.response.json().detail;\r",
-											"console.log(\"message:\",positionCatMessage);\r",
-											"console.log(\"detail:\",positionCatDetails);\r",
-											"\r",
-											"pm.test(\"Status code is 400\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Can't find Position Category\", function () {\r",
-											"    pm.expect(pm.response.text()).to.include(\"Can't find Position Category\");\r",
-											"});\r",
-											"\r",
-											"\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "b9a09566-f672-4465-b71d-75ed8ceacbad",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"{{positionCatId}}\",\r\n  \"name\": \"team1 {{positionCatName}}\",\r\n  \"translateName\": []\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{url}}position-category"
-							},
-							"response": []
-						}
-					],
-					"id": "1278785c-00ad-4bc4-bfeb-db337c2f5a66"
-				},
-				{
-					"name": "Dismissal Articles",
-					"item": [],
-					"id": "0cd524de-ef01-4c7f-821b-dece898863f1"
-				},
-				{
 					"name": "Setup",
-					"item": [],
+					"item": [
+						{
+							"name": "Positions",
+							"item": [
+								{
+									"name": "Login",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "5d8b7d17-5b72-4f4f-9ef9-2de9d51388bc",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "b642872b-272f-411a-b9d5-23cad26cf66e",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"rememberMe\": true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://test.mersys.io/auth/login"
+									},
+									"response": []
+								},
+								{
+									"name": "List Position (Empty Search)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "83237909-2e77-4b8c-8bdd-ce05d2eae3fa",
+												"exec": [
+													"\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "a012b4a5-fb27-4183-bfe7-54adf902851c",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}employee-position/search"
+									},
+									"response": []
+								},
+								{
+									"name": "ADD Position",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "80580eab-b5ef-4f1a-b8bd-96ce211d9188",
+												"exec": [
+													"var body=pm.response.json();\r",
+													"var positionName = body.name;\r",
+													"var positionShortName = body.shortName;\r",
+													"var positionId = body.id;\r",
+													"var tenantId = body.tenantId;\r",
+													"console.log(positionName, positionId);\r",
+													"console.log(body);\r",
+													"\r",
+													"pm.collectionVariables.set(\"positionName\", positionName);\r",
+													"pm.collectionVariables.set(\"positionShortName\", positionShortName);\r",
+													"pm.collectionVariables.set(\"positionId\", positionId);\r",
+													"\r",
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "5ce32de1-dc27-4e91-9ff3-4f6ca6c22137",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{$randomBsNoun}} {{$randomAlphaNumeric}}\",\r\n  \"shortName\": \"{{$randomAlphaNumeric}}{{$randomInt}}\",\r\n  \"translateName\": [],\r\n  \"tenantId\": \"6390ef53f697997914ec20c2\",\r\n  \"active\": true\r\n}\r\n\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}employee-position"
+									},
+									"response": []
+								},
+								{
+									"name": "ADD Position NEGATIVE",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "60272e8b-153d-4824-9448-d88b3852dcfa",
+												"exec": [
+													"var body = pm.response.json()\r",
+													"var positionMessage = body.message;\r",
+													"console.log(positionMessage);\r",
+													"\r",
+													"pm.test(\"Body matches string\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"The Position with Name \",pm.response.json().positionName,\" already exists.\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "979ffd6d-f9e0-4575-9a82-50b401e31d71",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{positionName}}\",\r\n  \"shortName\": \"null\",\r\n  \"translateName\": [],\r\n  \"tenantId\": \"6390ef53f697997914ec20c2\",\r\n  \"active\": true\r\n}\r\n\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}employee-position"
+									},
+									"response": []
+								},
+								{
+									"name": "EDIT Position",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "8b7b07aa-9227-4e25-8250-f1ccf9f8de10",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": \"{{positionId}}\",\r\n    \"name\": \"team1 {{positionName}}\",\r\n    \"shortName\": \"t1 {{positionShortName}}\",\r\n    \"translateName\": [],\r\n    \"tenantId\": \"6390ef53f697997914ec20c2\",\r\n    \"active\": true\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}employee-position"
+									},
+									"response": []
+								},
+								{
+									"name": "DELETE  Position",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "d0be4588-c32d-4d38-9acd-ec8977ca732f",
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {\r",
+													"    pm.response.to.have.status(204);\r",
+													"});\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "e4eee99d-1b17-4121-92a2-567205817e16",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}employee-position/{{positionId}}"
+									},
+									"response": []
+								},
+								{
+									"name": "Search  Deleted Position",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "f1c92dec-630b-4351-9605-396256a9ce73",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"// Silinmiş değeri Search yaptığımızda, sorgunun sonucu boş olarak dönüyo mu?\r",
+													"pm.test(\"Body matches string\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"\"); \r",
+													"});\r",
+													"\r",
+													"pm.test(\"Body is correct\", function () {\r",
+													"    pm.response.to.have.body(\"[]\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "ecd2bac0-6169-49c0-a9bb-03b9e97262e8",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"team1 {{positionName}}\",\r\n  \"shortName\": \"t1 {{positionShortName}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}employee-position/search"
+									},
+									"response": []
+								},
+								{
+									"name": "DELETE  Position NEGATIVE",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+												"exec": [
+													"pm.test(\"Status code is 204 > No Content\", function () {\r",
+													"    pm.response.to.have.status(204);\r",
+													"});\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "870b3dd1-8ca3-4426-ab18-dd9cf7427d0f",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}employee-position/{{positionId}}"
+									},
+									"response": []
+								}
+							],
+							"id": "05d23f9d-f740-4e01-9df5-296212f727a8"
+						},
+						{
+							"name": "Work Calendar",
+							"item": [],
+							"id": "cf3e800c-f326-4678-b132-8b48e70ab4cd"
+						},
+						{
+							"name": "Attestations",
+							"item": [
+								{
+									"name": "Login",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "80c0c357-9f77-4d03-a39a-6c75cbde7193",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "1231bf69-fbdc-4daf-b790-e4c9418870a2",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"rememberMe\": \"true\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://test.mersys.io/auth/login"
+									},
+									"response": []
+								},
+								{
+									"name": "ADD Attestation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+												"exec": [
+													"var body = pm.response.json();\r",
+													"var attestationName = body.name;\r",
+													"var attestationId = body.id;\r",
+													"console.log(attestationName, attestationId);\r",
+													"\r",
+													"pm.collectionVariables.set(\"attestationName\", attestationName);\r",
+													"pm.collectionVariables.set(\"attestationId\", attestationId);\r",
+													"\r",
+													"\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "0f2cbb66-e49c-44b4-b3b7-7390ae4ed71e",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{$randomBsAdjective}} {{$randomInt}}\",\r\n  \"translateName\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}attestation"
+									},
+									"response": []
+								},
+								{
+									"name": "ADD Attestation NEGATIVE",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+												"exec": [
+													"var attestationMessage = pm.response.json().message;\r",
+													"console.log(attestationMessage);\r",
+													"\r",
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "960c377a-0ab6-45f8-b3b0-769be752b58c",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{attestationName}}\",\r\n  \"translateName\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}attestation"
+									},
+									"response": []
+								},
+								{
+									"name": "EDIT Attestation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "79fccceb-858d-497b-9d9a-6519871c0f85",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"{{attestationId}}\",\r\n  \"name\": \"team1 {{attestationName}}\",\r\n  \"translateName\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}attestation"
+									},
+									"response": []
+								},
+								{
+									"name": "DELETE  Attestation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {\r",
+													"    pm.response.to.have.status(204);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "38aa4d20-33e7-4c33-a367-ca88232d3fd5",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"{{attestationId}}\",\r\n  \"name\": \"team1 {{attestationName}}\",\r\n  \"translateName\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}attestation/{{attestationId}}"
+									},
+									"response": []
+								},
+								{
+									"name": "DELETE  Attestation NEGATIVE",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+												"exec": [
+													"var attestationMessage = pm.response.json().message;\r",
+													"console.log(attestationMessage);\r",
+													"\r",
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Attestation not found\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"attestation not found\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "5f26471d-5bf6-43df-b442-5cfa714f9915",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"{{attestationId}}\",\r\n  \"name\": \"group2 {{attestationName}}\",\r\n  \"translateName\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}attestation/{{attestationId}}"
+									},
+									"response": []
+								},
+								{
+									"name": "EDIT Attestation NEGATIVE",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "96e897b8-03b4-4197-9a06-52868f77077b",
+												"exec": [
+													"var attestationMessage = pm.response.json().message;\r",
+													"var attestationDetails = pm.response.json().detail;\r",
+													"console.log(\"message:\",attestationMessage);\r",
+													"console.log(\"detail:\",attestationDetails);\r",
+													"\r",
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Can't find Attestation\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"Can't find Attestation\");\r",
+													"});\r",
+													"\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "5844a580-fb3b-4017-96e4-35872277bdc9",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"{{attestationId}}\",\r\n  \"name\": \"team1 {{attestationName}}\",\r\n  \"translateName\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}attestation"
+									},
+									"response": []
+								}
+							],
+							"id": "5b11f427-dcce-4016-bfbb-b385d80f034b"
+						},
+						{
+							"name": "Position Categories",
+							"item": [
+								{
+									"name": "Login",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "80c0c357-9f77-4d03-a39a-6c75cbde7193",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "81e084a5-46e0-4da4-ad53-6e04c8d88973",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"rememberMe\": \"true\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "https://test.mersys.io/auth/login"
+									},
+									"response": []
+								},
+								{
+									"name": "ADD Position Categories",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+												"exec": [
+													"var positionCatName = pm.response.json().name;\r",
+													"var positionCatId = pm.response.json().id;\r",
+													"console.log(positionCatName, positionCatId);\r",
+													"\r",
+													"pm.collectionVariables.set(\"positionCatName\", positionCatName);\r",
+													"pm.collectionVariables.set(\"positionCatId\", positionCatId);\r",
+													"\r",
+													"\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "71a4f24a-139d-4284-abbc-1a7c13f28afb",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "09d1defe-1d9d-460f-9818-07130b3729c8",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{$randomBsAdjective}} {{$randomInt}}\",\r\n  \"translateName\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}position-category"
+									},
+									"response": []
+								},
+								{
+									"name": "ADD Position Categories NEGATIVE",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+												"exec": [
+													"var positionCatMessage = pm.response.json().message;\r",
+													"console.log(positionCatMessage);\r",
+													"\r",
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Already Exists Message\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"already exists.\");\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "82f1048e-49f9-4bb4-8bc2-917afd4e1b4c",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{positionCatName}}\",\r\n  \"translateName\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}position-category"
+									},
+									"response": []
+								},
+								{
+									"name": "EDIT Position Categories",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "a360a6f5-404b-4f85-b367-d9ccaa27d0f9",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "\r\n{\r\n  \"id\": \"{{positionCatId}}\",\r\n  \"name\": \"team1 {{positionCatName}}\",\r\n  \"translateName\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}position-category"
+									},
+									"response": []
+								},
+								{
+									"name": "DELETE  Position Categories",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {\r",
+													"    pm.response.to.have.status(204);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "8356b172-a65a-4246-9698-cca220aade26",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"{{positionCatId}}\",\r\n  \"name\": \"team1 {{positionCatName}}\",\r\n  \"translateName\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}position-category/{{positionCatId}}"
+									},
+									"response": []
+								},
+								{
+									"name": "DELETE  Position Categories NEGATIVE",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c3067225-5a48-4ef6-bfb2-3b1dfa518a07",
+												"exec": [
+													"\r",
+													"positionCatMessage = pm.response.json().message;\r",
+													"console.log(positionCatMessage);\r",
+													"\r",
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Can not find\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"not  found\");\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "057e8271-d5f3-47b1-88c7-2bb5cada2e90",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "\r\n{\r\n  \"id\": \"{{positionCatId}}\",\r\n  \"name\": \"team1 {{positionCatName}}\",\r\n  \"translateName\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}position-category/{{positionCatId}}"
+									},
+									"response": []
+								},
+								{
+									"name": "EDIT Position Categories NEGATIVE",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "96e897b8-03b4-4197-9a06-52868f77077b",
+												"exec": [
+													"var positionCatMessage = pm.response.json().message;\r",
+													"var positionCatDetails = pm.response.json().detail;\r",
+													"console.log(\"message:\",positionCatMessage);\r",
+													"console.log(\"detail:\",positionCatDetails);\r",
+													"\r",
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Can't find Position Category\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"Can't find Position Category\");\r",
+													"});\r",
+													"\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "b9a09566-f672-4465-b71d-75ed8ceacbad",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"{{positionCatId}}\",\r\n  \"name\": \"team1 {{positionCatName}}\",\r\n  \"translateName\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{url}}position-category"
+									},
+									"response": []
+								}
+							],
+							"id": "1278785c-00ad-4bc4-bfeb-db337c2f5a66"
+						},
+						{
+							"name": "Dismissal Articles",
+							"item": [],
+							"id": "0cd524de-ef01-4c7f-821b-dece898863f1"
+						}
+					],
 					"id": "d463b441-6660-4d97-88fc-947b9dc7a170"
+				},
+				{
+					"name": "New Folder",
+					"item": [],
+					"id": "29882b4b-465b-441e-a0e2-c6794a02b50e"
 				}
 			],
 			"id": "71daf455-283d-4780-83e7-d88a769ed99d"
@@ -5460,210 +5466,210 @@
 	],
 	"variable": [
 		{
-			"id": "f2c216d6-02a2-4bb3-ba78-a5e2a6c399af",
+			"id": "f8bd0898-a51b-477b-9723-9bd9a9955081",
 			"key": "countryID",
 			"value": ""
 		},
 		{
-			"id": "1b31dc2c-cd3b-45f5-89f2-3a912b9d2782",
+			"id": "2f3c38fa-79f3-4789-a6ae-1e807ee7b293",
 			"key": "countryName",
 			"value": ""
 		},
 		{
-			"id": "60fb5f58-c4eb-441d-8767-2cfb6cf56ff9",
+			"id": "9b3014d4-29e4-4e7a-b8d3-f19851bcae1b",
 			"key": "name",
 			"value": ""
 		},
 		{
-			"id": "fbaefa2c-88af-4158-8387-062c3e29063a",
+			"id": "f17abfa6-7d7f-4cc6-9ceb-d4be969f5e38",
 			"key": "positionCatName",
 			"value": ""
 		},
 		{
-			"id": "ff24d00a-ccb1-45eb-ae38-954ae6087bfe",
+			"id": "b19ff309-a4c4-45b8-8ff1-872bc04a10ce",
 			"key": "positionCatId",
 			"value": ""
 		},
 		{
-			"id": "945f3fb1-bcf5-4473-8436-9017eef556c7",
+			"id": "635fb2cd-4273-4812-a913-14fcd86bedfd",
 			"key": "locationsID",
 			"value": ""
 		},
 		{
-			"id": "806916c5-610c-4dbd-aae5-9ac5cdb9ff12",
+			"id": "d7f54476-be01-4e54-abd6-0b2d3f935bc5",
 			"key": "locationsName",
 			"value": ""
 		},
 		{
-			"id": "4de26633-e553-4ae8-b127-587843ed93bf",
+			"id": "eada347b-b8cd-41df-829e-69a1ba33352a",
 			"key": "positionName",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "f3b09d6c-a924-499b-a590-adc26ad14547",
+			"id": "7f87a403-2b23-40e8-86ae-ee2d55db5350",
 			"key": "positionShortName",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "18a655f2-11a1-4a3e-8614-157f6ba3b0a5",
+			"id": "70e42182-1bfb-440b-a920-3ccd833c6e0b",
 			"key": "positionId",
 			"value": ""
 		},
 		{
-			"id": "2bdeee7c-467f-4cfe-ba5d-ba3471fc307a",
+			"id": "8faca106-a584-48c8-9338-d249ee8e499a",
 			"key": "tenantId",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "d8117966-23dd-43ed-9c52-9a43a73d9b57",
+			"id": "c6e0f374-3911-48b3-87e9-9cb1f7b21e9b",
 			"key": "position.TenantId",
 			"value": ""
 		},
 		{
-			"id": "90b6c350-0a2d-46d3-a3a1-286f9a330b7f",
+			"id": "8b6a0544-afb5-4474-a90e-8c38712c448e",
 			"key": "attestationName",
 			"value": ""
 		},
 		{
-			"id": "1cf6c434-9f8e-4a76-b95a-a0694514441e",
+			"id": "3c329930-9530-45f1-9390-91c47d386af6",
 			"key": "attestationId",
 			"value": ""
 		},
 		{
-			"id": "a2fb6e8d-3460-4cba-984d-30625d2fb26b",
+			"id": "a7282540-b7ba-4639-a847-4a195e437173",
 			"key": "subjectCategoriesName",
 			"value": ""
 		},
 		{
-			"id": "d02566bf-1ac4-4f15-b7f6-3e2525b5a388",
+			"id": "70c7fdd1-d47d-42bc-80a0-65ef27bd952f",
 			"key": "subjectCategoriesCode",
 			"value": ""
 		},
 		{
-			"id": "429abd0e-a066-44b1-bd7d-bb841f6976ea",
+			"id": "1cc64f87-cd43-4abe-ae7c-2cd5086f905b",
 			"key": "subjectCategoriesId",
 			"value": ""
 		},
 		{
-			"id": "e735cadd-465c-48f7-ac9e-418e8209d89c",
+			"id": "cea21c7f-ef9b-4e00-bffb-b0d56603a4d6",
 			"key": "departmentsID",
 			"value": ""
 		},
 		{
-			"id": "13100240-1d4b-484e-82c0-b2cd5b2a8ad4",
+			"id": "0ace3251-4229-4f15-9ea6-3b4a969aae1e",
 			"key": "departmentsName",
 			"value": ""
 		},
 		{
-			"id": "a0e008a2-ab05-49e9-9919-960544e187a6",
+			"id": "27c71f9b-afec-4d3f-8c7f-5e583889d404",
 			"key": "URL",
 			"value": "https://test.mersys.io"
 		},
 		{
-			"id": "d3664245-b0fe-4b8d-8334-08893f6e286f",
+			"id": "ee54d18f-91ee-411e-baf7-1d25d740f040",
 			"key": "locationShortName",
 			"value": ""
 		},
 		{
-			"id": "541e9a01-3f3c-4ce3-9838-9e3f85bedeb0",
+			"id": "ab526ea7-fc9d-470d-9b25-25421e5849ed",
 			"key": "locationsCap",
 			"value": ""
 		},
 		{
-			"id": "31940174-e2da-4de8-b755-0e086116886c",
+			"id": "dbc514a8-6c66-4aa9-ad44-41a7482b4a26",
 			"key": "schoolId",
 			"value": ""
 		},
 		{
-			"id": "68e420f0-f8c9-47b3-8553-5290e9dc35d1",
+			"id": "a2ee441e-e348-4e93-ad51-92df104d9b01",
 			"key": "feeID",
 			"value": ""
 		},
 		{
-			"id": "503fe85a-8502-4d84-97a9-8d9b80540742",
+			"id": "daf66f0c-826d-4020-9b15-ba9754db7ab1",
 			"key": "feeName",
 			"value": ""
 		},
 		{
-			"id": "d7089256-f841-42b0-9d65-9a45731fffd2",
+			"id": "3de9c744-0a36-4b9b-a3ce-0f1f2919f396",
 			"key": "feeCode",
 			"value": ""
 		},
 		{
-			"id": "a9dbf5b9-55ee-4478-9385-c73432994d74",
+			"id": "d7e588c8-3a64-40a6-ae0c-742885d4cb54",
 			"key": "feeIntCode",
 			"value": ""
 		},
 		{
-			"id": "ce85bec2-d5a3-462b-b617-0dcc1c5443be",
+			"id": "2981c822-8895-4d79-ac0e-3bda10953c43",
 			"key": "feePriority",
 			"value": ""
 		},
 		{
-			"id": "baf1c7cd-824b-405d-bf70-ba5591246ffa",
+			"id": "f677d618-03fc-411b-aa3d-3b5ef6f5d0ac",
 			"key": "gradeID",
 			"value": ""
 		},
 		{
-			"id": "f7e07fae-705b-461f-af90-88e6763a3b67",
+			"id": "39751791-514a-4c0c-964a-c1aa8aca48a1",
 			"key": "gradeName",
 			"value": ""
 		},
 		{
-			"id": "9d16cab7-d30c-43eb-9af7-4d0d20a4c515",
+			"id": "d762f897-80e7-498f-ab42-9523878f743b",
 			"key": "gradeShortName",
 			"value": ""
 		},
 		{
-			"id": "cdd51020-1203-44c3-8cc2-beb1e271d5fd",
+			"id": "add2531b-b67d-46e1-9659-590314ca208e",
 			"key": "StateID",
 			"value": ""
 		},
 		{
-			"id": "08d040fc-a6dc-490e-abd9-7f1a7df24586",
+			"id": "537246d0-1aa6-4672-aab1-3e5fd5fb952b",
 			"key": "StateName",
 			"value": ""
 		},
 		{
-			"id": "d3b95112-ac9f-4b32-916e-bba4cd26c7ec",
+			"id": "8061bf3b-2459-40da-9c9b-bc86b9b27140",
 			"key": "StateShortName",
 			"value": ""
 		},
 		{
-			"id": "db2f4ed3-9ff9-43c4-88a5-1c6461c5dc33",
+			"id": "33e18982-a67f-4c6e-a585-ef81dc207bf3",
 			"key": "citizenShip",
 			"value": ""
 		},
 		{
-			"id": "f32b4660-2701-4432-9666-7395bd601302",
+			"id": "29d05ed5-a5a0-4820-bb3c-b046d8490e0d",
 			"key": "citizenShipID",
 			"value": ""
 		},
 		{
-			"id": "e6356622-5d08-46a2-b324-763fb4a15535",
+			"id": "66c94d07-6996-4f41-a8f8-2b08743bcbd0",
 			"key": "citizenShipName",
 			"value": ""
 		},
 		{
-			"id": "9d5534a4-409a-4dae-8de5-37999dd6fdc8",
+			"id": "8f51ea7b-4e82-407e-bef5-75e944c615c4",
 			"key": "documentID",
 			"value": ""
 		},
 		{
-			"id": "ba2243ae-be22-4188-9e90-fc3ad7aadbf8",
+			"id": "b04ad6ba-cc77-4c4b-b8fa-500cd8d38c51",
 			"key": "documentName",
 			"value": ""
 		},
 		{
-			"id": "9dfbbb0d-3290-4098-94c2-813b9774f55f",
+			"id": "7351315c-d5ac-4d3a-93d2-57ee7ea61c0c",
 			"key": "cityName",
 			"value": ""
 		},
 		{
-			"id": "285d3fa4-ef52-4334-bf2f-5778f6e359fe",
+			"id": "5ffe300e-5611-47b3-9a00-8cc65ce72f96",
 			"key": "cityID",
 			"value": ""
 		}
