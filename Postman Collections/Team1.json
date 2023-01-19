@@ -5066,7 +5066,7 @@
 					"id": "0cd524de-ef01-4c7f-821b-dece898863f1"
 				},
 				{
-					"name": "New Folder",
+					"name": "Setup",
 					"item": [],
 					"id": "d463b441-6660-4d97-88fc-947b9dc7a170"
 				}
@@ -5460,210 +5460,210 @@
 	],
 	"variable": [
 		{
-			"id": "d36cf59f-a935-4625-b307-fd138cfcc1a2",
+			"id": "f2c216d6-02a2-4bb3-ba78-a5e2a6c399af",
 			"key": "countryID",
 			"value": ""
 		},
 		{
-			"id": "7bd6f55d-2946-4e49-b694-b9f9c86f583b",
+			"id": "1b31dc2c-cd3b-45f5-89f2-3a912b9d2782",
 			"key": "countryName",
 			"value": ""
 		},
 		{
-			"id": "57ea3fd8-e144-467b-a600-1b720bab83ab",
+			"id": "60fb5f58-c4eb-441d-8767-2cfb6cf56ff9",
 			"key": "name",
 			"value": ""
 		},
 		{
-			"id": "68662876-03f3-4d3a-913a-4a7258ea873f",
+			"id": "fbaefa2c-88af-4158-8387-062c3e29063a",
 			"key": "positionCatName",
 			"value": ""
 		},
 		{
-			"id": "e4f88574-ae5f-4b1e-9ec6-25b07e554ca9",
+			"id": "ff24d00a-ccb1-45eb-ae38-954ae6087bfe",
 			"key": "positionCatId",
 			"value": ""
 		},
 		{
-			"id": "bf94bc0a-a792-49d1-bea2-0c4ed01b1c54",
+			"id": "945f3fb1-bcf5-4473-8436-9017eef556c7",
 			"key": "locationsID",
 			"value": ""
 		},
 		{
-			"id": "6304909b-5c57-417a-9c02-26308f027543",
+			"id": "806916c5-610c-4dbd-aae5-9ac5cdb9ff12",
 			"key": "locationsName",
 			"value": ""
 		},
 		{
-			"id": "c76eef8f-ca16-4e24-bb4e-e19d6589ffe6",
+			"id": "4de26633-e553-4ae8-b127-587843ed93bf",
 			"key": "positionName",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "6295a6ff-4f39-4e1b-9207-802aa7d80c8d",
+			"id": "f3b09d6c-a924-499b-a590-adc26ad14547",
 			"key": "positionShortName",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "edb1d8af-a0ec-43db-9686-38029d6fb694",
+			"id": "18a655f2-11a1-4a3e-8614-157f6ba3b0a5",
 			"key": "positionId",
 			"value": ""
 		},
 		{
-			"id": "3f01a302-643c-4fa5-a076-704e87756a97",
+			"id": "2bdeee7c-467f-4cfe-ba5d-ba3471fc307a",
 			"key": "tenantId",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "0b0e62a4-f4d8-4b50-98c1-3b908142afda",
+			"id": "d8117966-23dd-43ed-9c52-9a43a73d9b57",
 			"key": "position.TenantId",
 			"value": ""
 		},
 		{
-			"id": "27e6efb2-1445-41b9-80bf-f8abf90bf8ab",
+			"id": "90b6c350-0a2d-46d3-a3a1-286f9a330b7f",
 			"key": "attestationName",
 			"value": ""
 		},
 		{
-			"id": "f30eb8cc-02b4-4a65-8f17-d4bc28df0c84",
+			"id": "1cf6c434-9f8e-4a76-b95a-a0694514441e",
 			"key": "attestationId",
 			"value": ""
 		},
 		{
-			"id": "c75a50f2-e225-474c-803e-9fa15e5be380",
+			"id": "a2fb6e8d-3460-4cba-984d-30625d2fb26b",
 			"key": "subjectCategoriesName",
 			"value": ""
 		},
 		{
-			"id": "d5493324-d96b-4743-ac81-3dc191f9f6e9",
+			"id": "d02566bf-1ac4-4f15-b7f6-3e2525b5a388",
 			"key": "subjectCategoriesCode",
 			"value": ""
 		},
 		{
-			"id": "9a13a478-0cfb-4e43-bc23-5d21cdc0d74d",
+			"id": "429abd0e-a066-44b1-bd7d-bb841f6976ea",
 			"key": "subjectCategoriesId",
 			"value": ""
 		},
 		{
-			"id": "73555025-1de5-4d6c-8f89-a34009af5288",
+			"id": "e735cadd-465c-48f7-ac9e-418e8209d89c",
 			"key": "departmentsID",
 			"value": ""
 		},
 		{
-			"id": "dae5f203-2a8a-4e5c-82e9-97a19ff7ead0",
+			"id": "13100240-1d4b-484e-82c0-b2cd5b2a8ad4",
 			"key": "departmentsName",
 			"value": ""
 		},
 		{
-			"id": "4e71623b-f3fa-42bc-b2ab-d4874a60d90c",
+			"id": "a0e008a2-ab05-49e9-9919-960544e187a6",
 			"key": "URL",
 			"value": "https://test.mersys.io"
 		},
 		{
-			"id": "0fc19e97-a1f1-4d64-a0d9-b15f4b27841e",
+			"id": "d3664245-b0fe-4b8d-8334-08893f6e286f",
 			"key": "locationShortName",
 			"value": ""
 		},
 		{
-			"id": "70301d12-0e4e-4b7c-a5c2-c3c0a2045aa2",
+			"id": "541e9a01-3f3c-4ce3-9838-9e3f85bedeb0",
 			"key": "locationsCap",
 			"value": ""
 		},
 		{
-			"id": "48d3007b-469e-475c-a33d-a0bf66020858",
+			"id": "31940174-e2da-4de8-b755-0e086116886c",
 			"key": "schoolId",
 			"value": ""
 		},
 		{
-			"id": "bd7169d2-d612-46f2-aae4-b5725f535829",
+			"id": "68e420f0-f8c9-47b3-8553-5290e9dc35d1",
 			"key": "feeID",
 			"value": ""
 		},
 		{
-			"id": "5d2b8179-77ac-43bc-965f-9d165970e4aa",
+			"id": "503fe85a-8502-4d84-97a9-8d9b80540742",
 			"key": "feeName",
 			"value": ""
 		},
 		{
-			"id": "15816504-a072-480e-9d53-3c21cd7d5618",
+			"id": "d7089256-f841-42b0-9d65-9a45731fffd2",
 			"key": "feeCode",
 			"value": ""
 		},
 		{
-			"id": "64e0c5dc-5845-4635-9833-a5d8e235528e",
+			"id": "a9dbf5b9-55ee-4478-9385-c73432994d74",
 			"key": "feeIntCode",
 			"value": ""
 		},
 		{
-			"id": "9ce528f0-e951-4c45-ae1b-d2841793e0de",
+			"id": "ce85bec2-d5a3-462b-b617-0dcc1c5443be",
 			"key": "feePriority",
 			"value": ""
 		},
 		{
-			"id": "b3799f09-1a19-440c-9d58-f2cc8c615f5f",
+			"id": "baf1c7cd-824b-405d-bf70-ba5591246ffa",
 			"key": "gradeID",
 			"value": ""
 		},
 		{
-			"id": "615e7e02-9272-4926-98c2-8743a5a59268",
+			"id": "f7e07fae-705b-461f-af90-88e6763a3b67",
 			"key": "gradeName",
 			"value": ""
 		},
 		{
-			"id": "b709b2a3-94f2-4066-8b1d-c05bb6095427",
+			"id": "9d16cab7-d30c-43eb-9af7-4d0d20a4c515",
 			"key": "gradeShortName",
 			"value": ""
 		},
 		{
-			"id": "a2f2cc5e-87b6-4bab-a959-b5c8e6532318",
+			"id": "cdd51020-1203-44c3-8cc2-beb1e271d5fd",
 			"key": "StateID",
 			"value": ""
 		},
 		{
-			"id": "d7e2bffd-f249-4d07-b20b-bf1c366ba5c1",
+			"id": "08d040fc-a6dc-490e-abd9-7f1a7df24586",
 			"key": "StateName",
 			"value": ""
 		},
 		{
-			"id": "fc5edcac-3ade-468b-ad6d-ddd35976e921",
+			"id": "d3b95112-ac9f-4b32-916e-bba4cd26c7ec",
 			"key": "StateShortName",
 			"value": ""
 		},
 		{
-			"id": "9c3a71d6-82da-435a-a953-32dbd23e0bb7",
+			"id": "db2f4ed3-9ff9-43c4-88a5-1c6461c5dc33",
 			"key": "citizenShip",
 			"value": ""
 		},
 		{
-			"id": "b7046a3c-8e19-46ea-b84e-b0462bb3e8df",
+			"id": "f32b4660-2701-4432-9666-7395bd601302",
 			"key": "citizenShipID",
 			"value": ""
 		},
 		{
-			"id": "494782de-dbe3-40bf-88b8-c01e8bfb5d93",
+			"id": "e6356622-5d08-46a2-b324-763fb4a15535",
 			"key": "citizenShipName",
 			"value": ""
 		},
 		{
-			"id": "d1a8ef34-210f-4911-9c5c-ee38b04894ad",
+			"id": "9d5534a4-409a-4dae-8de5-37999dd6fdc8",
 			"key": "documentID",
 			"value": ""
 		},
 		{
-			"id": "f6e25509-dcc7-4bd5-98ff-24a52fbfead8",
+			"id": "ba2243ae-be22-4188-9e90-fc3ad7aadbf8",
 			"key": "documentName",
 			"value": ""
 		},
 		{
-			"id": "70ddfe92-ad11-44e2-87cb-1ca051cace94",
+			"id": "9dfbbb0d-3290-4098-94c2-813b9774f55f",
 			"key": "cityName",
 			"value": ""
 		},
 		{
-			"id": "b9cfb3d1-fbf2-4d71-a8bb-3144e6326fae",
+			"id": "285d3fa4-ef52-4334-bf2f-5778f6e359fe",
 			"key": "cityID",
 			"value": ""
 		}
