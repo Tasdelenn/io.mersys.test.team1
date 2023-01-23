@@ -2941,7 +2941,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "\r\n\r\n{\r\n  \"id\": null,\r\n  \"name\": \"{{$randomMonth}}{{$randomInt}}\",\r\n  \"translateName\": [],\r\n  \"code\": \"code{{$randomInt}}\",\r\n  \"type\": \"STRING\",\r\n  \"children\": [],\r\n  \"systemField\": false,\r\n  \"systemFieldName\": null,\r\n  \"schoolId\": \"6390f3207a3bcb6a7ac977f9\"\r\n}\r\n",
+											"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{$randomMonth}}{{$randomInt}}\",\r\n  \"translateName\": [],\r\n  \"code\": \"code{{$randomInt}}\",\r\n  \"type\": \"STRING\",\r\n  \"children\": [],\r\n  \"systemField\": false,\r\n  \"systemFieldName\": null,\r\n  \"schoolId\": \"6390f3207a3bcb6a7ac977f9\"\r\n}\r\n",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2977,7 +2977,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"id\": null,\r\n    \"budgetAccountIntegrationCode\": \"{{feeIntCode}}\",\r\n    \"name\": \"{{feeID}}\",\r\n    \"code\": \"{{feeCode}}\",\r\n    \"priority\": \"{{feePriority}}\",\r\n    \"translateName\": [],\r\n    \"active\": true,\r\n    \"tenantId\": null\r\n}\r\n",
+											"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"{{fieldName}}\",\r\n  \"translateName\": [],\r\n  \"code\": \"{{fieldCode}}\",\r\n  \"type\": \"STRING\",\r\n  \"children\": [],\r\n  \"systemField\": false,\r\n  \"systemFieldName\": null,\r\n  \"schoolId\": \"6390f3207a3bcb6a7ac977f9\"\r\n}\r\n",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3013,7 +3013,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"id\": \"{{feeID}}\",\r\n  \"name\": \"document{{$randomInt}}\",\r\n  \"translateName\": [],\r\n  \"code\": \"doc{{$randomInt}}\",\r\n  \"priority\": {{$randomInt}},\r\n  \"active\": true,\r\n  \"budgetAccountIntegrationCode\": \"{{$randomInt}}\"\r\n}",
+											"raw": "{\r\n  \"id\": \"{{fieldID}}\",\r\n  \"name\": \"{{$randomMonth}}{{$randomInt}}\",\r\n  \"translateName\": [],\r\n  \"code\": \"{{$randomInt}}\",\r\n  \"type\": \"STRING\",\r\n  \"children\": [],\r\n  \"systemField\": false,\r\n  \"systemFieldName\": null,\r\n  \"schoolId\": \"6390f3207a3bcb6a7ac977f9\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3032,8 +3032,8 @@
 											"script": {
 												"id": "f2945bf2-3529-49a8-9646-e15bc86d0068",
 												"exec": [
-													"pm.test(\"Status code is 200\", function () {\r",
-													"    pm.response.to.have.status(200);\r",
+													"pm.test(\"Status code is 204\", function () {\r",
+													"    pm.response.to.have.status(204);\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -3056,7 +3056,7 @@
 												}
 											}
 										},
-										"url": "{{url}}entity-field/{{feeID}}"
+										"url": "{{url}}entity-field/{{fieldID}}"
 									},
 									"response": []
 								},
@@ -3092,7 +3092,7 @@
 												}
 											}
 										},
-										"url": "{{url}}entity-field/{{feeID}}"
+										"url": "{{url}}entity-field/{{fieldID}}"
 									},
 									"response": []
 								},
@@ -3121,7 +3121,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"id\": \"{{feeID}}\",\r\n  \"name\": \"document{{$randomInt}}\",\r\n  \"translateName\": [],\r\n  \"code\": \"doc{{$randomInt}}\",\r\n  \"priority\": {{$randomInt}},\r\n  \"active\": true,\r\n  \"budgetAccountIntegrationCode\": \"{{$randomInt}}\"\r\n}",
+											"raw": "{\r\n  \"id\": \"{{fieldID}}\",\r\n  \"name\": \"{{$randomMonth}}{{$randomInt}}\",\r\n  \"translateName\": [],\r\n  \"code\": \"{{$randomInt}}\",\r\n  \"type\": \"STRING\",\r\n  \"children\": [],\r\n  \"systemField\": false,\r\n  \"systemFieldName\": null,\r\n  \"schoolId\": \"6390f3207a3bcb6a7ac977f9\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3157,7 +3157,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{}",
+											"raw": "{\r\n  \"schoolId\": \"6390f3207a3bcb6a7ac977f9\",\r\n  \"name\": \"\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5579,225 +5579,225 @@
 	],
 	"variable": [
 		{
-			"id": "c4c4d1da-f6b4-46ae-916f-1ec14121919a",
+			"id": "54251054-6973-4d40-a451-b367232f11d2",
 			"key": "countryID",
 			"value": ""
 		},
 		{
-			"id": "9f98b572-2566-4c7a-b7aa-2a6bb377cb99",
+			"id": "aff3a809-4a97-4a30-9684-55ece57d9721",
 			"key": "countryName",
 			"value": ""
 		},
 		{
-			"id": "83cd3854-92a4-467a-9625-0bf7acd54f84",
+			"id": "a701cf53-6ffe-4269-bf95-98e06a460fd7",
 			"key": "name",
 			"value": ""
 		},
 		{
-			"id": "31e4db19-b17f-4009-abe2-0eeed293d2b3",
+			"id": "8d8ad96f-af3e-4bac-a014-b2bdba53d2a2",
 			"key": "positionCatName",
 			"value": ""
 		},
 		{
-			"id": "8da9e1b1-b03e-4336-b906-8d53f164eedd",
+			"id": "2ff07562-398e-4c46-a331-eba3935c3111",
 			"key": "positionCatId",
 			"value": ""
 		},
 		{
-			"id": "cae074de-a204-4289-b9f7-cf28a4972c99",
+			"id": "51559757-417f-4b04-a7d0-fe0a315e6a66",
 			"key": "locationsID",
 			"value": ""
 		},
 		{
-			"id": "60f9f950-7955-455a-991c-0507f6de03b3",
+			"id": "c12be004-b43c-4785-a35b-12b8e8f06090",
 			"key": "locationsName",
 			"value": ""
 		},
 		{
-			"id": "4cf65ac3-5938-401d-b210-44233a58472e",
+			"id": "c2dd8bc0-045c-479c-b69a-98941353e685",
 			"key": "positionName",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "b74bd783-3269-42c8-8674-d02ec0e70e47",
+			"id": "913c72d9-b5a9-4f49-875e-0bd0727a22aa",
 			"key": "positionShortName",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "90c4d0c3-3342-4a04-b54f-1a035bf09c02",
+			"id": "db288d43-26cb-46d5-8936-6a1298410544",
 			"key": "positionId",
 			"value": ""
 		},
 		{
-			"id": "f9ec8881-017f-4a37-bd17-af77d75c9bff",
+			"id": "002dc5dd-3bea-423e-8f22-7e6e6016ff47",
 			"key": "tenantId",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "f7b8efe5-cb37-43e3-9a2b-f041abef8f22",
+			"id": "2839779a-b5ce-4d98-95c9-3dd848db09f9",
 			"key": "position.TenantId",
 			"value": ""
 		},
 		{
-			"id": "22cfa5ba-0bf0-44d3-ac26-a8600278c904",
+			"id": "0f23bb25-d9a8-47eb-bbdb-8fb0405d1db8",
 			"key": "attestationName",
 			"value": ""
 		},
 		{
-			"id": "0017cfe6-8308-4532-8d18-52a5b37de8ac",
+			"id": "8ae5dda1-470b-406b-80ec-fb201647d68a",
 			"key": "attestationId",
 			"value": ""
 		},
 		{
-			"id": "0a5d4303-3d35-470b-93af-4d964f11c62d",
+			"id": "fa352f75-fb7f-4a4e-b513-3850311d4fbf",
 			"key": "subjectCategoriesName",
 			"value": ""
 		},
 		{
-			"id": "cc99b835-85d6-4642-9daf-78f23ecf1f07",
+			"id": "da80d2e1-3bd5-4b4c-8496-d2dfd6eb640b",
 			"key": "subjectCategoriesCode",
 			"value": ""
 		},
 		{
-			"id": "7402c2b3-deaf-4775-bedb-e02ea41352e3",
+			"id": "56a2aa10-f8d7-4c6a-b8d1-540b294431b8",
 			"key": "subjectCategoriesId",
 			"value": ""
 		},
 		{
-			"id": "6bf3000e-a67f-4bc3-bb71-77b3d756fb41",
+			"id": "bda985f5-7664-43ce-ad4c-9b9156740b33",
 			"key": "departmentsID",
 			"value": ""
 		},
 		{
-			"id": "cb867387-7222-4aec-8486-f29895367571",
+			"id": "dff704ee-0a05-44b7-87a4-0e5c66dda7ee",
 			"key": "departmentsName",
 			"value": ""
 		},
 		{
-			"id": "5d9a8bc4-3dc1-4587-a0c3-602e81f0b926",
+			"id": "19cfbf03-99a6-475b-b695-78424d7de60b",
 			"key": "URL",
 			"value": "https://test.mersys.io"
 		},
 		{
-			"id": "08e7f6e2-694a-4227-8669-e069ef23ba82",
+			"id": "48a9d0eb-419d-4f79-ad2f-ec0a94d0ec2a",
 			"key": "locationShortName",
 			"value": ""
 		},
 		{
-			"id": "d6b816a2-70bd-4a09-9413-cfbc3b39a753",
+			"id": "c19524d9-1849-4ef7-b959-e543a26c23f7",
 			"key": "locationsCap",
 			"value": ""
 		},
 		{
-			"id": "1a39716a-3bd3-4991-86dc-60eeff85461d",
+			"id": "0d56bf44-aadf-4ecd-92b9-c95c32a9ff3c",
 			"key": "schoolId",
 			"value": ""
 		},
 		{
-			"id": "91a0c836-646b-4c0a-9f75-4670cb3b1233",
+			"id": "6d7c13a7-ab36-43cb-bd2e-db2be9631964",
 			"key": "feeID",
 			"value": ""
 		},
 		{
-			"id": "5bddeb4d-cf2f-428c-84c0-17199946eefd",
+			"id": "cec3c510-eabf-4c56-9ae7-e0efd128e215",
 			"key": "feeName",
 			"value": ""
 		},
 		{
-			"id": "5086a027-79ac-4ac9-8579-8d5246684f59",
+			"id": "ddce4578-8526-4c07-8c7b-089cb8612f4a",
 			"key": "feeCode",
 			"value": ""
 		},
 		{
-			"id": "e30cb067-dc1e-4d29-902d-a02ae1541deb",
+			"id": "2b5fa4d1-49d7-4296-9568-2978e7cc0d21",
 			"key": "feeIntCode",
 			"value": ""
 		},
 		{
-			"id": "fc0490dd-5c88-44e4-9be3-0ad12eb75621",
+			"id": "01f52504-f88f-44d0-8924-2634d1a0a32f",
 			"key": "feePriority",
 			"value": ""
 		},
 		{
-			"id": "e4453b4b-b7fd-4be6-94e0-f37b44273fdd",
+			"id": "ce9b80da-851f-48ce-95d1-1e49a81744fb",
 			"key": "gradeID",
 			"value": ""
 		},
 		{
-			"id": "1a5df489-587f-46bd-8d50-4a1325d52170",
+			"id": "5dc02e4e-4b43-4fd5-ab57-cd1f0dcc1e35",
 			"key": "gradeName",
 			"value": ""
 		},
 		{
-			"id": "2ab5cd99-3976-4076-9299-ba2f0ce6f3c1",
+			"id": "4fb6927d-0ef8-4c74-9eeb-b7c4eb5c7fdc",
 			"key": "gradeShortName",
 			"value": ""
 		},
 		{
-			"id": "4ca9e33a-6df2-4e3c-b002-adeeb9048218",
+			"id": "11211607-9511-4603-86a3-829892051693",
 			"key": "StateID",
 			"value": ""
 		},
 		{
-			"id": "11c27621-88c2-4b87-86f2-864d66dde2be",
+			"id": "db16e141-81f5-4c77-b4db-73d58570fd24",
 			"key": "StateName",
 			"value": ""
 		},
 		{
-			"id": "1032c7a2-b8bf-4691-b905-fe6b98e86b69",
+			"id": "7aaaa184-c01b-47c4-b920-b26315f6e367",
 			"key": "StateShortName",
 			"value": ""
 		},
 		{
-			"id": "9d5dbd38-5f00-4892-8f02-9872896d5f1f",
+			"id": "8a248e76-68a3-4741-93ee-43defac73da9",
 			"key": "citizenShip",
 			"value": ""
 		},
 		{
-			"id": "54fa0bae-e082-4261-a0d0-05cc10e9a6ff",
+			"id": "464977b2-220e-4de2-9fff-b1459d66c65d",
 			"key": "citizenShipID",
 			"value": ""
 		},
 		{
-			"id": "3e21dd95-17d5-46cd-95f5-bc91aa9209d9",
+			"id": "4a2973e2-0f94-4142-ba84-428b79741798",
 			"key": "citizenShipName",
 			"value": ""
 		},
 		{
-			"id": "7cceda5e-290c-4ab5-9b93-f1e9662d9781",
+			"id": "5df0267a-60db-4d4a-bfcf-6f76ed633812",
 			"key": "documentID",
 			"value": ""
 		},
 		{
-			"id": "a0920858-cd8d-4a2e-833d-114d0f785514",
+			"id": "c3cc90a3-4d5d-4fce-bd89-3389bce7def3",
 			"key": "documentName",
 			"value": ""
 		},
 		{
-			"id": "0af8de07-df72-4d83-873c-722a133bbf15",
+			"id": "c1d34718-9d99-4602-9831-ba183af47e20",
 			"key": "cityName",
 			"value": ""
 		},
 		{
-			"id": "b1bbd683-405a-4fd7-b611-86ff8b3575c3",
+			"id": "691dc887-80b0-4456-b10d-488879fb87ae",
 			"key": "cityID",
 			"value": ""
 		},
 		{
-			"id": "f8435c47-aa4a-44d1-9c28-b84ae180d441",
+			"id": "b2f7c10c-0a70-4927-9e7c-7f77b66fd7a5",
 			"key": "fieldID",
 			"value": ""
 		},
 		{
-			"id": "2a407b27-35fc-436b-bb6b-aaa3c905ff7c",
+			"id": "82b1eb9f-5eaf-458d-9147-8dd81f169533",
 			"key": "fieldName",
 			"value": ""
 		},
 		{
-			"id": "c6a3a6c3-567d-4242-9fb7-aaf124001008",
+			"id": "1d67a4f9-178d-4596-94da-96bbbfd9d3ff",
 			"key": "fieldCode",
 			"value": ""
 		}
