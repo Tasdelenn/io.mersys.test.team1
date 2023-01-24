@@ -75,7 +75,7 @@ public class DialogContent extends BaseFunctions {
     private WebElement priorityCode;
     @FindBy(xpath = "//mat-slide-toggle[@formcontrolname='active']//span")
     private WebElement active;
-    //    @FindBy(xpath = "(//mat-slide-toggle[@formcontrolname='active']/label/span)[1]")
+//    @FindBy(xpath = "(//mat-slide-toggle[@formcontrolname='active']/label/span)[1]")
 //    private WebElement active;
     @FindBy(xpath = "(//button[@class='consent-give'])[1]")
     private WebElement acceptCookies;
@@ -113,6 +113,28 @@ public class DialogContent extends BaseFunctions {
 
     @FindBy(xpath = "//ms-integer-field[@formcontrolname='capacity']//input")
     private WebElement capacity;
+    @FindBy(xpath = "//mat-select[@id='mat-select-6']")
+    private WebElement sizeButton;
+
+    @FindBy(xpath = "//span[@class='mat-option-text' and text()=' 1000 ']")
+    private WebElement sizeMaxValue;
+
+    @FindBy(xpath = "div[role='listbox']")
+    public List<WebElement> sizeList;
+
+    @FindBy(xpath = "//tr/td[1]")
+    public List<WebElement> rows;
+    @FindBy(xpath = "//tr[1]/td")
+    public List<WebElement> cols;
+
+    @FindBy(xpath = "//strong[text()='Total']")
+    private WebElement total;
+
+
+
+
+
+
 
 
     WebElement myElement;
@@ -162,6 +184,10 @@ public class DialogContent extends BaseFunctions {
                 myElement = editButton3.get(0);
                 break;
             case "active": myElement = active; break;
+            case "sizeButton": myElement = sizeButton; break;
+            case "sizeMaxValue": myElement = sizeMaxValue; break;
+            case "total": myElement = total; break;
+
 
         }
 
@@ -176,6 +202,7 @@ public class DialogContent extends BaseFunctions {
             case "alreadyExist": myElement = alreadyExist; break;
             case "noDataMessage": myElement = noDataMessage; break;
             case "loginButton": myElement = loginButton; break;
+            case "total": myElement = total; break;
 
         }
 
