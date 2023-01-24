@@ -41,6 +41,45 @@ public class FormContent extends BaseFunctions{
     @FindBy(xpath = "//div[contains(@class,'mat-form-field-infix ng-tns-c77')]/mat-select")
     private WebElement countryBlogSearchForm;
 
+    @FindBy(xpath = "//mat-select[@formcontrolname='type']/div")
+    private WebElement locationType;
+
+    @FindBy(xpath = "//span[text()=' Laboratory ']")
+    private WebElement selectLaboratory;
+
+    @FindBy(xpath = "//mat-select[@id='mat-select-12']")
+    private WebElement gradeLevel;
+
+    @FindBy(xpath = "//span[text()=' Middle Level 101 ']")
+    private WebElement selectGradeLevel;
+
+    @FindBy(xpath = "//mat-select[@id='mat-select-14']")
+    private WebElement classTeacher;
+
+    @FindBy(xpath = "//span[text()=' Mehmet Ali Yeşil ']")
+    private WebElement selectTeacher;
+
+    @FindBy(xpath = "//mat-select[@id='mat-select-16']")
+    private WebElement schoolLocation;
+
+    @FindBy(xpath = "//span[text()=' South Campus ']")
+    private WebElement selectSchoolLocation;
+
+    @FindBy(xpath = "//mat-select[@id='mat-select-10']")
+    private WebElement schoolDepartment;
+
+    @FindBy(xpath = "//span[text()=' Teaching And Learning ']")
+    private WebElement selectSchoolDepartment;
+
+    //mat-select[@id='mat-select-18']
+    @FindBy(xpath = "//mat-select[@id='mat-select-18']")
+    private WebElement schoolSection;
+
+    @FindBy(xpath = "//span[text()=' C LAB - Computer Laboratory ']")
+    private WebElement selectSchoolSection;
+
+
+
     WebElement myElement;
 
     public void findAndClick(String strElement){
@@ -55,6 +94,17 @@ public class FormContent extends BaseFunctions{
             case "selectEmployment" : myElement=selectEmployment; break;
             case "selectContract" : myElement=selectContract; break;
             case "Turkey" : myElement=Turkey; break;
+            case "selectLaboratory" : myElement=selectLaboratory; break;
+            case "gradeLevel" : myElement=gradeLevel; break;
+            case "selectGradeLevel" : myElement=selectGradeLevel; break;
+            case "classTeacher" : myElement=classTeacher; break;
+            case "selectTeacher" : myElement=selectTeacher; break;
+            case "schoolLocation" : myElement=schoolLocation; break;
+            case "selectSchoolLocation" : myElement=selectSchoolLocation; break;
+            case "schoolDepartment" : myElement=schoolDepartment; break;
+            case "selectSchoolDepartment" : myElement=selectSchoolDepartment; break;
+            case "schoolSection" : myElement=schoolSection; break;
+            case "selectSchoolSection" : myElement=selectSchoolSection; break;
         }
 
         clickFunction(myElement);
@@ -66,6 +116,9 @@ public class FormContent extends BaseFunctions{
         {
             case "countryBlog" : myElement=countryBlog; break;
             case "countryBlogSearchForm" : myElement=countryBlogSearchForm; break;
+            case "locationType" : myElement=locationType; break;
+            case "gradeLevel" : myElement=gradeLevel; break;
+            case "selectGradeLevel" : myElement=selectGradeLevel; break;
         }
 
         ActionFunction(myElement);
