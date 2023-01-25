@@ -122,7 +122,16 @@ public class DialogContent extends BaseFunctions {
     @FindBy(xpath = "div[role='listbox']")
     public List<WebElement> sizeList;
 
-    @FindBy(xpath = "//tr/td[1]")
+    @FindBy(xpath = "//div[contains(text(), '#')]")
+    //@FindBy(id = "(//tr/th//div[contains(@class,'mat-sort-header-stem ng-tns')])[1]")
+    //@FindBy(id = "#ms-table-0_id")
+    private WebElement sortHeaderByDate;
+
+    @FindBy(xpath = "(//ms-edit-button)[1]")
+    //@FindBy(xpath = "//tr/td[8]//following::ms-edit-button")
+    private WebElement firstEditButton;
+
+    @FindBy(xpath = "//tr/td[2]")
     public List<WebElement> rows;
     @FindBy(xpath = "//tr[1]/td")
     public List<WebElement> cols;
@@ -188,6 +197,8 @@ public class DialogContent extends BaseFunctions {
             case "sizeButton": myElement = sizeButton; break;
             case "sizeMaxValue": myElement = sizeMaxValue; break;
             case "total": myElement = total; break;
+            case "firstEditButton": myElement = firstEditButton; break;
+            case "sortHeaderByDate": myElement = sortHeaderByDate; break;
 
 
         }
