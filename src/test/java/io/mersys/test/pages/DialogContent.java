@@ -130,7 +130,8 @@ public class DialogContent extends BaseFunctions {
     @FindBy(xpath = "//strong[text()='Total']")
     private WebElement total;
 
-
+    @FindBy(xpath = "//div[contains(text(),'already exists')]")
+    private WebElement alreadyExists;
 
 
 
@@ -203,6 +204,7 @@ public class DialogContent extends BaseFunctions {
             case "noDataMessage": myElement = noDataMessage; break;
             case "loginButton": myElement = loginButton; break;
             case "total": myElement = total; break;
+            case "alreadyExists": myElement = alreadyExists; break;
 
         }
 
