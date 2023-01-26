@@ -142,7 +142,12 @@ public class DialogContent extends BaseFunctions {
     @FindBy(xpath = "//div[contains(text(),'already exists')]")
     private WebElement alreadyExists;
 
+    @FindBy(xpath = "//tbody/tr/td[2]")
+    private WebElement birinciIsimSilmeDoğrulama;
 
+    public WebElement getBirinciIsimSilmeDoğrulama() {
+        return birinciIsimSilmeDoğrulama;
+    }
 
 
 
@@ -216,6 +221,7 @@ public class DialogContent extends BaseFunctions {
             case "loginButton": myElement = loginButton; break;
             case "total": myElement = total; break;
             case "alreadyExists": myElement = alreadyExists; break;
+            case "birinciIsimSilmeDoğrulama": myElement = birinciIsimSilmeDoğrulama; break;
 
         }
 

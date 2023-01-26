@@ -78,6 +78,8 @@ public class FormContent extends BaseFunctions{
     @FindBy(xpath = "//span[text()=' C LAB - Computer Laboratory ']")
     private WebElement selectSchoolSection;
 
+    @FindBy(xpath = "//span[text()=' Classroom ']")
+    private WebElement selectClassroom;
 
 
     WebElement myElement;
@@ -105,6 +107,7 @@ public class FormContent extends BaseFunctions{
             case "selectSchoolDepartment" : myElement=selectSchoolDepartment; break;
             case "schoolSection" : myElement=schoolSection; break;
             case "selectSchoolSection" : myElement=selectSchoolSection; break;
+            case "selectClassroom" : myElement=selectClassroom; break;
         }
 
         clickFunction(myElement);
