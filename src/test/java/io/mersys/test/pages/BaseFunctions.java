@@ -31,6 +31,14 @@ public class BaseFunctions {
         js.executeScript("arguments[0].scrollIntoView();", element);
     }
 
+    public void scrollTop() {
+
+        JavascriptExecutor js = (JavascriptExecutor) BaseDriver.getDriver();
+        js.executeScript("window.scrollTo(0,0)");
+        //js.executeScript("document.documentElement.scrollTop = 0;");  //Alternatif Kod
+
+    }
+
     public void clickFunction(WebElement element) {
         waitUntilClickable(element); // tıklanabilir olana kadar bekle
         scrollToElement(element); // elemente scroll yap
