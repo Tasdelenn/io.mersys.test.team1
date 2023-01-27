@@ -9,6 +9,9 @@ Feature: Classes Functionality
       | schoolSetup |
       | classes     |
 
+#    When Make maximum the number of the element (size) in the page
+#    And Find the just added item in to the page without search
+
     When Sort elements by created time
 
     And Click on the element in the Dialog
@@ -35,7 +38,3 @@ Feature: Classes Functionality
       | saveButton |
 
     Then Success message should be displayed
-
-#    When Make maximum the number of the element (size) in the page
-#    And Find the just added item in to the page without search
-#    And Find the just added item in to the page without search
