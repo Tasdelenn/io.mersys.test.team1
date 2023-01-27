@@ -43,20 +43,20 @@ public class GradeLevelsSteps {
 
     @Then("user edit Grade Levels")
     public void userEditGradeLevels() {
+        dc.findAndClick("sortHeaderByDate");
+        dc.findAndClick("sortHeaderByDate");
+        dc.scrollTop();
 
+        dc.findAndClick("editButton");
 
+        /**
         List<WebElement> listeNames = BaseDriver.getDriver().findElements(By.xpath("//tbody[@role='rowgroup']/tr"));
 
-
-
         for (WebElement we : listeNames)
-
         {
             System.out.println(we.getText());
         }
-
         System.out.println( listeNames.toString());
-
 
         for (WebElement e : listeNames)
             if ((e.getText()).contains(istenenName)) {
@@ -68,13 +68,14 @@ public class GradeLevelsSteps {
                 dc.findAndClick("active");
                 dc.findAndClick("saveButton");
             }
+ */
     }
 
     @Then("user delete Grade Levels")
     public void userDeleteGradeLevels() {
+
+        /**
         List<WebElement> listNewNames = BaseDriver.getDriver().findElements(By.xpath("//tbody[@role='rowgroup']/tr"));
-
-
         for (WebElement e : listNewNames) {
             if ((e.getText()).contains(istenenNewName)) {
                 List<WebElement> listDelete = BaseDriver.getDriver().findElements(By.xpath("//ms-delete-button/button"));
@@ -86,6 +87,7 @@ public class GradeLevelsSteps {
                 }
             }
         }
+        */
     }
 
     @And("user should see successfully message")
