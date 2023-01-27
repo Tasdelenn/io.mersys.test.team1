@@ -30,9 +30,15 @@ public class SchoolLocationsSteps {
     @Then("Deleted School Location name should not exist")
     public void deletedSchoolLocationNameShouldNotExist() {
 
-        String ilkİsim = dc.getBirinciIsimSilmeDoğrulama().getText();
-        System.out.println("ilkİsim = " + ilkİsim);
-        Assert.assertEquals(ilkİsim.toString(),"Team1SchoolDüzenlendi");
+        String ilkIsim = dc.getBirinciIsimSilmeDoğrulama().getText();
+        System.out.println("ilkİsim = " + ilkIsim);
+        System.out.println("dc.rows.get(0) = " + dc.rows.get(0).getText());
+
+
+//        Assert.assertEquals(ilkIsim,"Team1SchoolDüzenlendi");
+        Assert.assertNotEquals(ilkIsim,"Team1SchoolDüzenlendi");
+
+
 
     }
 }
