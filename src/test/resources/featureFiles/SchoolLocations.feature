@@ -71,3 +71,22 @@ Feature: School Locations under School Setup Functionality
 
     Then Success message should be displayed
 
+
+  @Regression @SchoolLocations @SchoolLocationsNegative
+  Scenario: Delete School Locations
+
+    And Click on the element in the left Nav
+      | setupOne    |
+      | schoolSetup |
+      | locations   |
+
+    And Click on the element in the Dialog content
+      | deleteButton |
+      | deleteDialogBtn |
+
+    Then Success message should be displayed
+
+
+
+
+
