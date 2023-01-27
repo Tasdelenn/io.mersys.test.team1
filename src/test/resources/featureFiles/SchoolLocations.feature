@@ -71,3 +71,31 @@ Feature: School Locations under School Setup Functionality
 
     Then Success message should be displayed
 
+
+  @Regression @SchoolLocations @SchoolLocationsNegative
+  Scenario: Delete School Locations
+
+    And Click on the element in the left Nav
+      | setupOne    |
+      | schoolSetup |
+      | locations   |
+
+    And Click on the element in the Dialog content
+      | deleteButton |
+      | deleteDialogBtn |
+
+    Then Success message should be displayed
+
+
+#    firefox Tarayıcısında sorunsuz çalışırken,chrome tarayıcısında yazı yerine 1 veriyor.
+  @Regression @SchoolLocationsNegative
+  Scenario: Negative Delete School Locations
+
+    And Click on the element in the left Nav
+      | setupOne    |
+      | schoolSetup |
+      | locations   |
+
+    Then Deleted School Location name should not exist
+
+
