@@ -14,7 +14,7 @@ Feature: Human Resources Attestations
     When Click on the element in the Dialog
       | addButton |
     And User sending the keys in Dialog content
-      | nameInput | Ali Onay |
+      | nameInput | Mehmet Ali Onay |
     And Click on the element in the Dialog
       | saveButton |
     Then Success message should be displayed
@@ -22,7 +22,7 @@ Feature: Human Resources Attestations
   @Regression @HumanResourcesTest
   Scenario: Edit a Attestations
     When User sending the keys in Dialog content
-      | searchInput | Ali Onay |
+      | searchInput | Mehmet Ali Onay |
     And Click on the element in the Dialog
       | searchButton |
     And Click on the element in the Dialog

@@ -19,6 +19,6 @@ Feature: Classes Functionality
 
     Then Success message should be displayed
 
-#    When Make maximum the number of the element (size) in the page
-#    And Find the just added item in to the page without search
-#    And Find the just added item in to the page without search
+#    ÖRNEK LİST OLUŞTURMA:
+    And Make maximum the number of the element (size) in the page
+    And Find the just added item in to the page without search
