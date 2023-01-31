@@ -87,9 +87,21 @@ Feature: School Locations under School Setup Functionality
     Then Success message should be displayed
 
 
-#    firefox Tarayıcısında sorunsuz çalışırken,chrome tarayıcısında yazı yerine 1 veriyor.
+#    firefox Tarayıcısında sorunsuz çalışırken,chrome tarayıcısında yazı yerine 1 veriyor ve bu yüzden hata fırlatıyor.
   @Regression @SchoolLocationsNegative
   Scenario: Negative Delete School Locations
+
+    And Click on the element in the left Nav
+      | setupOne    |
+      | schoolSetup |
+      | locations   |
+
+    Then Deleted School Location name should not exist
+
+
+#    firefox Tarayıcısında sorunsuz çalışırken,chrome tarayıcısında yazı yerine 1 veriyor ve bu yüzden hata fırlatıyor.
+  @Regression @SchoolLocationsNegative
+  Scenario: Negative Edit School Locations
 
     And Click on the element in the left Nav
       | setupOne    |
