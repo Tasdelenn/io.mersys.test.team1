@@ -1,5 +1,4 @@
 package Campus_RestAssured.Tests;
-import Campus_RestAssured.Models.Document;
 import Campus_RestAssured.Models.Locations;
 import io.restassured.http.ContentType;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -12,6 +11,38 @@ public class LocationsTest extends Hooks{
 
     String LocationID;
     String LocationName;
+
+    @Test
+    public void createLocation() {
+
+        LocationName = getRandomName();
+        Boolean rndTF = getRandomTrueFalse();
+        int rndKapasite= getRandomInt();
+
+        Locations locations=new Locations();
+        locations.setName(LocationName);
+        locations.setShortName("T1S");
+        locations.setActive(rndTF);
+        locations.setCapacity(rndKapasite);
+        locations.setType("LABORATORY");
+        locations.setSchool("6390f3207a3bcb6a7ac977f9");
+
+
+        LocationID =
+                given()
+                        .cookies(cookies)
+                        .contentType(ContentType.JSON)
+                        .body(locations)
+
+                        .when()
+                        .post("school-service/api/location")
+
+                        .then()
+                        .log().body()
+                        .statusCode(201)
+                        .extract().jsonPath().getString("id")
+        ;
+    }
 
 
 
