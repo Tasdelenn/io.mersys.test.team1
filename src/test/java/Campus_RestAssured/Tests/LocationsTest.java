@@ -76,6 +76,36 @@ public class LocationsTest extends Hooks{
     }
 
 
+    @Test(dependsOnMethods = "createLocationNegative")
+    public void updateLocation() {
+
+        Boolean rndTF = getRandomTrueFalse();
+        int rndKapasite= getRandomInt();
+
+        Locations locations=new Locations();
+        locations.setId(LocationID);
+        locations.setName(LocationName+"<|>Düzenlendi<|>");
+        locations.setShortName("T1SD");
+        locations.setActive(rndTF);
+        locations.setCapacity(rndKapasite);
+        locations.setType("CLASS");
+        locations.setSchool("6390f3207a3bcb6a7ac977f9");
+
+
+        given()
+                .cookies(cookies)
+                .contentType(ContentType.JSON)
+                .body(locations)
+
+                .when()
+                .put("school-service/api/location")
+
+                .then()
+                .log().body()
+                .statusCode(200)
+        ;
+    }
+
 
 
 
