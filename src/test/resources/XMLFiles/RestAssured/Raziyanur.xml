@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Campus API _ All Test Suite">
+
+    <!-- Extend Report alabilmek için log dinlemesi yapıyor. Sonrasında bununla Extend report (spark.html) oluşturulacak.   -->
+    <listeners>
+        <listener class-name="com.aventstack.extentreports.testng.listener.ExtentITestListenerClassAdapter">    </listener>
+    </listeners>
+
+    <!-- Testimize isim veriyoruz   -->
+    <test verbose="2" preserve-order="true" name="io.mersys.test.team1">
+
+        <!-- Test yapmak istediğimiz sınıfları (ve sınıflar içindeki methodları buraya yazıyoruz)    -->
+        <classes>
+
+            <!-- Fees için test örneği: çalıştırmak istemediğimiz method ları exclude'a aldık. -->
+            <class name="Campus_RestAssured.Tests.StatesTest1">
+                <methods>
+                    <parameter name="" value="">    </parameter>
+                    <exclude name="DeleteNegative_DeleteTheSameState"> </exclude>
+                    <exclude name="EditNegative_UpdateTheDeletedState"> </exclude>
+
+                    <!-- Fees için test örneği: çalıştırmak istediğimiz method ları include'a aldık.
+                    Default olarak sınıfı çalıştırınca iclude lar zaten çalışıyo.
+                    Bu class özelinde aşağıdaki include kısımlarını yazmasak da olurdu...   -->
+
+                </methods>
+            </class>
+
+            <!-- StateTest2 için komple sınıfın methodlarını çalıştırıyoruz: -->
+            <class name="Campus_RestAssured.Tests.StatesTest2"> </class>
+
+        </classes>
+
+    </test>
+
+
+</suite>
