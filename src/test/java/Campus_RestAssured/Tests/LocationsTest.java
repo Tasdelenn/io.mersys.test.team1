@@ -107,6 +107,76 @@ public class LocationsTest extends Hooks{
     }
 
 
+    @Test(dependsOnMethods = "updateLocation")
+    public void deleteLocationByID() {
+
+        given()
+                .cookies(cookies)
+                .pathParam("LocationID", LocationID)
+
+                .when()
+                .delete("school-service/api/location/{LocationID}")
+
+                .then()
+                .log().body()
+                .statusCode(200)
+
+        ;
+    }
+
+
+    @Test(dependsOnMethods = "deleteLocationByID")
+    public void deleteLocationByIDNegative(){
+
+        given()
+                .cookies(cookies)
+                .pathParam("LocationID",LocationID)
+
+                .when()
+                .delete("school-service/api/location/{LocationID}")
+
+                .then()
+                .log().body()
+                .statusCode(400)
+                .body("message",equalTo("School Location not found"))
+        ;
+    }
+
+
+    @Test(dependsOnMethods = "deleteLocationByIDNegative")
+    public void updateLocationNegative() {
+
+        Boolean rndTF = getRandomTrueFalse();
+        int rndKapasite= getRandomInt();
+
+        Locations locations=new Locations();
+        locations.setId(LocationID);
+        locations.setName(LocationName+"<|>Düzenlendi<|>");
+        locations.setShortName("T1SD");
+        locations.setActive(rndTF);
+        locations.setCapacity(rndKapasite);
+        locations.setType("CLASS");
+        locations.setSchool("6390f3207a3bcb6a7ac977f9");
+
+
+        given()
+                .cookies(cookies)
+                .contentType(ContentType.JSON)
+                .body(locations)
+
+                .when()
+                .put("school-service/api/location")
+
+                .then()
+                .log().body()
+                .statusCode(400)
+                .body("message",equalTo("School Location not found"))
+        ;
+    }
+
+
+
+
 
 
 
